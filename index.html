@@ -126,10 +126,13 @@
 </blockquote>
 </li>
 </ol>
-<h1 id="3-丝印"><a href="#3-丝印" class="headerlink" title="3. 丝印"></a>3. 丝印</h1><ul>
-<li>选择下方Top-overlay层，选择线条工具绘制丝印（黄色的）。</li>
-<li>空格可以切换45°或者水平垂直。</li>
-</ul>
+<h1 id="3-丝印"><a href="#3-丝印" class="headerlink" title="3. 丝印"></a>3. 丝印</h1><ol>
+<li><strong>编辑-设置参考-中心</strong>自动设置所有焊盘的几何中心，以该中心为参考点绘制丝印。</li>
+<li>首先<strong>打个草稿</strong>，在<strong>Top-layer层</strong>根据datasheet，从中心处，先绘制x方向，y方向两条任意的线段，然后平移得到边框，得到<strong>四条边的位置</strong>。</li>
+<li>切换到<strong>Top-overlay层（即丝印层）</strong>，依据草稿边框绘制丝印，使用<strong>SHIFT+空格</strong>切换丝印的走线方式为垂直。</li>
+<li>画完丝印后，点<strong>回Top-layer</strong>，按下<strong>SHIFT+S</strong>切换显示当前层，删掉先前Top-layer下绘制的底稿，丝印绘制完成。</li>
+</ol>
+<h1 id="进阶绘制焊盘"><a href="#进阶绘制焊盘" class="headerlink" title="进阶绘制焊盘"></a>进阶绘制焊盘</h1><p>设置好第一个焊盘，然后选中该焊盘，CTRL+C关于自身中心复制，别急着粘贴，而是选择<strong>编辑-特殊粘贴-阵列粘贴</strong>，设置好数量（包含本身），增量（增量为1，则默认从左往右序号+1，若增量为-1，则为从左往右序号-1），和间距，然后点击OK，再点击第一个焊盘的中心位置，即可得到一行所有焊盘。对成侧则可以先对称一个，设置好序号，然后增量-1来实现。</p>
 <h1 id="技巧总结"><a href="#技巧总结" class="headerlink" title="技巧总结"></a>技巧总结</h1><ul>
 <li><strong>复制</strong>：选中对象，CTRL+C，然后左键选取参考点，再CTRL+V，此时光标对准想要参考的地方，按下左键，完成粘贴。</li>
 <li><strong>平移</strong>：选中对象，按下M键，设置XY平移量，注意删除多余的量。</li>
@@ -138,9 +141,12 @@
 <p>吐槽一下AD，居然无法单独清除某条测量线，十分蛋疼</p>
 </blockquote>
 </li>
+<li><strong>编辑-设置参考-中心</strong>：自动设置所有焊盘构成的几何中心</li>
+<li><strong>SHIFT+空格</strong>：切换丝印走线方式，<strong>垂直</strong>、弧度、斜线</li>
+<li><strong>SHIFT+S</strong>:切换当前显示层（仅在某一类型的层内切换）</li>
 </ul>
 </p>
-      <div class="post-button"><a class="btn" href="/2022/07/19/2022_07_19altium_designer_PCB%E7%AC%94%E8%AE%B0/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/2022/07/19/2022_07_19altium_designer_PCB%E7%AC%94%E8%AE%B0/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -434,7 +440,7 @@
 </tr>
 </tbody></table>
 </p>
-      <div class="post-button"><a class="btn" href="/2022/07/17/2022_07_17%E6%9C%80%E8%BF%91%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/2022/07/17/2022_07_17%E6%9C%80%E8%BF%91%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
@@ -455,7 +461,7 @@
 
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 </p>
-      <div class="post-button"><a class="btn" href="/2022/07/16/hello-world/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>阅读更多</a></div>
+      <div class="post-button"><a class="btn" href="/2022/07/16/hello-world/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
 
@@ -495,18 +501,18 @@
   </div>
   <nav class="menu-container">
   <ul class="menu-items">
-    <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
-    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
     
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-bookmark fa-fw"></i>页面</span>
+      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
         <ul>
           <li><a href="/guestbook/">Guestbook</a></li>
         <li><a href="/about/">About</a></li>
         </ul>
     </li>
     <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-link fa-fw"></i>友链</span>
+      <i class="fa fa-link fa-fw"></i>Friends</span>
         <ul>
           <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
         </ul>
