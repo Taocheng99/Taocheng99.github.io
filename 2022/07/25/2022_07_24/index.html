@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme-color" content=#58b77a>
-  <title>2022_07_22通信板李老师新的要求 | 陶承的博客</title>
+  <title>陶承的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="陶承">
   <meta name="keywords" content="none">
@@ -72,8 +72,8 @@
       
       <div class="page-title">
         <div class="avatar"><a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"></a></div>
-        <span>2022-07-22</span>
-        <h2>2022_07_22通信...</h2>
+        <span>2022-07-25</span>
+        <h2></h2>
         
         
       </div>
@@ -84,20 +84,17 @@
   <div class="lx-post">
     <div class="lx-entry padding">
       <div>
-        <ul>
-<li>接插件不要使用原来的，换成<strong>带卡扣</strong>的，李老师又带我看了另一种板子的接口，用<strong>螺丝拧</strong>的，需要<strong>改原理图和封装</strong>，<strong>重新买接插件</strong>。</li>
-<li>USB插口换一种，<strong>USB-A母头</strong>，更牢固，需要<strong>改原理图和封装</strong>,<strong>重新买USB母口</strong>。</li>
-<li>信号线走线<strong>20-30mil</strong>，粗一点好</li>
-<li>电源线要<strong>粗</strong>，因为电流大<ul>
-<li>尤其150V，电压大，需要做<strong>绝缘</strong>：</li>
-</ul>
+        <h1 id="1、Unknown-Pin"><a href="#1、Unknown-Pin" class="headerlink" title="1、Unknown Pin"></a>1、Unknown Pin</h1><p>原因：</p>
 <ol>
-<li>接口不能用另一个板子的那种接口，太小太细了，电流大容易烧坏, 需要用<strong>粗</strong>的。</li>
-<li>走线的时候要离其他部分<strong>远</strong>一点，不然容易击穿</li>
-</ol>
+<li>没有加封装</li>
+<li>封装管脚缺失</li>
+<li>管脚号不匹配，比如原理图器件的管脚（designator）用的是ABC，而封装用的是123，</li>
+<li>有隐藏管脚，上述123都试过的情况下仍然unknown pin，可以重新画一下原理图库，然后更新原理图</li>
+<li>还是存在unknown pin的情况下，不管三七二十一，先导出为pcb，验证，并去掉错误的钩，然后再执行更新，再回头去原理图保存一下，然后再导出pcb，验证的时候就会发现错误消失了<blockquote>
+<p>感觉是AD的BUG</p>
+</blockquote>
 </li>
-<li><strong>覆铜的厚度</strong>主要是？？厚度，使得保证<strong>温升不超过10°</strong>,<strong>徐帆师兄</strong>那有链接可以要一下，有相关的<strong>计算公式</strong>。</li>
-</ul>
+</ol>
 
       </div>
     </div>
@@ -106,12 +103,12 @@
 <div class="lx-navigation">
 	<div class="lx-cover next lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-l.min.jpeg)">
 		<div class="overlay"></div>
-		<a class="copy" href="/2022/07/25/2022_07_24/">
+		<a class="copy" href="#">
 			<div class="display-t">
 				<div class="display-tc">
 					<div>
 						<span>Next</span>
-						<h3></h3>
+						<h3>No newer post</h3>
 					</div>
 				</div>
 			</div>
@@ -119,12 +116,12 @@
 	</div>
         <div class="lx-cover prev lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-r.min.jpeg)">
 		<div class="overlay"></div>
-		<a class="copy" href="/2022/07/19/2022_07_19altium_designer_PCB%E7%AC%94%E8%AE%B0/">
+		<a class="copy" href="/2022/07/22/%E9%80%9A%E4%BF%A1%E6%9D%BF%E6%9D%8E%E8%80%81%E5%B8%88%E6%96%B0%E7%9A%84%E8%A6%81%E6%B1%82/">
 			<div class="display-t">
 				<div class="display-tc">
 					<div>
 						<span>Prev</span>
-						<h3>PCB封装笔记</h3>
+						<h3>2022_07...</h3>
 					</div>
 				</div>
 			</div>
