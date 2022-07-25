@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content=#58b77a>
+  <title>PCB绘制 | 陶承的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="陶承">
+  <meta name="keywords" content="none">
+  <meta name="description" content="about learning embedded system">
+  <script id="hexo-configurations">
+  var CONFIG = {
+    root: '/',
+    theme: 'hexo-theme-lx-master',
+    version: '0.4.3',
+    localsearch:{
+      "enable": false,
+      "trigger": "auto",
+      "top_n_per_article": 1,
+      "unescape": false,
+      "preload": false
+      },
+    path: 'null'
+  };
+</script>
+
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/theme-lx@0.4.3/source/dist/css/main.min.css">
+  
+  <style type="text/css">
+    pre,
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+    html {
+      font-family: sans-serif;
+    }
+    body {
+      font-family: sans-serif;
+    }
+    h1, h2, h3, h4, h5, figure {
+      font-family: sans-serif;
+    }
+    .menu-container{
+      font-family: sans-serif;
+    }
+  </style>
+
+  <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+  <script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.jside.menu.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$(".menu-container").jSideMenu({
+	    jSidePosition: "position-right",
+	    jSideSticky: true,
+	    jSideSkin: "",
+	     });
+	}); 
+	</script>
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4/css/font-awesome.min.css">
+<meta name="generator" content="Hexo 6.2.0"></head>
+<body>
+<div class="single">
+
+<div id="page">
+<div class="header">
+  <div id="lx-aside" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/post_cover.min.jpeg)" data-stellar-background-ratio="0.5">
+    <div class="overlay">
+      
+      <div class="page-title">
+        <div class="avatar"><a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"></a></div>
+        <span>2022-07-25</span>
+        <h2>PCB绘制</h2>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div id="lx-main-content">
+  <div class="lx-post">
+    <div class="lx-entry padding">
+      <div>
+        <h1 id="1、板子边框的评估"><a href="#1、板子边框的评估" class="headerlink" title="1、板子边框的评估"></a>1、板子边框的评估</h1><ol>
+<li><p>全选封装，点击<strong>工具-器件摆放-在矩形区域排列</strong>，然后鼠标框选一个矩形区域即可，我已经将这个操作设置了快捷键<strong>F6</strong>。</p>
+</li>
+<li><p>在<strong>机械层</strong>下，根据矩形区域适当宽松一点的范围上画一个板子的矩形<strong>边框</strong>，然后对四边<strong>取整</strong>，再点击<strong>放置-尺寸-线性尺寸</strong>，把板子的长款尺寸标注一下。</p>
+</li>
+<li><p><strong>全选</strong>机械层边框，点击<strong>设计-板子形状-按照选择对象定义</strong>，将裁掉板子多余部分</p>
+</li>
+<li><p>点击<strong>编辑-原点-设置</strong>，在板子左下角放置一个原点，然后把四个固定孔以顶点为起点，xy位移5mm</p>
+<blockquote>
+<p>板子的四个角一般都有固定孔</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="2、板子的叠层设计"><a href="#2、板子的叠层设计" class="headerlink" title="2、板子的叠层设计"></a>2、板子的叠层设计</h1><p>点击<strong>设置-层叠管理器</strong></p>
+<ul>
+<li>Top Overlay：丝印层</li>
+<li>Top Solder ：阻焊层</li>
+<li>橙色的为信号层<ul>
+<li>Top Layer ：顶层</li>
+<li>Bottom Layer：底层</li>
+</ul>
+</li>
+</ul>
+<p>首先右键点击<strong>Top layer</strong>，选择<strong>inser layer below</strong>，子选项中包含：</p>
+<ul>
+<li><strong>Signal：正片层</strong></li>
+<li><strong>Plane ：负片层</strong><blockquote>
+<p>设计的时候主要用正片层和负片层</p>
+</blockquote>
+</li>
+<li>Core： 芯层</li>
+<li>Prepreg：pp层</li>
+<li>Surface Finish：表面处理（喷漆之类的）</li>
+</ul>
+<p>选择<strong>负片层</strong>，将在Top layer层下产生2层，然后手动命名layer1为<strong>GND02</strong>，意为底层+第二层；命名layer2为<strong>PWR03</strong>，意为电源层+第三层</p>
+<p>四层板子已经有了，注意，此时在<strong>正片层走线是直接走的铜</strong>（如TOP和BOTTOM），而在<strong>负片层走线走的不是铜</strong></p>
+<h1 id="3、设置层的网络类型"><a href="#3、设置层的网络类型" class="headerlink" title="3、设置层的网络类型"></a>3、设置层的网络类型</h1><p>需要注意的是，<strong>双击GND层设置网络为GND，双击PWR层设置为VCC?层</strong>，看需求。</p>
+<h1 id="4、如何走过孔？"><a href="#4、如何走过孔？" class="headerlink" title="4、如何走过孔？"></a>4、如何走过孔？</h1><p>如何在TOP层上走过孔到GND层？</p>
+<ol>
+<li>在TOP层上针对<strong>器件的GND端</strong>使用<strong>交互式布线连接</strong>走线，然后在需要过孔的点位<strong>放置过孔</strong></li>
+</ol>
+<h1 id="5、快捷键设置"><a href="#5、快捷键设置" class="headerlink" title="5、快捷键设置"></a>5、快捷键设置</h1><p>已经设置  </p>
+<ul>
+<li><strong>F2</strong>:交互式布线连接</li>
+<li><strong>F4</strong>:打孔<blockquote>
+<p>F2+F4欢乐走线打孔</p>
+</blockquote>
+</li>
+<li><strong>F6</strong>:把选中的器件放在矩形框内</li>
+<li><strong>2</strong>:线接触选中</li>
+<li><strong>3</strong>:内部框选</li>
+<li><strong>CTRL+H</strong>:一次性删掉一整根连接的线。按下后选中一根线，即选中整根线**<blockquote>
+<p>不用一截一截删除了</p>
+</blockquote>
+</li>
+<li><strong>SHIFT+R</strong>： 切换为绕过障碍物走线或无视障碍物走线模式</li>
+</ul>
+<h3 id="对齐快捷键："><a href="#对齐快捷键：" class="headerlink" title="对齐快捷键："></a>对齐快捷键：</h3><ul>
+<li><strong>;</strong> 左对齐</li>
+<li><strong>‘</strong> 右对齐</li>
+<li><strong>[</strong> 顶对齐</li>
+<li><strong>&#x2F;</strong> 底对齐<blockquote>
+<p>均以最远处为基准</p>
+</blockquote>
+</li>
+<li><strong>-</strong> 垂直等间距分布<blockquote>
+<p>以上下两端为基准，中间等间距分布</p>
+</blockquote>
+</li>
+<li><strong>&#x3D;</strong> 水平等间距分布<blockquote>
+<p>以左右两端为基准，中间等间距分布</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="6、开始模块化PCB布局"><a href="#6、开始模块化PCB布局" class="headerlink" title="6、开始模块化PCB布局"></a>6、开始模块化PCB布局</h1><h2 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h2><p>首先确保在原理图中打开：<strong>工具-交叉选择模式</strong><br>然后将AD视图切换成垂直显示：<strong>Windows-垂直平铺</strong></p>
+<blockquote>
+<p>至此，选中任意一方的器件，在映射的另一方均能高亮显示。</p>
+</blockquote>
+<h2 id="封装模块化摆放："><a href="#封装模块化摆放：" class="headerlink" title="封装模块化摆放："></a>封装模块化摆放：</h2><p>在原理图中框选<strong>某一模块</strong>内的器件，此时PCB中对应器件均被自动框选，使用快捷键<strong>F6</strong>，将该模块的器件统一布置在一个<strong>矩形范围内</strong>。<strong>重复步骤</strong>，使得各模块之间分隔清晰。</p>
+<h2 id="隐藏电源线，观察信号流向"><a href="#隐藏电源线，观察信号流向" class="headerlink" title="隐藏电源线，观察信号流向"></a>隐藏电源线，观察信号流向</h2><p>点击<strong>设计-类</strong>，在<strong>Net-classes</strong>中新建一类，并将其命名为PWR，然后将所有的<strong>电源分入PWR类</strong>中。<br>切记<br><strong>GND也属于电源类</strong><br><strong>GND也属于电源类</strong><br><strong>GND也属于电源类</strong><br>在右下角的<strong>PANEL中开启PCB</strong>，左侧边栏中对分好的类右击<strong>连接-显示&#x2F;隐藏</strong></p>
+<h2 id="摆放的时候，丝印重叠看晕了怎么办？"><a href="#摆放的时候，丝印重叠看晕了怎么办？" class="headerlink" title="摆放的时候，丝印重叠看晕了怎么办？"></a>摆放的时候，丝印重叠看晕了怎么办？</h2><p>缩小丝印字号大小：</p>
+<ol>
+<li>随便找一个封装选中其丝印，<strong>右击丝印-查找相似对象</strong>，在Object Specific一栏的<strong>String Type</strong>中，将<strong>Any改选为Same</strong>，确定，此时，已经自动选中所有的丝印。</li>
+<li>在右边栏中设置<strong>Text Height为10mil</strong>，<strong>Stroke Width为2mil</strong>。</li>
+<li><strong>A-定位器件文本-标识符选择在中心位置</strong></li>
+</ol>
+<p>至此，丝印减小且位于器件内部，看上去舒服多了</p>
+<h2 id="封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？"><a href="#封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？" class="headerlink" title="封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？"></a>封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？</h2><ul>
+<li>如果<strong>数量较少</strong>，直接<strong>删除对应器件</strong>，然后从原理图重新Update PCB Document</li>
+<li>如果<strong>数量太多</strong>，人麻了的情况下，还是<strong>全选删除</strong>，原理图重新Update吧</li>
+</ul>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lx-navigation">
+	<div class="lx-cover next lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-l.min.jpeg)">
+		<div class="overlay"></div>
+		<a class="copy" href="#">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Next</span>
+						<h3>No newer post</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+        <div class="lx-cover prev lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-r.min.jpeg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2022/07/25/2022_07_24/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Prev</span>
+						<h3></h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+
+</div>
+
+<footer>
+  <div>
+  Copyright &copy; 2022.<a href="/">陶承的博客</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
+  </div>
+</footer>
+
+</div>
+
+<button class="hamburger hamburger--arrow-r" type="button" title="menu">
+    <div class="hamburger-box">
+      <div class="hamburger-inner"></div>
+    </div>
+</button>
+<div class="menu visibility">
+  <div class="menu-head">
+    <span class="layer">
+      <div class="col">
+        <div class="row for-pic">
+          <div class="profile-pic">
+            <a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"/></a>
+          </div>
+        </div>
+        <div class="row for-name">
+          <p>陶承</p>
+          <span class="tagline">Hello, World!</span>
+        </div>
+      </div>
+    </span>
+  </div>
+  <nav class="menu-container">
+  <ul class="menu-items">
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+    
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
+        <ul>
+          <li><a href="/guestbook/">Guestbook</a></li>
+        <li><a href="/about/">About</a></li>
+        </ul>
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-link fa-fw"></i>Friends</span>
+        <ul>
+          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
+        </ul>
+    </li>
+  </ul>
+  </nav>
+</div>
+
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+</div>
+<script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.easing.min.js"></script>
+<script>
+(function () {
+	"use strict";
+	var goToTop = function() {
+		$(".js-gotop").on("click", function(event){
+			event.preventDefault();
+			$("html, body").animate({
+				scrollTop: $("html").offset().top
+			}, 500, "easeInOutExpo");
+			return false;
+		});
+		$(window).scroll(function(){
+			var $win = $(window);
+			if ($win.scrollTop() > 200) {
+				$(".js-top").addClass("active");
+			} else {
+				$(".js-top").removeClass("active");
+			}
+		});
+	};
+	$(function(){
+		goToTop();
+	});
+}());
+</script>
+
+
+</body>
+</html>
