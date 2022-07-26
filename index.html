@@ -177,6 +177,118 @@
 <li>如果<strong>数量较少</strong>，直接<strong>删除对应器件</strong>，然后从原理图重新Update PCB Document</li>
 <li>如果<strong>数量太多</strong>，人麻了的情况下，还是<strong>全选删除</strong>，原理图重新Update吧</li>
 </ul>
+<h2 id="如何布局？"><a href="#如何布局？" class="headerlink" title="如何布局？"></a>如何布局？</h2><p><strong>根据信号流向</strong></p>
+<ol>
+<li>根据<strong>输入-去耦电容-中间-去耦电容-输出</strong>的顺序先摆放这些器件,去耦电容注意<strong>先大后小原则</strong><blockquote>
+<p>即首先保证信号的去耦</p>
+</blockquote>
+</li>
+<li>其他器件按照<strong>就近原则</strong>，位置<strong>大概就行</strong> </li>
+<li>根据信号的流向，使用<strong>CTRL+左键</strong>选中输入信号，可以看到同一根线上的管脚高亮，调整<strong>使得信号流向一字型或L型，避免绕来绕去</strong></li>
+<li>最后微调（简单改一下对齐差不多就行了）</li>
+</ol>
+<h1 id="CLASS、设计参数、规则的建立"><a href="#CLASS、设计参数、规则的建立" class="headerlink" title="CLASS、设计参数、规则的建立"></a>CLASS、设计参数、规则的建立</h1><p>首先把PWR类添加颜色，在PCB边栏中首先将<strong>Normal改为Mask</strong>，然后<strong>点击一下PWR类</strong>，板子变成了灰蒙蒙的，然后<strong>右键PWR类-Change Net Color-选择一个颜色</strong>，然后再次<strong>右键PWR类-显示替换-选择的打开</strong>，再按下<strong>F5</strong>，即可将PWR网络以颜色清晰显示</p>
+<h3 id="为何要建立CLASS？"><a href="#为何要建立CLASS？" class="headerlink" title="为何要建立CLASS？"></a>为何要建立CLASS？</h3><p>电源线载流，需要<strong>加粗</strong>。<br>信号线只需要简单连线。</p>
+<p>点击<strong>设计-规则</strong>，其中  </p>
+<ul>
+<li><strong>Electrical</strong>电气规则，如短路开路规则</li>
+<li><strong>Routing</strong>中：<ul>
+<li><strong>Width</strong>线宽（线距）规则</li>
+<li><strong>Routing Via Style</strong>过孔规则</li>
+<li>差分规则</li>
+<li>扇孔规则</li>
+<li>。。。。。。</li>
+</ul>
+</li>
+<li><strong>SMT</strong> 贴片规则</li>
+<li><strong>Mask</strong>阻焊规则</li>
+<li><strong>Plane</strong>铺铜规则</li>
+<li><strong>Manufacturing</strong>生产规则</li>
+<li><strong>High Speed</strong>高速部分规则</li>
+<li><strong>Placement</strong>放置器件规则</li>
+<li><strong>Siganl Integrity</strong>信号完整性规则</li>
+</ul>
+<p>线距大于等于6mi的成本是最低的，一般是4~6mil成本是常规的，再小就贵了。  </p>
+<h3 id="1-间距规则"><a href="#1-间距规则" class="headerlink" title="1. 间距规则"></a>1. 间距规则</h3><p><strong>Electrical-Clearance-Clearance</strong>，右侧<strong>约束-最小间距</strong>，改为<strong>6mil线距</strong>，表格中的值可以具体修改哪些和哪些之间的间隔，比如：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="center">Track</th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="right"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Copper</td>
+<td align="center">10mil</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">表示铺铜和线之间的距离自动为10mil</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+<h3 id="2-线宽规则"><a href="#2-线宽规则" class="headerlink" title="2. 线宽规则"></a>2. 线宽规则</h3><h4 id="2-1-设置默认信号线线宽"><a href="#2-1-设置默认信号线线宽" class="headerlink" title="2.1 设置默认信号线线宽"></a>2.1 设置默认信号线线宽</h4><p>在<strong>Routing-Width-Width</strong>下<strong>最小间距设置为6mil</strong></p>
+<blockquote>
+<p>线宽&#x2F;线距&#x3D;6mil&#x2F;6mil是最便宜的</p>
+</blockquote>
+<h4 id="2-2-设置电源线线宽"><a href="#2-2-设置电源线线宽" class="headerlink" title="2.2 设置电源线线宽"></a>2.2 设置电源线线宽</h4><p>右键<strong>Width</strong>新建一个Width，起个名字为PWR，然后在<strong>Where the Object Matches</strong>下选择<strong>Net-Class</strong>，然后选择PWR class，再修改宽度，然后<strong>在下方优先级处，将PWR优先级设置为最高</strong>，画电源线的时候，就可以自动增加电源线的走线宽度啦</p>
+<blockquote>
+<p>电源线载流，因此需要加粗  </p>
+</blockquote>
+<blockquote>
+<p>设置好了线宽但是还是不对是为什么？</p>
+<ul>
+<li>可能是优先级没有设置</li>
+<li>可能是优先级中没有将其使能</li>
+</ul>
+</blockquote>
+<h3 id="3-过孔规则"><a href="#3-过孔规则" class="headerlink" title="3. 过孔规则"></a>3. 过孔规则</h3><p>在<strong>Routing-Routing Via Style-RoutingVias</strong>下，<strong>过孔孔径大小</strong>统统设置为12mil，<strong>过孔直径与过孔孔径</strong>之间的关系：<br><strong><code>2*H +- 2mil</code></strong><br>即如果一个孔的大小为12mil，则他的直径为22mil、24mil或者26mil，<strong>选择最小的值，22mil</strong>，因为可以增加两个过孔之间的距离，方便走线，设置好后，还用不了，还需要：</p>
+<ol>
+<li>软件右上方点击<strong>齿轮设置</strong></li>
+<li>左列选择<strong>PCB Editor-Default</strong></li>
+<li>右侧<strong>Primitive List下选择Via</strong></li>
+<li>右侧<strong>Via Stack下将Hole Size设为12mil，Diameter设为22mil</strong></li>
+<li>右侧<strong>Solder Mask Expansion-Manual，勾选2个Tended，表示添加绿油</strong></li>
+</ol>
+<h3 id="4-覆铜规则（写的并不好，具体可以查看热焊盘、反焊盘）"><a href="#4-覆铜规则（写的并不好，具体可以查看热焊盘、反焊盘）" class="headerlink" title="4. 覆铜规则（写的并不好，具体可以查看热焊盘、反焊盘）"></a>4. 覆铜规则（写的并不好，具体可以查看<a target="_blank" rel="noopener" href="https://blog.csdn.net/Mark_md/article/details/116486920" title="什么是热焊盘和反焊盘？">热焊盘、反焊盘</a>）</h3><ul>
+<li><strong>正片层</strong>（<strong>信号走线层</strong>）无铜-打孔为正焊盘（焊盘带铜）</li>
+<li><strong>负片层</strong>（<strong>中间层，如GND、PWR</strong>）全铜-打孔为负焊盘（不带铜绿色部分，从而将孔与负片隔开）</li>
+</ul>
+<p>在Plane下：</p>
+<ul>
+<li><p><strong>PlaneConnect</strong>（平面层连接方式）</p>
+<ul>
+<li>连接方式默认为Relief Connect，如果<ul>
+<li>在X层下打了个X网络的过孔，孔的四周会有几个桥臂与本层连接。</li>
+<li>在X层下打了个其他网络的过孔，孔的周围出现反焊盘（不带铜），起到隔离作用。</li>
+</ul>
+</li>
+<li>连接方式为Direct Connect ，如果孔的周围出现反焊盘（不带铜），起到隔离作用。</li>
+</ul>
+</li>
+<li><p><strong>PlaneClearance</strong>（负片层（<strong>中间层</strong>）焊盘）下修改间距为<strong>8mil</strong>，（默认20mil的间距，则连续紧密打孔时周围的反焊盘会把板子形成割裂（反焊盘没有铜）)</p>
+</li>
+<li><p><strong>PolygonConnect</strong>（正片层（<strong>信号走线层</strong>）焊盘）</p>
+<ul>
+<li><p>手工焊接选择Relief Connect，为十字连接（热焊盘），散热满，好焊接</p>
+</li>
+<li><p>如果用回流焊（温度很高），使用<strong>全连接</strong></p>
+</li>
+<li><p>如果考虑载流大，使用全连接</p>
+<p><strong>焊盘用十字连接，过孔用全连接：</strong><br>在<strong>高级-Via Connect-连接方式设置为Direct connect</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-丝印规则"><a href="#5-丝印规则" class="headerlink" title="5.丝印规则"></a>5.丝印规则</h2><p><strong>Manufacturing-Silk To Solder Mask Clearance-SilkToSolderMaskClearance</strong>下更改<strong>对象与丝印层的最小间距为2mil</strong></p>
 </p>
       <div class="post-button"><a class="btn" href="/2022/07/25/2022_07_25PCB%E7%BB%98%E5%88%B6/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
