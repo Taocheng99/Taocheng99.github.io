@@ -287,7 +287,7 @@
 </li>
 </ul>
 <h2 id="5-丝印规则"><a href="#5-丝印规则" class="headerlink" title="5.丝印规则"></a>5.丝印规则</h2><p><strong>Manufacturing-Silk To Solder Mask Clearance-SilkToSolderMaskClearance</strong>下更改*<em>对象与丝印层的最小间距为2mil</em></p>
-<h1 id="扇孔处理、覆铜插件"><a href="#扇孔处理、覆铜插件" class="headerlink" title="扇孔处理、覆铜插件"></a>扇孔处理、覆铜插件</h1><p>短线直接交互式布线，长线打过孔，注意<strong>先拉出一根线，再放过孔，就会自动添加网络</strong></p>
+<h1 id="扇孔处理、走线、覆铜（覆铜插件）"><a href="#扇孔处理、走线、覆铜（覆铜插件）" class="headerlink" title="扇孔处理、走线、覆铜（覆铜插件）"></a>扇孔处理、走线、覆铜（覆铜插件）</h1><p>短线直接交互式布线，长线打过孔，注意<strong>先拉出一根线，再放过孔，就会自动添加网络</strong></p>
 <blockquote>
 <p>临时碰到某条线属于电源线要加粗，但是没有提前加入PWR class，怎么处理？<br>选择该网络，<strong>右键-网络操作-Add selected Net to netclass</strong>,然后选择pwr，确定，最后还要在设计规则里面点开<strong>Width，重新点一下确定</strong></p>
 </blockquote>
@@ -305,6 +305,21 @@
 <li>走线有交叉的，可以一条走表层，一条走底层。</li>
 <li><strong>可以表层走一点，打个孔，再从底层走线</strong>，走线是非常灵活的</li>
 </ul>
+<blockquote>
+<p>画PCB过程中发现，USB芯片的封装，自身引脚之间间距小于10mil却会被报错？？？结局方法：规则-Clearance-勾选忽略同一封装内的焊盘间距</p>
+</blockquote>
+<p>PCB电源走线使用得捷电子-PCB印制线宽度计算器:</p>
+<ul>
+<li><strong>电流</strong>（覆铜的话，以最小宽度为准）</li>
+<li><strong>环境温度</strong> 室温25℃</li>
+<li><strong>厚度</strong> 设为1</li>
+<li><strong>温升</strong> 控制在10℃<br>得到的参数分为：</li>
+<li><strong>表层</strong>：信号层</li>
+<li><strong>内层</strong>：GND或者PWR<br>内层比外层会宽很多，因为散热更严格</li>
+</ul>
+<p>x层的分割线，复制后，在y层下使用<strong>E+A</strong>可以粘贴过来，同样是分割线</p>
+<p>在左侧边栏中，可以对各NET进行颜色修改，某层上的不同区域以颜色区别，显而易见</p>
+<p><strong>CTRL+拖动</strong>可以把走线法线方向移动</p>
 
       </div>
     </div>
@@ -313,12 +328,12 @@
 <div class="lx-navigation">
 	<div class="lx-cover next lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-l.min.jpeg)">
 		<div class="overlay"></div>
-		<a class="copy" href="#">
+		<a class="copy" href="/2022/07/28/2022_07_28_%E5%B8%AE%E8%9D%88%E8%9D%88%E6%B5%8B%E8%AF%95%E9%80%9A%E4%BF%A1%E6%9D%BF/">
 			<div class="display-t">
 				<div class="display-tc">
 					<div>
 						<span>Next</span>
-						<h3>没有更新的文章</h3>
+						<h3>communi...</h3>
 					</div>
 				</div>
 			</div>
