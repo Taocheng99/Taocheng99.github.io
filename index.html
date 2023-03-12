@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content=#58b77a>
+  <title>陶承的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="陶承">
+  <meta name="keywords" content="none">
+  <meta name="description" content="about learning embedded system">
+  <script id="hexo-configurations">
+  var CONFIG = {
+    root: '/',
+    theme: 'hexo-theme-lx-master',
+    version: '0.4.3',
+    localsearch:{
+      "enable": false,
+      "trigger": "auto",
+      "top_n_per_article": 1,
+      "unescape": false,
+      "preload": false
+      },
+    path: 'null'
+  };
+</script>
+
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/theme-lx@0.4.3/source/dist/css/main.min.css">
+  
+  <style type="text/css">
+    pre,
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+    html {
+      font-family: sans-serif;
+    }
+    body {
+      font-family: sans-serif;
+    }
+    h1, h2, h3, h4, h5, figure {
+      font-family: sans-serif;
+    }
+    .menu-container{
+      font-family: sans-serif;
+    }
+  </style>
+
+  <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+  <script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.jside.menu.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$(".menu-container").jSideMenu({
+	    jSidePosition: "position-right",
+	    jSideSticky: true,
+	    jSideSkin: "",
+	     });
+	}); 
+	</script>
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4/css/font-awesome.min.css">
+<meta name="generator" content="Hexo 6.2.0"></head>
+<body>
+<div id="page">
+
+<div class="header">
+  <div id="lx-aside" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/cover.min.jpeg)">
+    <div class="overlay">
+      
+      <div class="featured">
+        <div class="avatar"><a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"></a></div>
+        <span>陶承</span>
+        <h1>陶承的博客</h1>
+        <span>垃圾堆</span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div id="lx-main-content">
+  <div class="lx-post">
+
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2023/02/28/20230228_%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93%E6%8C%87%E9%92%88/">STM32结构体和结构体指针</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-02-28</span>
+      <p><p>#1 结构体</p>
+<h2 id="1-1最基本的结构体"><a href="#1-1最基本的结构体" class="headerlink" title="1.1最基本的结构体"></a>1.1最基本的结构体</h2><p>例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct  student&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; ;</span><br></pre></td></tr></table></figure>
+<p>即定义了一种<strong>被称为struct student(学生结构)的数据结构</strong>，他只是一种结构而不是变量，这种结构的规定了内容为先是int然后一个char</p>
+<p>注意，<strong>结构体(数据结构)的名称是struct student!而不是student</strong></p>
+<h2 id="1-2定义结构体的同时定义结构体变量"><a href="#1-2定义结构体的同时定义结构体变量" class="headerlink" title="1.2定义结构体的同时定义结构体变量"></a>1.2定义结构体的同时定义结构体变量</h2><p>例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct  student&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; stu1;</span><br></pre></td></tr></table></figure>
+<p>如1.1，定义了一个被称为struct student的结构体(数据类型),同时又定义了一个结构体变量stu1，这个变量不再是一个类型，而是一个具有struct student数据结构的实体，于是可以使用变量名字来干一些具体的事情了</p>
+<h2 id="1-3定义结构体，然后typedef更改类型名称"><a href="#1-3定义结构体，然后typedef更改类型名称" class="headerlink" title="1.3定义结构体，然后typedef更改类型名称"></a>1.3定义结构体，然后typedef更改类型名称</h2><p>例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">typedef struct student&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; stu;</span><br></pre></td></tr></table></figure>
+<p>这种写法等价于</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct  student&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; ;</span><br><span class="line">typedef struct student stu;</span><br></pre></td></tr></table></figure>
+<p>即先定义了一种称为struct student的数据结构，然后用typedef将这种<strong>数据结构改名</strong>为stu。<br>此后，定义结构体变量的时候不用再写成struct student stu1的形式了，而是可以少写几个字，比如直接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stu stu1    //第一个stu等价于struct student，</span><br><span class="line">            //第二个stu1为结构体变量名</span><br></pre></td></tr></table></figure>
+<h2 id="1-4-1-3的typedef简化形式"><a href="#1-4-1-3的typedef简化形式" class="headerlink" title="1.4 1.3的typedef简化形式"></a>1.4 1.3的typedef简化形式</h2><p>例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">typedef struct&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; stu;</span><br></pre></td></tr></table></figure>
+<p>既然typedef把struct student数据结构改名为了stu，student这个名字已经失去了意义，因为后续如果要再对student类型的结构体定义变量，都是直接用stu了,<br><strong>所以当用typedef定义结构体时，可以直接去掉结构体(数据结构)的名称。</strong><br>此后如果需要定义结构体变量，可以直接这样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stu stu1;</span><br></pre></td></tr></table></figure>
+
+<p>#2 结构体指针<br>##2.1 基本结构体指针<br><em><em>结构体名称</em> 指针变量&#x3D;&amp;结构体变量</em>*</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">struct  student&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; ;</span><br><span class="line">struct student stu1;</span><br><span class="line"></span><br><span class="line">struct student *p=stu1  //即定义一个结构体变量，然后</span><br><span class="line">                        //让他指向结构体变量的头部</span><br></pre></td></tr></table></figure>
+<p><strong>结构体指针的类型是struct student！！！</strong><br><strong>结构体指针的类型是struct student！！！</strong><br><strong>结构体指针的类型是struct student！！！</strong></p>
+<p>就像定义一个整形指针时，一般直接int *p&#x3D;&amp;a，这个int是指针类型的意思</p>
+<p><strong>结构体指针的移动，表示跨越整个结构体变量！！！</strong><br><strong>结构体指针的移动，表示跨越整个结构体变量！！！</strong><br><strong>结构体指针的移动，表示跨越整个结构体变量！！！</strong><br>这样，在stm32中定义寄存器结构体时，定义一个结构体指针，该指针指向结构体的头地址，当指针+1时表示略过整个结构体</p>
+<h2 id="2-2-结构体指针的使用"><a href="#2-2-结构体指针的使用" class="headerlink" title="2.2 结构体指针的使用"></a>2.2 结构体指针的使用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">typedef struct&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; stu;              //定义结构体，改数据类型名为stu</span><br><span class="line"></span><br><span class="line">stu stu1;       // 定义结构体变量stu1</span><br><span class="line">stu *p=stu1     //定义结构体指针指向结构体变量头部</span><br><span class="line">p-&gt;a=1          //将结构体变量stu1的第一个int变量赋值为1</span><br></pre></td></tr></table></figure>
+</p>
+      <div class="post-button"><a class="btn" href="/2023/02/28/20230228_%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93%E6%8C%87%E9%92%88/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2023/02/26/20230226_STM32%E5%8D%95%E7%89%87%E6%9C%BA%E7%BD%AE%E4%BD%8D%E6%B8%85%E9%9B%B6%E6%93%8D%E4%BD%9C/">STM32单片机置位清零操作</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-02-26</span>
+      <p><p>#STM32单片机置位清零操作</p>
+<ul>
+<li>置1<br>|&#x3D; (1&lt;&lt;?)<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果32位寄存器，想要改变4位为单位的位置，可以用更直观(1&lt;&lt;(4*k)),k取0表示最低0001，k取1表示0001_xxxx，k取2表示0001_xxxx_xxxx，以此类推</span><br></pre></td></tr></table></figure></li>
+<li>清0<br>&amp;&#x3D; ~(1&lt;&lt;?)</li>
+</ul>
+</p>
+      <div class="post-button"><a class="btn" href="/2023/02/26/20230226_STM32%E5%8D%95%E7%89%87%E6%9C%BA%E7%BD%AE%E4%BD%8D%E6%B8%85%E9%9B%B6%E6%93%8D%E4%BD%9C/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/11/23/20221123_%E9%80%9A%E4%BF%A1%E6%9D%BF%E4%B8%8A%E4%BD%8D%E6%9C%BA%E6%8E%A5%E6%94%B6TBUS%E6%97%B6%E6%AF%8F%E5%B8%A7EFLAG%E4%B8%BA1/"></a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-11-23</span>
+      <p><hr>
+<h2 id="title-通信板上位机接收TBUS时每帧EFLAG为1"><a href="#title-通信板上位机接收TBUS时每帧EFLAG为1" class="headerlink" title="title:通信板上位机接收TBUS时每帧EFLAG为1"></a>title:通信板上位机接收TBUS时每帧EFLAG为1</h2><h1 id="通信板上位机接收TBUS时每帧EFLAG为1"><a href="#通信板上位机接收TBUS时每帧EFLAG为1" class="headerlink" title="通信板上位机接收TBUS时每帧EFLAG为1"></a>通信板上位机接收TBUS时每帧EFLAG为1</h1><p>把老板子的TBUS和48V-in接在一起，挂在郭工板子的TBUS上，2者成功通信。通信过程中发现了一个以前从来没有注意到的问题：<br><strong>正常情况下，上位机接收到的数据并不会和TBUS的数据完全一致，头字节会由4变6，或由0变2。</strong><br>比如TBUS发来的是:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">45 88 C3 40 80 E0 40 80 E0 45 88 C3</span><br></pre></td></tr></table></figure>
+<p>上位机（串口助手）显示:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">65 88 C3 60 80 E0 60 80 E0 65 88 C3</span><br></pre></td></tr></table></figure>
+<p>原因在于，TBUS每次通信都是16位，FPGA程序接收时将16位添加上位机协议成24位，并且<strong>EFLAG&#x3D;1</strong>，也就是说，TBUS每16位，上位机对应3个字节，<strong>头字节将会由4(0100)变6(0110，因为EFLAG&#x3D;1)或由0(0000)变2(0010)</strong></p>
+<p>再次实验TBUS发来：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">05 88 C3 00 80 E0 00 80 E0 05 88 C3</span><br></pre></td></tr></table></figure>
+<p>上位机显示:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">25 88 C3 20 80 E0 20 80 E0 25 88 C3</span><br></pre></td></tr></table></figure></p>
+      <div class="post-button"><a class="btn" href="/2022/11/23/20221123_%E9%80%9A%E4%BF%A1%E6%9D%BF%E4%B8%8A%E4%BD%8D%E6%9C%BA%E6%8E%A5%E6%94%B6TBUS%E6%97%B6%E6%AF%8F%E5%B8%A7EFLAG%E4%B8%BA1/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/11/13/20221113_%E9%80%9A%E4%BF%A1%E6%9D%BF%E8%AE%BE%E8%AE%A1%E5%A4%B1%E8%AF%AF%E7%AC%94%E8%AE%B0/">通信板设计失误笔记</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-11-13</span>
+      <p><p>#通信板设计失误笔记</p>
+<p>##1.设计失误：<br>###1.1 模拟解码电路<br>####1.1.1 运放<br>两路DAC芯片输出没问题，但下一级的低通滤波器中运放构成的的电压跟随器没有负反馈，即<strong>U26和U22各自的1脚和2脚应该相连构成电压跟随器</strong>，好在相邻引脚，<strong>直接用锡焊在一起</strong>就能解决，<strong>PCB需要小改一下</strong>。</p>
+<p>####1.1.2 滑动变阻器<br>滑动变阻器的封装为倒放贴在PCB上的，需要换成立起来的</p>
+<h1 id="老师让将错就错，再直接焊2块？还是一块？"><a href="#老师让将错就错，再直接焊2块？还是一块？" class="headerlink" title="老师让将错就错，再直接焊2块？还是一块？"></a>老师让将错就错，再直接焊2块？还是一块？</h1></p>
+      <div class="post-button"><a class="btn" href="/2022/11/13/20221113_%E9%80%9A%E4%BF%A1%E6%9D%BF%E8%AE%BE%E8%AE%A1%E5%A4%B1%E8%AF%AF%E7%AC%94%E8%AE%B0/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/10/25/20221025_FPGA%E4%B8%8D%E8%AE%BA%E6%89%8B%E6%90%93%E6%97%B6%E9%92%9F%E8%BF%98%E6%98%AF%E5%BC%95PLL%E7%9A%84%E6%97%B6%E9%92%9F%E8%BF%9E%E7%BA%BF%E6%80%8E%E4%B9%88%E9%83%BD%E6%8A%A5%E9%94%99/">FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-10-25</span>
+      <p><h1 id="FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错"><a href="#FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错" class="headerlink" title="FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错"></a>FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>在给I2C模块赋1M时钟输入的时候，从PLL上引出来再手搓时钟，但是总是报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Place:1138 - Automatic clock placement failed. Please attempt to analyze the global clocking required for this</span><br><span class="line">   design and either lock the clock placement or area locate the logic driven by the clocks so that the clocks may be</span><br><span class="line">   placed in such a way that all logic driven by them may be routed. The main restriction on clock placement is that</span><br><span class="line">   only one clock output signal for any competing Global / Side pair of clocks may enter any region. For further</span><br><span class="line">   information see the &quot;Quadrant Clock Routing&quot; section in the Spartan3a Family Datasheet.</span><br></pre></td></tr></table></figure>
+<p>把时钟模块删掉就好了，折腾了很久，找不出原因</p>
+<h2 id="折腾过程中发现几点需要注意的地方："><a href="#折腾过程中发现几点需要注意的地方：" class="headerlink" title="折腾过程中发现几点需要注意的地方："></a>折腾过程中发现几点需要注意的地方：</h2><ol>
+<li>外部时钟进入后，如果经过了PLL，就不能再从输入的时钟上取时钟了，只能从PLL的输出上取，ISE的DCM中有CLK_0和CLK_IBUFG_OUT这两个输出可以。</li>
+</ol>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>因为为了调试方便，我把产生的I2C时钟输出为外部接口，仅仅去掉这个外部接口，就好了，一定程度上说明FPGA不能把时钟用来输出</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/10/25/20221025_FPGA%E4%B8%8D%E8%AE%BA%E6%89%8B%E6%90%93%E6%97%B6%E9%92%9F%E8%BF%98%E6%98%AF%E5%BC%95PLL%E7%9A%84%E6%97%B6%E9%92%9F%E8%BF%9E%E7%BA%BF%E6%80%8E%E4%B9%88%E9%83%BD%E6%8A%A5%E9%94%99/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/10/21/20211021_%E9%80%9A%E4%BF%A1%E6%9D%BF3%E8%B0%83%E8%AF%95/">通信板3调试</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-10-21</span>
+      <p><h1 id="通信板3调试"><a href="#通信板3调试" class="headerlink" title="通信板3调试"></a>通信板3调试</h1><h2 id="1-RS485"><a href="#1-RS485" class="headerlink" title="1. RS485"></a>1. RS485</h2><p>485走FPGA，在FPGA内将输入输出连通后，接485盒子做回环测试，波特率115200 发送2W个字节，成功接收到10W个字节，发送数&#x3D;接收数。</p>
+<p>但是波形很垃圾，印象中以前的波形是很干净的，方方正正有棱有角</p>
+<h2 id="2-TBUS"><a href="#2-TBUS" class="headerlink" title="2. TBUS"></a>2. TBUS</h2><p>一开始，关闭TBUS的时候，电压下降得很慢，并且会维持在10V，MOS的S和G都是10V，确实关断了，所以我怀疑是门极驱动给的G和S电压没有降下去。<br>后来李老师让加个1K负载试一下，因为是接了82uF的电容的，接上后发现开关非常丝滑，秒开秒关。<br>推测是因为没有负载接入的情况下，相当于开路，自举电容的电压放电很慢，因为RC系数非常大，接了负载后有了更快的放电通路，所以能正常关闭了</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/10/21/20211021_%E9%80%9A%E4%BF%A1%E6%9D%BF3%E8%B0%83%E8%AF%95/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/10/21/20221021_%E9%80%9A%E4%BF%A1%E6%9D%BF3%E8%B0%83%E8%AF%95/">通信板3调试</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-10-21</span>
+      <p><h1 id="通信板3调试"><a href="#通信板3调试" class="headerlink" title="通信板3调试"></a>通信板3调试</h1><h2 id="1-RS485"><a href="#1-RS485" class="headerlink" title="1. RS485"></a>1. RS485</h2><p>485走FPGA，在FPGA内将输入输出连通后，接485盒子做回环测试，波特率115200 发送2W个字节，成功接收到10W个字节，发送数&#x3D;接收数。</p>
+<p>但是波形很垃圾，印象中以前的波形是很干净的，方方正正有棱有角</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/10/21/20221021_%E9%80%9A%E4%BF%A1%E6%9D%BF3%E8%B0%83%E8%AF%95/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/10/21/20221021_ISE%E6%89%BE%E4%B8%8D%E5%88%B0%E4%B8%8B%E8%BD%BD%E5%99%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">ISE找不到下载器的解决办法</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-10-21</span>
+      <p><h1 id="ISE找不到下载器的解决办法"><a href="#ISE找不到下载器的解决办法" class="headerlink" title="ISE找不到下载器的解决办法"></a>ISE找不到下载器的解决办法</h1><p><strong>现象</strong><br>如果从桌面图标点开的ISE，impact会提示找不到下载器<br>直接点击communication0826项目的工程文件打开ISE，就能正常下载</p>
+<p><strong>原因</strong></p>
+<p>和ISE与电脑的位数有关，32位的ISE只能用32位的电脑才能识别下载器，64位同理</p>
+<p>取自：<a target="_blank" rel="noopener" href="https://support.xilinx.com/s/article/30184?language=en_US">https://support.xilinx.com/s/article/30184?language=en_US</a> 的solution3</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/10/21/20221021_ISE%E6%89%BE%E4%B8%8D%E5%88%B0%E4%B8%8B%E8%BD%BD%E5%99%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/10/21/20221021_%E7%94%B5%E5%AD%90%E7%A7%91%E5%A4%A7%E5%8F%91%E7%A5%A8%E6%8A%A5%E9%94%80%E6%B5%81%E7%A8%8B/">电子科大发票报销流程</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-10-21</span>
+      <p><h1 id="发票报销流程"><a href="#发票报销流程" class="headerlink" title="发票报销流程"></a>发票报销流程</h1><ol>
+<li><p>纸质发票：网上服务大厅——&gt;研究生快速通道中的财务信息综合门户——&gt;左侧网上预约报账——&gt;左侧报销单管理——&gt;左下方申请报销单——&gt;已阅读并同意——&gt;填老师给的报销项目号、自己的电话、附件张数（需要报销的发票的张数）、选择支付方式（自己买的就选个人转卡，别人买的选转账汇款）、点击确定是否发送短信、退单地点：主楼B2区2楼——&gt;下一步，然后照着做</p>
+</li>
+<li><p>电子发票：网上服务大厅——&gt;财务信息综合门户——&gt;右上方智能报销</p>
+</li>
+</ol>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/10/21/20221021_%E7%94%B5%E5%AD%90%E7%A7%91%E5%A4%A7%E5%8F%91%E7%A5%A8%E6%8A%A5%E9%94%80%E6%B5%81%E7%A8%8B/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/09/22/20220922_VGA%E4%BB%A3%E7%A0%81%E7%9A%84%E5%B0%8F%E9%94%99%E8%AF%AF%E5%BC%95%E5%8F%91%E6%98%BE%E7%A4%BA%E5%99%A8%E9%BB%91%E5%B1%8F/">VGA小错误引发显示器黑屏</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-09-22</span>
+      <p><p>#VGA小错误引发显示器黑屏</p>
+<hr>
+<p>##出现的问题及原因<br>在VGA显示字符实验中，显示器直接黑屏，指示灯也橙色，表示无图像，由于复用了colorbar的大部分模块，而pic模块时序没问题，这就非常蛋疼了，后来对比野火代码，才发现是存储器访问的顺序有问题，导致像素点取的顺序有问题。</p>
+<hr>
+<p>在VGA显示字符的实验中，用代码生成了存储器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">reg [255:0] char [63:0];//深度为64，宽度256</span><br><span class="line"></span><br><span class="line">always@(posedge vga_clk)        //赋值他喵的按照深度从低到高赋，每个深度的宽度从高到低赋，服了</span><br><span class="line">    begin</span><br><span class="line">        char[0 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[1 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[2 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[3 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[4 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000070000000001C00040000000;</span><br><span class="line">        char[5 ] &lt;=   256&#x27;h000000000000000000000000000000000000000003E000000000F00078000000;</span><br><span class="line">        char[6 ] &lt;=   256&#x27;h000000000000000000000380000000000000060003E000000000F8007E000000;</span><br><span class="line">        char[7 ] &lt;=   256&#x27;h0000038000780000000003E0000000000000078001E000000000F0003E000000;</span><br><span class="line">        char[8 ] &lt;=   256&#x27;h00003FE003FE0000000001F00000000000000FC001E000000000F0003C000000;</span><br><span class="line">        char[9 ] &lt;=   256&#x27;h0007FFF07F3F0000000001F00000000000001F8001C000000000F0003C000000;</span><br><span class="line">        char[10] &lt;=   256&#x27;h07FF81F7F83E0000000001F00000000000003E0001C000000000E0003C000000;</span><br><span class="line">        char[11] &lt;=   256&#x27;h03E1C1E1C0780000000001E0000000000000780001C000000000E0003C000000;</span><br><span class="line">        char[12] &lt;=   256&#x27;h03C1C1E000700000000001E0000000000000E00001C000000000E00038000000;</span><br><span class="line">        char[13] &lt;=   256&#x27;h01C1C1E000E00000000000E0000000000003C001C1C000000000E00038000000;</span><br><span class="line">        char[14] &lt;=   256&#x27;h01C0C1C001C00000000000E00000000000077001F1C000000000E000387C0000;</span><br><span class="line">        char[15] &lt;=   256&#x27;h01C0FDC001800000000000E00180000000187800F1C000000000E0003FFC0000;</span><br><span class="line">        char[16] &lt;=   256&#x27;h00E7F9C07B000000000000E001E000000000700071C000000000E0007FF00000;</span><br><span class="line">        char[17] &lt;=   256&#x27;h00FFC1803E000000000001E001F000000000700011C000000000E007FFC00000;</span><br><span class="line">        char[18] &lt;=   256&#x27;h00E0C1801F000000000001E003F800000000700001C000000000FF1FFE000000;</span><br><span class="line">        char[19] &lt;=   256&#x27;h00E0C3800F000000000001E003F80000000033C001C00000000FFE0FF8000000;</span><br><span class="line">        char[20] &lt;=   256&#x27;h0060C38007038000000401C007C0000000003FE001C0000000FFF00030000000;</span><br><span class="line">        char[21] &lt;=   256&#x27;h0060C700013FE000000701C00F0000000001FE0781C0000000FFE00030000000;</span><br><span class="line">        char[22] &lt;=   256&#x27;h0071FF0007FFF0000007C1C01C000000001FF003C1C000000000E00030000000;</span><br><span class="line">        char[23] &lt;=   256&#x27;h003FC200FF83F8000003E1C03800000003FF7001E1C000000000E00030000000;</span><br><span class="line">        char[24] &lt;=   256&#x27;h0030C07FF803F8000001E1C0E00000001FF8F000E1C000000000E00030000000;</span><br><span class="line">        char[25] &lt;=   256&#x27;h0000C03F9C03C0000001F1C1800000000FE0F00041C000000000E20033800000;</span><br><span class="line">        char[26] &lt;=   256&#x27;h0000C0000E0700000000F1C0000000000301F00001C0F8000000EC003FE00000;</span><br><span class="line">        char[27] &lt;=   256&#x27;h0000C4000F040000000061E0000000000003F80001DFFC000000F801FFE00000;</span><br><span class="line">        char[28] &lt;=   256&#x27;h0000FF000E000000000001E0000000000003FF0003FFFC000000F07FE3E00000;</span><br><span class="line">        char[29] &lt;=   256&#x27;h000FFE000E000000000003F000000000000777807FF800000001E07F03C00000;</span><br><span class="line">        char[30] &lt;=   256&#x27;h007FF0000E000000000003D800000000000E73BFFFC000000003E00003C00000;</span><br><span class="line">        char[31] &lt;=   256&#x27;h001EC000060000000000039C00000000001C707FE1C000000007E00003800000;</span><br><span class="line">        char[32] &lt;=   256&#x27;h0000C000060000000000038C00000000001C700C01C00000001EE03C03800000;</span><br><span class="line">        char[33] &lt;=   256&#x27;h0000C0E00600000000000786000000000038700001C00000007CE01E03800000;</span><br><span class="line">        char[34] &lt;=   256&#x27;h0000CFC00600000000000707000000000070700001C0000001F8E00707000000;</span><br><span class="line">        char[35] &lt;=   256&#x27;h0000FE0006000000000007038000000000E0700001C000000FF0E00387000000;</span><br><span class="line">        char[36] &lt;=   256&#x27;h0007F0000700000000000F01C000000001C0700001C000000FC0E001C7000000;</span><br><span class="line">        char[37] &lt;=   256&#x27;h007F80000700000000000E01E00000000300700001C000000780E000EE000000;</span><br><span class="line">        char[38] &lt;=   256&#x27;h0FFE00000700000000001E00F00000000600700001C000000300E0007E000000;</span><br><span class="line">        char[39] &lt;=   256&#x27;h0FF000000700000000001C00780000000800700001C000000000E0003C000000;</span><br><span class="line">        char[40] &lt;=   256&#x27;h07C0000007000000000038003C0000001000700001C000000000E0007E000000;</span><br><span class="line">        char[41] &lt;=   256&#x27;h0100000007000000000078003F0000000000700001C000000000E000FF800000;</span><br><span class="line">        char[42] &lt;=   256&#x27;h00000000070000000000F0001F8000000000700001C000000000E001F7C00000;</span><br><span class="line">        char[43] &lt;=   256&#x27;h00000000070000000001E0000FE000000000700001C000000000E007C3F00000;</span><br><span class="line">        char[44] &lt;=   256&#x27;h00000000070000000003C00007F800000000F00001C00000001FE01F81FC0000;</span><br><span class="line">        char[45] &lt;=   256&#x27;h000000000F000000000F800007FE00000000F00001C000000007E0FC00FF8000;</span><br><span class="line">        char[46] &lt;=   256&#x27;h000000070F000000001E000003FFC0000000700001C000000003E3E0007FF000;</span><br><span class="line">        char[47] &lt;=   256&#x27;h00000003FF000000007C000001FFF8000000600001C000000001C000003FFC00;</span><br><span class="line">        char[48] &lt;=   256&#x27;h00000000FE00000001E00000007FF8000000600001C000000001C00000000000;</span><br><span class="line">        char[49] &lt;=   256&#x27;h000000007E00000003000000000000000000200001C000000000800000000000;</span><br><span class="line">        char[50] &lt;=   256&#x27;h000000003C000000000000000000000000000000018000000000000000000000;</span><br><span class="line">        char[51] &lt;=   256&#x27;h0000000038000000000000000000000000000000008000000000000000000000;</span><br><span class="line">        char[52] &lt;=   256&#x27;h0000000010000000000000000000000000000000008000000000000000000000;</span><br><span class="line">        char[53] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[54] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[55] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[56] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[57] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[58] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[59] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[60] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[61] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[62] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[63] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+<p>然后在显示区域中，按照坐标从（0，0）到（255，63），赋值的时候用的是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">char[char_y][char_x];</span><br></pre></td></tr></table></figure>
+<p>的方式。</p>
+<p>有几个比较绕的地方：</p>
+<ul>
+<li>定义存储器是先宽度后深度。</li>
+<li>always赋值存储器时不用写复位，直接begin end。</li>
+<li>用坐标来赋rgb时，按照的是先深度后宽度的方式赋值，并且注意宽度是从高到低依次赋值，这与存储器赋值时的代码顺序相同，也和图像逐行逐列显示的顺序相同，利用这2点记忆。</li>
+</ul>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/09/22/20220922_VGA%E4%BB%A3%E7%A0%81%E7%9A%84%E5%B0%8F%E9%94%99%E8%AF%AF%E5%BC%95%E5%8F%91%E6%98%BE%E7%A4%BA%E5%99%A8%E9%BB%91%E5%B1%8F/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+
+
+<div id="pagination">
+  <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"></a>
+</div>
+
+<footer>
+  <div>
+  Copyright &copy; 2023.<a href="/">陶承的博客</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
+  </div>
+</footer>
+
+  </div>
+</div>
+</div>
+
+<button class="hamburger hamburger--arrow-r" type="button" title="menu">
+    <div class="hamburger-box">
+      <div class="hamburger-inner"></div>
+    </div>
+</button>
+<div class="menu visibility">
+  <div class="menu-head">
+    <span class="layer">
+      <div class="col">
+        <div class="row for-pic">
+          <div class="profile-pic">
+            <a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"/></a>
+          </div>
+        </div>
+        <div class="row for-name">
+          <p>陶承</p>
+          <span class="tagline">Hello, World!</span>
+        </div>
+      </div>
+    </span>
+  </div>
+  <nav class="menu-container">
+  <ul class="menu-items">
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+    
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
+        <ul>
+          <li><a href="/guestbook/">Guestbook</a></li>
+        <li><a href="/about/">About</a></li>
+        </ul>
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-link fa-fw"></i>Friends</span>
+        <ul>
+          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
+        </ul>
+    </li>
+  </ul>
+  </nav>
+</div>
+
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+</div>
+<script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.easing.min.js"></script>
+<script>
+(function () {
+	"use strict";
+	var goToTop = function() {
+		$(".js-gotop").on("click", function(event){
+			event.preventDefault();
+			$("html, body").animate({
+				scrollTop: $("html").offset().top
+			}, 500, "easeInOutExpo");
+			return false;
+		});
+		$(window).scroll(function(){
+			var $win = $(window);
+			if ($win.scrollTop() > 200) {
+				$(".js-top").addClass("active");
+			} else {
+				$(".js-top").removeClass("active");
+			}
+		});
+	};
+	$(function(){
+		goToTop();
+	});
+}());
+</script>
+
+
+</body>
+</html>

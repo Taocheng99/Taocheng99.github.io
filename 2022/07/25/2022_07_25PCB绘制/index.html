@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content=#58b77a>
+  <title>PCB绘制 | 陶承的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="陶承">
+  <meta name="keywords" content="none">
+  <meta name="description" content="about learning embedded system">
+  <script id="hexo-configurations">
+  var CONFIG = {
+    root: '/',
+    theme: 'hexo-theme-lx-master',
+    version: '0.4.3',
+    localsearch:{
+      "enable": false,
+      "trigger": "auto",
+      "top_n_per_article": 1,
+      "unescape": false,
+      "preload": false
+      },
+    path: 'null'
+  };
+</script>
+
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/theme-lx@0.4.3/source/dist/css/main.min.css">
+  
+  <style type="text/css">
+    pre,
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+    html {
+      font-family: sans-serif;
+    }
+    body {
+      font-family: sans-serif;
+    }
+    h1, h2, h3, h4, h5, figure {
+      font-family: sans-serif;
+    }
+    .menu-container{
+      font-family: sans-serif;
+    }
+  </style>
+
+  <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+  <script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.jside.menu.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$(".menu-container").jSideMenu({
+	    jSidePosition: "position-right",
+	    jSideSticky: true,
+	    jSideSkin: "",
+	     });
+	}); 
+	</script>
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4/css/font-awesome.min.css">
+<meta name="generator" content="Hexo 6.2.0"></head>
+<body>
+<div class="single">
+
+<div id="page">
+<div class="header">
+  <div id="lx-aside" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/post_cover.min.jpeg)" data-stellar-background-ratio="0.5">
+    <div class="overlay">
+      
+      <div class="page-title">
+        <div class="avatar"><a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"></a></div>
+        <span>2022-07-25</span>
+        <h2>PCB绘制</h2>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div id="lx-main-content">
+  <div class="lx-post">
+    <div class="lx-entry padding">
+      <div>
+        <h1 id="1、板子边框的评估"><a href="#1、板子边框的评估" class="headerlink" title="1、板子边框的评估"></a>1、板子边框的评估</h1><ol>
+<li><p>全选封装，点击<strong>工具-器件摆放-在矩形区域排列</strong>，然后鼠标框选一个矩形区域即可，我已经将这个操作设置了快捷键<strong>F6</strong>。</p>
+</li>
+<li><p>在<strong>机械层</strong>下，根据矩形区域适当宽松一点的范围上画一个板子的矩形<strong>边框</strong>，然后对四边<strong>取整</strong>，再点击<strong>放置-尺寸-线性尺寸</strong>，把板子的长款尺寸标注一下。</p>
+</li>
+<li><p><strong>全选</strong>机械层边框，点击<strong>设计-板子形状-按照选择对象定义</strong>，将裁掉板子多余部分</p>
+</li>
+<li><p>点击<strong>编辑-原点-设置</strong>，在板子左下角放置一个原点，然后把四个固定孔以顶点为起点，xy位移5mm</p>
+<blockquote>
+<p>板子的四个角一般都有固定孔</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="2、板子的叠层设计"><a href="#2、板子的叠层设计" class="headerlink" title="2、板子的叠层设计"></a>2、板子的叠层设计</h1><p>点击<strong>设置-层叠管理器</strong></p>
+<ul>
+<li>Top Overlay：丝印层</li>
+<li>Top Solder ：阻焊层</li>
+<li>橙色的为信号层<ul>
+<li>Top Layer ：顶层</li>
+<li>Bottom Layer：底层</li>
+</ul>
+</li>
+</ul>
+<p>首先右键点击<strong>Top layer</strong>，选择<strong>inser layer below</strong>，子选项中包含：</p>
+<ul>
+<li><strong>Signal：正片层</strong></li>
+<li><strong>Plane ：负片层</strong><blockquote>
+<p>设计的时候主要用正片层和负片层</p>
+</blockquote>
+</li>
+<li>Core： 芯层</li>
+<li>Prepreg：pp层</li>
+<li>Surface Finish：表面处理（喷漆之类的）</li>
+</ul>
+<p>选择<strong>负片层</strong>，将在Top layer层下产生2层，然后手动命名layer1为<strong>GND02</strong>，意为底层+第二层；命名layer2为<strong>PWR03</strong>，意为电源层+第三层</p>
+<p>四层板子已经有了，注意，此时在<strong>正片层走线是直接走的铜</strong>（如TOP和BOTTOM），而在<strong>负片层走线走的不是铜</strong></p>
+<h1 id="3、设置层的网络类型"><a href="#3、设置层的网络类型" class="headerlink" title="3、设置层的网络类型"></a>3、设置层的网络类型</h1><p>需要注意的是，<strong>双击GND层设置网络为GND，双击PWR层设置为VCC?层</strong>，看需求。</p>
+<h1 id="4、如何走过孔？"><a href="#4、如何走过孔？" class="headerlink" title="4、如何走过孔？"></a>4、如何走过孔？</h1><p>如何在TOP层上走过孔到GND层？</p>
+<ol>
+<li>在TOP层上针对<strong>器件的GND端</strong>使用<strong>交互式布线连接</strong>走线，然后在需要过孔的点位<strong>放置过孔</strong></li>
+</ol>
+<h1 id="5、快捷键设置"><a href="#5、快捷键设置" class="headerlink" title="5、快捷键设置"></a>5、快捷键设置</h1><p>已经设置  </p>
+<ul>
+<li><strong>F2</strong>:交互式布线连接</li>
+<li><strong>F4</strong>:打孔<blockquote>
+<p>F2+F4欢乐走线打孔</p>
+</blockquote>
+</li>
+<li><strong>F6</strong>:把选中的器件放在矩形框内</li>
+<li><strong>2</strong>:线接触选中</li>
+<li><strong>3</strong>:内部框选</li>
+<li><strong>CTRL+H</strong>:一次性删掉一整根连接的线。按下后选中一根线，即选中整根线**<blockquote>
+<p>不用一截一截删除了</p>
+</blockquote>
+</li>
+<li><strong>SHIFT+R</strong>： 切换为绕过障碍物走线或无视障碍物走线模式</li>
+</ul>
+<h3 id="对齐快捷键："><a href="#对齐快捷键：" class="headerlink" title="对齐快捷键："></a>对齐快捷键：</h3><ul>
+<li><strong>;</strong> 左对齐</li>
+<li><strong>‘</strong> 右对齐</li>
+<li><strong>[</strong> 顶对齐</li>
+<li><strong>&#x2F;</strong> 底对齐<blockquote>
+<p>均以最远处为基准</p>
+</blockquote>
+</li>
+<li><strong>-</strong> 垂直等间距分布<blockquote>
+<p>以上下两端为基准，中间等间距分布</p>
+</blockquote>
+</li>
+<li><strong>&#x3D;</strong> 水平等间距分布<blockquote>
+<p>以左右两端为基准，中间等间距分布</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="6、开始模块化PCB布局"><a href="#6、开始模块化PCB布局" class="headerlink" title="6、开始模块化PCB布局"></a>6、开始模块化PCB布局</h1><h2 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h2><p>首先确保在原理图中打开：<strong>工具-交叉选择模式</strong><br>然后将AD视图切换成垂直显示：<strong>Windows-垂直平铺</strong></p>
+<blockquote>
+<p>至此，选中任意一方的器件，在映射的另一方均能高亮显示。</p>
+</blockquote>
+<h2 id="封装模块化摆放："><a href="#封装模块化摆放：" class="headerlink" title="封装模块化摆放："></a>封装模块化摆放：</h2><p>在原理图中框选<strong>某一模块</strong>内的器件，此时PCB中对应器件均被自动框选，使用快捷键<strong>F6</strong>，将该模块的器件统一布置在一个<strong>矩形范围内</strong>。<strong>重复步骤</strong>，使得各模块之间分隔清晰。</p>
+<h2 id="隐藏电源线，观察信号流向"><a href="#隐藏电源线，观察信号流向" class="headerlink" title="隐藏电源线，观察信号流向"></a>隐藏电源线，观察信号流向</h2><p>点击<strong>设计-类</strong>，在<strong>Net-classes</strong>中新建一类，并将其命名为PWR，然后将所有的<strong>电源分入PWR类</strong>中。<br>切记<br><strong>GND也属于电源类</strong><br><strong>GND也属于电源类</strong><br><strong>GND也属于电源类</strong><br>在右下角的<strong>PANEL中开启PCB</strong>，左侧边栏中对分好的类右击<strong>连接-显示&#x2F;隐藏</strong></p>
+<h2 id="摆放的时候，丝印重叠看晕了怎么办？"><a href="#摆放的时候，丝印重叠看晕了怎么办？" class="headerlink" title="摆放的时候，丝印重叠看晕了怎么办？"></a>摆放的时候，丝印重叠看晕了怎么办？</h2><p>缩小丝印字号大小：</p>
+<ol>
+<li>随便找一个封装选中其丝印，<strong>右击丝印-查找相似对象</strong>，在Object Specific一栏的<strong>String Type</strong>中，将<strong>Any改选为Same</strong>，确定，此时，已经自动选中所有的丝印。</li>
+<li>在右边栏中设置<strong>Text Height为10mil</strong>，<strong>Stroke Width为2mil</strong>。</li>
+<li><strong>A-定位器件文本-标识符选择在中心位置</strong></li>
+</ol>
+<p>至此，丝印减小且位于器件内部，看上去舒服多了</p>
+<h2 id="封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？"><a href="#封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？" class="headerlink" title="封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？"></a>封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？</h2><ul>
+<li>如果<strong>数量较少</strong>，直接<strong>删除对应器件</strong>，然后从原理图重新Update PCB Document</li>
+<li>如果<strong>数量太多</strong>，人麻了的情况下，还是<strong>全选删除</strong>，原理图重新Update吧</li>
+</ul>
+<h2 id="如何布局？"><a href="#如何布局？" class="headerlink" title="如何布局？"></a>如何布局？</h2><p><strong>根据信号流向</strong></p>
+<ol>
+<li>根据<strong>输入-去耦电容-中间-去耦电容-输出</strong>的顺序先摆放这些器件,去耦电容注意<strong>先大后小原则</strong><blockquote>
+<p>即首先保证信号的去耦</p>
+</blockquote>
+</li>
+<li>其他器件按照<strong>就近原则</strong>，位置<strong>大概就行</strong> </li>
+<li>根据信号的流向，使用<strong>CTRL+左键</strong>选中输入信号，可以看到同一根线上的管脚高亮，调整<strong>使得信号流向一字型或L型，避免绕来绕去</strong></li>
+<li>最后微调（简单改一下对齐差不多就行了）</li>
+</ol>
+<h1 id="CLASS、设计参数、规则的建立"><a href="#CLASS、设计参数、规则的建立" class="headerlink" title="CLASS、设计参数、规则的建立"></a>CLASS、设计参数、规则的建立</h1><p>首先把PWR类添加颜色，在PCB边栏中首先将<strong>Normal改为Mask</strong>，然后<strong>点击一下PWR类</strong>，板子变成了灰蒙蒙的，然后<strong>右键PWR类-Change Net Color-选择一个颜色</strong>，然后再次<strong>右键PWR类-显示替换-选择的打开</strong>，再按下<strong>F5</strong>，即可将PWR网络以颜色清晰显示</p>
+<h3 id="为何要建立CLASS？"><a href="#为何要建立CLASS？" class="headerlink" title="为何要建立CLASS？"></a>为何要建立CLASS？</h3><p>电源线载流，需要<strong>加粗</strong>。<br>信号线只需要简单连线。</p>
+<p>点击<strong>设计-规则</strong>，其中  </p>
+<ul>
+<li><strong>Electrical</strong>电气规则，如短路开路规则</li>
+<li><strong>Routing</strong>中：<ul>
+<li><strong>Width</strong>线宽（线距）规则</li>
+<li><strong>Routing Via Style</strong>过孔规则</li>
+<li>差分规则</li>
+<li>扇孔规则</li>
+<li>。。。。。。</li>
+</ul>
+</li>
+<li><strong>SMT</strong> 贴片规则</li>
+<li><strong>Mask</strong>阻焊规则</li>
+<li><strong>Plane</strong>铺铜规则</li>
+<li><strong>Manufacturing</strong>生产规则</li>
+<li><strong>High Speed</strong>高速部分规则</li>
+<li><strong>Placement</strong>放置器件规则</li>
+<li><strong>Siganl Integrity</strong>信号完整性规则</li>
+</ul>
+<p>线距大于等于6mi的成本是最低的，一般是4~6mil成本是常规的，再小就贵了。  </p>
+<h3 id="1-间距规则"><a href="#1-间距规则" class="headerlink" title="1. 间距规则"></a>1. 间距规则</h3><p><strong>Electrical-Clearance-Clearance</strong>，右侧<strong>约束-最小间距</strong>，改为<strong>6mil线距</strong>，表格中的值可以具体修改哪些和哪些之间的间隔，比如：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="center">Track</th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="right"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Copper</td>
+<td align="center">10mil</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">表示铺铜和线之间的距离自动为10mil</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+<h3 id="2-线宽规则"><a href="#2-线宽规则" class="headerlink" title="2. 线宽规则"></a>2. 线宽规则</h3><h4 id="2-1-设置默认信号线线宽"><a href="#2-1-设置默认信号线线宽" class="headerlink" title="2.1 设置默认信号线线宽"></a>2.1 设置默认信号线线宽</h4><p>在<strong>Routing-Width-Width</strong>下<strong>最小间距设置为6mil</strong></p>
+<blockquote>
+<p>线宽&#x2F;线距&#x3D;6mil&#x2F;6mil是最便宜的</p>
+</blockquote>
+<h4 id="2-2-设置电源线线宽"><a href="#2-2-设置电源线线宽" class="headerlink" title="2.2 设置电源线线宽"></a>2.2 设置电源线线宽</h4><p>右键<strong>Width</strong>新建一个Width，起个名字为PWR，然后在<strong>Where the Object Matches</strong>下选择<strong>Net-Class</strong>，然后选择PWR class，再修改宽度，然后<strong>在下方优先级处，将PWR优先级设置为最高</strong>，画电源线的时候，就可以自动增加电源线的走线宽度啦</p>
+<blockquote>
+<p>电源线载流，因此需要加粗  </p>
+</blockquote>
+<blockquote>
+<p>设置好了线宽但是还是不对是为什么？</p>
+<ul>
+<li>可能是优先级没有设置</li>
+<li>可能是优先级中没有将其使能</li>
+</ul>
+</blockquote>
+<h3 id="3-过孔规则"><a href="#3-过孔规则" class="headerlink" title="3. 过孔规则"></a>3. 过孔规则</h3><p>在<strong>Routing-Routing Via Style-RoutingVias</strong>下，<strong>过孔孔径大小</strong>统统设置为12mil，<strong>过孔直径与过孔孔径</strong>之间的关系：<br><strong><code>2*H +- 2mil</code></strong><br>即如果一个孔的大小为12mil，则他的直径为22mil、24mil或者26mil，<strong>选择最小的值，22mil</strong>，因为可以增加两个过孔之间的距离，方便走线，设置好后，还用不了，还需要：</p>
+<ol>
+<li>软件右上方点击<strong>齿轮设置</strong></li>
+<li>左列选择<strong>PCB Editor-Default</strong></li>
+<li>右侧<strong>Primitive List下选择Via</strong></li>
+<li>右侧<strong>Via Stack下将Hole Size设为12mil，Diameter设为22mil</strong></li>
+<li>右侧<strong>Solder Mask Expansion-Manual，勾选2个Tended，表示添加绿油</strong></li>
+</ol>
+<h3 id="4-覆铜规则（写的并不好，具体可以查看热焊盘、反焊盘）"><a href="#4-覆铜规则（写的并不好，具体可以查看热焊盘、反焊盘）" class="headerlink" title="4. 覆铜规则（写的并不好，具体可以查看热焊盘、反焊盘）"></a>4. 覆铜规则（写的并不好，具体可以查看<a target="_blank" rel="noopener" href="https://blog.csdn.net/Mark_md/article/details/116486920" title="什么是热焊盘和反焊盘？">热焊盘、反焊盘</a>）</h3><ul>
+<li><strong>正片层</strong>（<strong>信号走线层</strong>）无铜-打孔为正焊盘（焊盘带铜）</li>
+<li><strong>负片层</strong>（<strong>中间层，如GND、PWR</strong>）全铜-打孔为负焊盘（不带铜绿色部分，从而将孔与负片隔开）</li>
+</ul>
+<p>在Plane下：</p>
+<ul>
+<li><p><strong>PlaneConnect</strong>（平面层连接方式）</p>
+<ul>
+<li>连接方式默认为Relief Connect，如果<ul>
+<li>在X层下打了个X网络的过孔，孔的四周会有几个桥臂与本层连接。</li>
+<li>在X层下打了个其他网络的过孔，孔的周围出现反焊盘（不带铜），起到隔离作用。</li>
+</ul>
+</li>
+<li>连接方式为Direct Connect ，如果孔的周围出现反焊盘（不带铜），起到隔离作用。</li>
+</ul>
+</li>
+<li><p><strong>PlaneClearance</strong>（负片层（<strong>中间层</strong>）焊盘）下修改间距为<strong>8mil</strong>，（默认20mil的间距，则连续紧密打孔时周围的反焊盘会把板子形成割裂（反焊盘没有铜）)</p>
+</li>
+<li><p><strong>PolygonConnect</strong>（正片层（<strong>信号走线层</strong>）焊盘）</p>
+<ul>
+<li><p>手工焊接选择Relief Connect，为十字连接（热焊盘），散热满，好焊接</p>
+</li>
+<li><p>如果用回流焊（温度很高），使用<strong>全连接</strong></p>
+</li>
+<li><p>如果考虑载流大，使用全连接</p>
+<p><strong>焊盘用十字连接，过孔用全连接：</strong><br>在<strong>高级-Via Connect-连接方式设置为Direct connect</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-丝印规则"><a href="#5-丝印规则" class="headerlink" title="5.丝印规则"></a>5.丝印规则</h2><p><strong>Manufacturing-Silk To Solder Mask Clearance-SilkToSolderMaskClearance</strong>下更改*<em>对象与丝印层的最小间距为2mil</em></p>
+<h1 id="扇孔处理、走线、覆铜（覆铜插件）"><a href="#扇孔处理、走线、覆铜（覆铜插件）" class="headerlink" title="扇孔处理、走线、覆铜（覆铜插件）"></a>扇孔处理、走线、覆铜（覆铜插件）</h1><p>短线直接交互式布线，长线打过孔，注意<strong>先拉出一根线，再放过孔，就会自动添加网络</strong></p>
+<blockquote>
+<p>临时碰到某条线属于电源线要加粗，但是没有提前加入PWR class，怎么处理？<br>选择该网络，<strong>右键-网络操作-Add selected Net to netclass</strong>,然后选择pwr，确定，最后还要在设计规则里面点开<strong>Width，重新点一下确定</strong></p>
+</blockquote>
+<p>尽量从<strong>焊盘中心出线，不要从顶角出线</strong>,从顶角出了的话，直接短路画一条可以自动修整</p>
+<p>修整：TOP层覆铜的时候，焊盘是十字连接，老实说现在一般都是回流焊了，所以全部用直接连接算了，在规则下，<strong>Plane-PolygonConnect-简单-连接方式设置为Direct Connect</strong></p>
+<h3 id="铺铜的时候需要设置：铺铜过程中，TAB-右侧下拉选择Pour-Over-All-Same-Net-Object，并勾选Remove-Dead-Copper"><a href="#铺铜的时候需要设置：铺铜过程中，TAB-右侧下拉选择Pour-Over-All-Same-Net-Object，并勾选Remove-Dead-Copper" class="headerlink" title="铺铜的时候需要设置：铺铜过程中，TAB-右侧下拉选择Pour Over All Same Net Object，并勾选Remove Dead Copper"></a><strong>铺铜的时候需要设置：铺铜过程中，TAB-右侧下拉选择Pour Over All Same Net Object，并勾选Remove Dead Copper</strong></h3><p>铺铜需要注意的<strong>细节</strong>：</p>
+<ul>
+<li><strong>电源线相关</strong>的路径老师<strong>直接覆铜代替走线</strong>，因为载流大，还能散热。</li>
+<li><strong>电源的地线覆铜后，要多放几个孔回流到地</strong>。</li>
+<li><strong>注意去耦的路径</strong>，如果本来先经过电容去耦，再出去，现在覆铜成一团了，电容去耦的意义不是很大，所以<strong>覆铜可以沿着去耦路径覆</strong>（其实<strong>等效于非常常宽的导线</strong>）。</li>
+</ul>
+<p>走线<strong>细节</strong>：</p>
+<ul>
+<li><strong>信号线能少打孔就少打孔</strong>，因为打孔会一定程度增加信号路径的阻抗</li>
+<li>走线有交叉的，可以一条走表层，一条走底层。</li>
+<li><strong>可以表层走一点，打个孔，再从底层走线</strong>，走线是非常灵活的</li>
+</ul>
+<blockquote>
+<p>画PCB过程中发现，USB芯片的封装，自身引脚之间间距小于10mil却会被报错？？？结局方法：规则-Clearance-勾选忽略同一封装内的焊盘间距</p>
+</blockquote>
+<p>PCB电源走线使用得捷电子-PCB印制线宽度计算器:</p>
+<ul>
+<li><strong>电流</strong>（覆铜的话，以最小宽度为准）</li>
+<li><strong>环境温度</strong> 室温25℃</li>
+<li><strong>厚度</strong> 设为1</li>
+<li><strong>温升</strong> 控制在10℃<br>得到的参数分为：</li>
+<li><strong>表层</strong>：信号层</li>
+<li><strong>内层</strong>：GND或者PWR<br>内层比外层会宽很多，因为散热更严格</li>
+</ul>
+<p>x层的分割线，复制后，在y层下使用<strong>E+A</strong>可以粘贴过来，同样是分割线</p>
+<p>在左侧边栏中，可以对各NET进行颜色修改，某层上的不同区域以颜色区别，显而易见</p>
+<p><strong>CTRL+拖动</strong>可以把走线法线方向移动</p>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lx-navigation">
+	<div class="lx-cover next lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-l.min.jpeg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2022/07/28/2022_07_28_%E5%B8%AE%E8%9D%88%E8%9D%88%E6%B5%8B%E8%AF%95%E9%80%9A%E4%BF%A1%E6%9D%BF/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Next</span>
+						<h3>communi...</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+        <div class="lx-cover prev lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-r.min.jpeg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2022/07/25/2022_07_24/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Prev</span>
+						<h3></h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+
+</div>
+
+<footer>
+  <div>
+  Copyright &copy; 2023.<a href="/">陶承的博客</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
+  </div>
+</footer>
+
+</div>
+
+<button class="hamburger hamburger--arrow-r" type="button" title="menu">
+    <div class="hamburger-box">
+      <div class="hamburger-inner"></div>
+    </div>
+</button>
+<div class="menu visibility">
+  <div class="menu-head">
+    <span class="layer">
+      <div class="col">
+        <div class="row for-pic">
+          <div class="profile-pic">
+            <a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"/></a>
+          </div>
+        </div>
+        <div class="row for-name">
+          <p>陶承</p>
+          <span class="tagline">Hello, World!</span>
+        </div>
+      </div>
+    </span>
+  </div>
+  <nav class="menu-container">
+  <ul class="menu-items">
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+    
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
+        <ul>
+          <li><a href="/guestbook/">Guestbook</a></li>
+        <li><a href="/about/">About</a></li>
+        </ul>
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-link fa-fw"></i>Friends</span>
+        <ul>
+          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
+        </ul>
+    </li>
+  </ul>
+  </nav>
+</div>
+
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+</div>
+<script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.easing.min.js"></script>
+<script>
+(function () {
+	"use strict";
+	var goToTop = function() {
+		$(".js-gotop").on("click", function(event){
+			event.preventDefault();
+			$("html, body").animate({
+				scrollTop: $("html").offset().top
+			}, 500, "easeInOutExpo");
+			return false;
+		});
+		$(window).scroll(function(){
+			var $win = $(window);
+			if ($win.scrollTop() > 200) {
+				$(".js-top").addClass("active");
+			} else {
+				$(".js-top").removeClass("active");
+			}
+		});
+	};
+	$(function(){
+		goToTop();
+	});
+}());
+</script>
+
+
+</body>
+</html>

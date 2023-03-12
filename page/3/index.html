@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content=#58b77a>
+  <title>陶承的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="陶承">
+  <meta name="keywords" content="none">
+  <meta name="description" content="about learning embedded system">
+  <script id="hexo-configurations">
+  var CONFIG = {
+    root: '/',
+    theme: 'hexo-theme-lx-master',
+    version: '0.4.3',
+    localsearch:{
+      "enable": false,
+      "trigger": "auto",
+      "top_n_per_article": 1,
+      "unescape": false,
+      "preload": false
+      },
+    path: 'null'
+  };
+</script>
+
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/theme-lx@0.4.3/source/dist/css/main.min.css">
+  
+  <style type="text/css">
+    pre,
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+    html {
+      font-family: sans-serif;
+    }
+    body {
+      font-family: sans-serif;
+    }
+    h1, h2, h3, h4, h5, figure {
+      font-family: sans-serif;
+    }
+    .menu-container{
+      font-family: sans-serif;
+    }
+  </style>
+
+  <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+  <script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.jside.menu.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$(".menu-container").jSideMenu({
+	    jSidePosition: "position-right",
+	    jSideSticky: true,
+	    jSideSkin: "",
+	     });
+	}); 
+	</script>
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4/css/font-awesome.min.css">
+<meta name="generator" content="Hexo 6.2.0"></head>
+<body>
+<div id="page">
+
+<div class="header">
+  <div id="lx-aside" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/cover.min.jpeg)">
+    <div class="overlay">
+      
+      <div class="featured">
+        <div class="avatar"><a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"></a></div>
+        <span>陶承</span>
+        <h1>陶承的博客</h1>
+        <span>垃圾堆</span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div id="lx-main-content">
+  <div class="lx-post">
+
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/07/28/2022_07_28_%E5%B8%AE%E8%9D%88%E8%9D%88%E6%B5%8B%E8%AF%95%E9%80%9A%E4%BF%A1%E6%9D%BF/">communicateboard test</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-07-28</span>
+      <p><h1 id="1-USB转RS485"><a href="#1-USB转RS485" class="headerlink" title="1. USB转RS485"></a>1. USB转RS485</h1><h2 id="1-1USB转485"><a href="#1-1USB转485" class="headerlink" title="1.1USB转485"></a>1.1USB转485</h2><p><strong>正常</strong>，发送<code>40 94 E8 40 80 C2 4F AB D5</code>，示波器观察波形一致，且符合485电平标准</p>
+<h2 id="1-2-板子与485盒子通信"><a href="#1-2-板子与485盒子通信" class="headerlink" title="1.2 板子与485盒子通信"></a>1.2 板子与485盒子通信</h2><h3 id="1-2-1-板子485发送"><a href="#1-2-1-板子485发送" class="headerlink" title="1.2.1 板子485发送"></a>1.2.1 板子485发送</h3><p><strong>正常</strong>，发送<code>40 94 E8 40 80 C2 4F AB D5</code>，用485盒子接收到相同内容，发送周期10ms，发送65943条，接收到65943条</p>
+<h3 id="1-2-2-板子485接收"><a href="#1-2-2-板子485接收" class="headerlink" title="1.2.2 板子485接收"></a>1.2.2 板子485接收</h3><p><strong>不正常</strong>，115200波特率下，用了2个485盒子对接能通信，说明盒子是没问题的，但是任意一个盒子和板子通信，板子发盒子能收到，盒子发板子却不能收到，测了下波形：</p>
+<ul>
+<li>板子发出的正电平2.7V，负电平-2.7V。</li>
+<li>大盒子发出的正电平880mV，负电平-2.7V</li>
+<li>小盒子发出正电平5V，负电平-5V</li>
+</ul>
+<h3 id="1-2-3-板子与板子通信"><a href="#1-2-3-板子与板子通信" class="headerlink" title="1.2.3 板子与板子通信"></a>1.2.3 板子与板子通信</h3><p>给的板子（X）和第一块板子（Y）485通信，X发出Y能收到，且发多少收多少，但Y发出X收不到</p>
+<blockquote>
+<p>两个板子的输出485差分信号是一模一样的，应该是X的接收某处有问题</p>
+</blockquote>
+<h3 id="1-2-4-两块板子的接收路径测试"><a href="#1-2-4-两块板子的接收路径测试" class="headerlink" title="1.2.4 两块板子的接收路径测试"></a>1.2.4 两块板子的接收路径测试</h3><blockquote>
+<p>测试在板子485互相连接下进行<br>在正常情况下，AB连接时的电压会比开路时的电压小小一丢丢，不影响使用</p>
+</blockquote>
+<p>Y发X收：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="center">485差分</th>
+<th align="center">R<del>差分</del>两端电压</th>
+<th align="center">芯片AB差分电压</th>
+<th align="center">芯片A</th>
+<th align="right">芯片B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">第一块板</td>
+<td align="center">H≈2.25V L≈2.1V</td>
+<td align="center">H≈2.25V L≈2.1V</td>
+<td align="center">H≈2.25V L≈2.1V</td>
+<td align="center">两板相同</td>
+<td align="right">两板相同</td>
+</tr>
+<tr>
+<td align="left">蝈蝈的板</td>
+<td align="center">相同</td>
+<td align="center">相同</td>
+<td align="center">相同</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>这里已经出现问题了，AB电压高低电平应该关于0V对称，但是第一时间没有反应过来，后来才察觉。</p>
+</blockquote>
+<p>Y发X收：<br>发现高电平2.25V，低电平几乎0V，Y板肯定是收不到的，因为485的接收电平低电平必须满足&lt;200mV。故Y板一直监测到AB电压为高，却一直没有出现起始位。</p>
+<blockquote>
+<p>加深了485总线的电平标准印象：<br><strong>空闲</strong><br>AB&#x3D;<strong>-200mV~200mV</strong>，正好避让接收电平<br>发送<br>H：AB&#x3D;2<del>6V<br>L：AB&#x3D;-2</del>-6V<br>接收<br>H：AB&gt;200mV<br>L：AB&lt;200mV</p>
+</blockquote>
+<p>进一步测试发现，2板不连接的情况下<br><strong>Y板空闲AB≈0V，正常</strong><br><strong>X板空闲AB&#x3D;3V，居然是高电平</strong><br>显然，问题出在这</p>
+<p>进一步排查，首先怀疑485收发器MAX3485</p>
+<blockquote>
+<p>2块板子都是用的这个芯片</p>
+</blockquote>
+<p>查看datasheet，485收发器大部分时间处在接收状态，DE负责使能发送，DE高电平时才会发送，RE负责接收使能，高电平时停止接收，大部分时间都是低电平。</p>
+<p><strong>通信板的485使用的是半双工功能</strong>，具体方法是吧<strong>DE和RE</strong>接到一起，这样，两者由于真值表<strong>互补</strong>，所以<strong>任意时刻只能接收或发送</strong>，非常巧妙。</p>
+<p>Y板子<strong>485空闲</strong>的时候，AB电压0，<strong>DE&#x3D;0，RE&#x3D;0，处于接收状态</strong>，其485反过来输出给串口高电平，和串口UART通信空闲时高电平对上了。接收数据时，DE和RE当然保持0，而串口则从空闲时的高电平开始产生起始位，开始通信，这是正常的收发器接收流程。发送时，<strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong>。<br><strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong><br><strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong><br><strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong></p>
+<p><strong>X板子的DE居然一直保持高电平</strong>，无论发送和接收还是空闲，这导致了其时刻处于发送485状态，就算有485信号来，也无法转换成串口数据发送给USB</p>
+<h2 id="1-2-5-排查485收发器是否DE引脚被烧穿了"><a href="#1-2-5-排查485收发器是否DE引脚被烧穿了" class="headerlink" title="1.2.5 排查485收发器是否DE引脚被烧穿了"></a>1.2.5 排查485收发器是否DE引脚被烧穿了</h2><p>一开始怀疑DE引脚是否被烧穿，和自身的3.3V供电短接了（DE确定了下正常情况的高电平也是3.3V），用表笔测得是正常的，所有的引脚都测了一遍，并没有发现引脚有问题，485收发器的嫌疑初步排除，剩下就是FT232芯片了，其控制端一直处在高电平，是不是接线有问题，或者是内部烧坏了？<br>突然想起是不是没有配置的原因，终于找对了方向。</p>
+<blockquote>
+<h2 id="1-3-想法"><a href="#1-3-想法" class="headerlink" title="1.3 想法"></a>1.3 想法</h2><p>通信板485接收有问题，需要进一步测试</p>
+</blockquote>
+<h2 id="FT232上位机软件"><a href="#FT232上位机软件" class="headerlink" title="FT232上位机软件"></a>FT232上位机软件</h2><p>查上位机软件datasheet知道了可以把FT232配置成几种模式，但是没看到有RS485模式，里面提到细节可以去查看FT232的手册，所以去看了FT232手册，发现RS485是在<strong>FT232 UART模式</strong>下配置的<br>并在<strong>IO control 下 将C0设置为TXDEN</strong>，启用使能485引脚</p>
+<blockquote>
+<p>上位机手册P18~P19</p>
+</blockquote>
+<p>按照上位机手册的指导下，进行配置并编译下载，<strong>完成后要重启USB芯片，即拔掉USB再插上</strong></p>
+<h1 id="破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来"><a href="#破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来" class="headerlink" title="破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来"></a>破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来</h1></p>
+      <div class="post-button"><a class="btn" href="/2022/07/28/2022_07_28_%E5%B8%AE%E8%9D%88%E8%9D%88%E6%B5%8B%E8%AF%95%E9%80%9A%E4%BF%A1%E6%9D%BF/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/07/25/2022_07_25PCB%E7%BB%98%E5%88%B6/">PCB绘制</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-07-25</span>
+      <p><h1 id="1、板子边框的评估"><a href="#1、板子边框的评估" class="headerlink" title="1、板子边框的评估"></a>1、板子边框的评估</h1><ol>
+<li><p>全选封装，点击<strong>工具-器件摆放-在矩形区域排列</strong>，然后鼠标框选一个矩形区域即可，我已经将这个操作设置了快捷键<strong>F6</strong>。</p>
+</li>
+<li><p>在<strong>机械层</strong>下，根据矩形区域适当宽松一点的范围上画一个板子的矩形<strong>边框</strong>，然后对四边<strong>取整</strong>，再点击<strong>放置-尺寸-线性尺寸</strong>，把板子的长款尺寸标注一下。</p>
+</li>
+<li><p><strong>全选</strong>机械层边框，点击<strong>设计-板子形状-按照选择对象定义</strong>，将裁掉板子多余部分</p>
+</li>
+<li><p>点击<strong>编辑-原点-设置</strong>，在板子左下角放置一个原点，然后把四个固定孔以顶点为起点，xy位移5mm</p>
+<blockquote>
+<p>板子的四个角一般都有固定孔</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="2、板子的叠层设计"><a href="#2、板子的叠层设计" class="headerlink" title="2、板子的叠层设计"></a>2、板子的叠层设计</h1><p>点击<strong>设置-层叠管理器</strong></p>
+<ul>
+<li>Top Overlay：丝印层</li>
+<li>Top Solder ：阻焊层</li>
+<li>橙色的为信号层<ul>
+<li>Top Layer ：顶层</li>
+<li>Bottom Layer：底层</li>
+</ul>
+</li>
+</ul>
+<p>首先右键点击<strong>Top layer</strong>，选择<strong>inser layer below</strong>，子选项中包含：</p>
+<ul>
+<li><strong>Signal：正片层</strong></li>
+<li><strong>Plane ：负片层</strong><blockquote>
+<p>设计的时候主要用正片层和负片层</p>
+</blockquote>
+</li>
+<li>Core： 芯层</li>
+<li>Prepreg：pp层</li>
+<li>Surface Finish：表面处理（喷漆之类的）</li>
+</ul>
+<p>选择<strong>负片层</strong>，将在Top layer层下产生2层，然后手动命名layer1为<strong>GND02</strong>，意为底层+第二层；命名layer2为<strong>PWR03</strong>，意为电源层+第三层</p>
+<p>四层板子已经有了，注意，此时在<strong>正片层走线是直接走的铜</strong>（如TOP和BOTTOM），而在<strong>负片层走线走的不是铜</strong></p>
+<h1 id="3、设置层的网络类型"><a href="#3、设置层的网络类型" class="headerlink" title="3、设置层的网络类型"></a>3、设置层的网络类型</h1><p>需要注意的是，<strong>双击GND层设置网络为GND，双击PWR层设置为VCC?层</strong>，看需求。</p>
+<h1 id="4、如何走过孔？"><a href="#4、如何走过孔？" class="headerlink" title="4、如何走过孔？"></a>4、如何走过孔？</h1><p>如何在TOP层上走过孔到GND层？</p>
+<ol>
+<li>在TOP层上针对<strong>器件的GND端</strong>使用<strong>交互式布线连接</strong>走线，然后在需要过孔的点位<strong>放置过孔</strong></li>
+</ol>
+<h1 id="5、快捷键设置"><a href="#5、快捷键设置" class="headerlink" title="5、快捷键设置"></a>5、快捷键设置</h1><p>已经设置  </p>
+<ul>
+<li><strong>F2</strong>:交互式布线连接</li>
+<li><strong>F4</strong>:打孔<blockquote>
+<p>F2+F4欢乐走线打孔</p>
+</blockquote>
+</li>
+<li><strong>F6</strong>:把选中的器件放在矩形框内</li>
+<li><strong>2</strong>:线接触选中</li>
+<li><strong>3</strong>:内部框选</li>
+<li><strong>CTRL+H</strong>:一次性删掉一整根连接的线。按下后选中一根线，即选中整根线**<blockquote>
+<p>不用一截一截删除了</p>
+</blockquote>
+</li>
+<li><strong>SHIFT+R</strong>： 切换为绕过障碍物走线或无视障碍物走线模式</li>
+</ul>
+<h3 id="对齐快捷键："><a href="#对齐快捷键：" class="headerlink" title="对齐快捷键："></a>对齐快捷键：</h3><ul>
+<li><strong>;</strong> 左对齐</li>
+<li><strong>‘</strong> 右对齐</li>
+<li><strong>[</strong> 顶对齐</li>
+<li><strong>&#x2F;</strong> 底对齐<blockquote>
+<p>均以最远处为基准</p>
+</blockquote>
+</li>
+<li><strong>-</strong> 垂直等间距分布<blockquote>
+<p>以上下两端为基准，中间等间距分布</p>
+</blockquote>
+</li>
+<li><strong>&#x3D;</strong> 水平等间距分布<blockquote>
+<p>以左右两端为基准，中间等间距分布</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="6、开始模块化PCB布局"><a href="#6、开始模块化PCB布局" class="headerlink" title="6、开始模块化PCB布局"></a>6、开始模块化PCB布局</h1><h2 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h2><p>首先确保在原理图中打开：<strong>工具-交叉选择模式</strong><br>然后将AD视图切换成垂直显示：<strong>Windows-垂直平铺</strong></p>
+<blockquote>
+<p>至此，选中任意一方的器件，在映射的另一方均能高亮显示。</p>
+</blockquote>
+<h2 id="封装模块化摆放："><a href="#封装模块化摆放：" class="headerlink" title="封装模块化摆放："></a>封装模块化摆放：</h2><p>在原理图中框选<strong>某一模块</strong>内的器件，此时PCB中对应器件均被自动框选，使用快捷键<strong>F6</strong>，将该模块的器件统一布置在一个<strong>矩形范围内</strong>。<strong>重复步骤</strong>，使得各模块之间分隔清晰。</p>
+<h2 id="隐藏电源线，观察信号流向"><a href="#隐藏电源线，观察信号流向" class="headerlink" title="隐藏电源线，观察信号流向"></a>隐藏电源线，观察信号流向</h2><p>点击<strong>设计-类</strong>，在<strong>Net-classes</strong>中新建一类，并将其命名为PWR，然后将所有的<strong>电源分入PWR类</strong>中。<br>切记<br><strong>GND也属于电源类</strong><br><strong>GND也属于电源类</strong><br><strong>GND也属于电源类</strong><br>在右下角的<strong>PANEL中开启PCB</strong>，左侧边栏中对分好的类右击<strong>连接-显示&#x2F;隐藏</strong></p>
+<h2 id="摆放的时候，丝印重叠看晕了怎么办？"><a href="#摆放的时候，丝印重叠看晕了怎么办？" class="headerlink" title="摆放的时候，丝印重叠看晕了怎么办？"></a>摆放的时候，丝印重叠看晕了怎么办？</h2><p>缩小丝印字号大小：</p>
+<ol>
+<li>随便找一个封装选中其丝印，<strong>右击丝印-查找相似对象</strong>，在Object Specific一栏的<strong>String Type</strong>中，将<strong>Any改选为Same</strong>，确定，此时，已经自动选中所有的丝印。</li>
+<li>在右边栏中设置<strong>Text Height为10mil</strong>，<strong>Stroke Width为2mil</strong>。</li>
+<li><strong>A-定位器件文本-标识符选择在中心位置</strong></li>
+</ol>
+<p>至此，丝印减小且位于器件内部，看上去舒服多了</p>
+<h2 id="封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？"><a href="#封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？" class="headerlink" title="封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？"></a>封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？</h2><ul>
+<li>如果<strong>数量较少</strong>，直接<strong>删除对应器件</strong>，然后从原理图重新Update PCB Document</li>
+<li>如果<strong>数量太多</strong>，人麻了的情况下，还是<strong>全选删除</strong>，原理图重新Update吧</li>
+</ul>
+<h2 id="如何布局？"><a href="#如何布局？" class="headerlink" title="如何布局？"></a>如何布局？</h2><p><strong>根据信号流向</strong></p>
+<ol>
+<li>根据<strong>输入-去耦电容-中间-去耦电容-输出</strong>的顺序先摆放这些器件,去耦电容注意<strong>先大后小原则</strong><blockquote>
+<p>即首先保证信号的去耦</p>
+</blockquote>
+</li>
+<li>其他器件按照<strong>就近原则</strong>，位置<strong>大概就行</strong> </li>
+<li>根据信号的流向，使用<strong>CTRL+左键</strong>选中输入信号，可以看到同一根线上的管脚高亮，调整<strong>使得信号流向一字型或L型，避免绕来绕去</strong></li>
+<li>最后微调（简单改一下对齐差不多就行了）</li>
+</ol>
+<h1 id="CLASS、设计参数、规则的建立"><a href="#CLASS、设计参数、规则的建立" class="headerlink" title="CLASS、设计参数、规则的建立"></a>CLASS、设计参数、规则的建立</h1><p>首先把PWR类添加颜色，在PCB边栏中首先将<strong>Normal改为Mask</strong>，然后<strong>点击一下PWR类</strong>，板子变成了灰蒙蒙的，然后<strong>右键PWR类-Change Net Color-选择一个颜色</strong>，然后再次<strong>右键PWR类-显示替换-选择的打开</strong>，再按下<strong>F5</strong>，即可将PWR网络以颜色清晰显示</p>
+<h3 id="为何要建立CLASS？"><a href="#为何要建立CLASS？" class="headerlink" title="为何要建立CLASS？"></a>为何要建立CLASS？</h3><p>电源线载流，需要<strong>加粗</strong>。<br>信号线只需要简单连线。</p>
+<p>点击<strong>设计-规则</strong>，其中  </p>
+<ul>
+<li><strong>Electrical</strong>电气规则，如短路开路规则</li>
+<li><strong>Routing</strong>中：<ul>
+<li><strong>Width</strong>线宽（线距）规则</li>
+<li><strong>Routing Via Style</strong>过孔规则</li>
+<li>差分规则</li>
+<li>扇孔规则</li>
+<li>。。。。。。</li>
+</ul>
+</li>
+<li><strong>SMT</strong> 贴片规则</li>
+<li><strong>Mask</strong>阻焊规则</li>
+<li><strong>Plane</strong>铺铜规则</li>
+<li><strong>Manufacturing</strong>生产规则</li>
+<li><strong>High Speed</strong>高速部分规则</li>
+<li><strong>Placement</strong>放置器件规则</li>
+<li><strong>Siganl Integrity</strong>信号完整性规则</li>
+</ul>
+<p>线距大于等于6mi的成本是最低的，一般是4~6mil成本是常规的，再小就贵了。  </p>
+<h3 id="1-间距规则"><a href="#1-间距规则" class="headerlink" title="1. 间距规则"></a>1. 间距规则</h3><p><strong>Electrical-Clearance-Clearance</strong>，右侧<strong>约束-最小间距</strong>，改为<strong>6mil线距</strong>，表格中的值可以具体修改哪些和哪些之间的间隔，比如：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="center">Track</th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="right"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Copper</td>
+<td align="center">10mil</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">表示铺铜和线之间的距离自动为10mil</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+<h3 id="2-线宽规则"><a href="#2-线宽规则" class="headerlink" title="2. 线宽规则"></a>2. 线宽规则</h3><h4 id="2-1-设置默认信号线线宽"><a href="#2-1-设置默认信号线线宽" class="headerlink" title="2.1 设置默认信号线线宽"></a>2.1 设置默认信号线线宽</h4><p>在<strong>Routing-Width-Width</strong>下<strong>最小间距设置为6mil</strong></p>
+<blockquote>
+<p>线宽&#x2F;线距&#x3D;6mil&#x2F;6mil是最便宜的</p>
+</blockquote>
+<h4 id="2-2-设置电源线线宽"><a href="#2-2-设置电源线线宽" class="headerlink" title="2.2 设置电源线线宽"></a>2.2 设置电源线线宽</h4><p>右键<strong>Width</strong>新建一个Width，起个名字为PWR，然后在<strong>Where the Object Matches</strong>下选择<strong>Net-Class</strong>，然后选择PWR class，再修改宽度，然后<strong>在下方优先级处，将PWR优先级设置为最高</strong>，画电源线的时候，就可以自动增加电源线的走线宽度啦</p>
+<blockquote>
+<p>电源线载流，因此需要加粗  </p>
+</blockquote>
+<blockquote>
+<p>设置好了线宽但是还是不对是为什么？</p>
+<ul>
+<li>可能是优先级没有设置</li>
+<li>可能是优先级中没有将其使能</li>
+</ul>
+</blockquote>
+<h3 id="3-过孔规则"><a href="#3-过孔规则" class="headerlink" title="3. 过孔规则"></a>3. 过孔规则</h3><p>在<strong>Routing-Routing Via Style-RoutingVias</strong>下，<strong>过孔孔径大小</strong>统统设置为12mil，<strong>过孔直径与过孔孔径</strong>之间的关系：<br><strong><code>2*H +- 2mil</code></strong><br>即如果一个孔的大小为12mil，则他的直径为22mil、24mil或者26mil，<strong>选择最小的值，22mil</strong>，因为可以增加两个过孔之间的距离，方便走线，设置好后，还用不了，还需要：</p>
+<ol>
+<li>软件右上方点击<strong>齿轮设置</strong></li>
+<li>左列选择<strong>PCB Editor-Default</strong></li>
+<li>右侧<strong>Primitive List下选择Via</strong></li>
+<li>右侧<strong>Via Stack下将Hole Size设为12mil，Diameter设为22mil</strong></li>
+<li>右侧<strong>Solder Mask Expansion-Manual，勾选2个Tended，表示添加绿油</strong></li>
+</ol>
+<h3 id="4-覆铜规则（写的并不好，具体可以查看热焊盘、反焊盘）"><a href="#4-覆铜规则（写的并不好，具体可以查看热焊盘、反焊盘）" class="headerlink" title="4. 覆铜规则（写的并不好，具体可以查看热焊盘、反焊盘）"></a>4. 覆铜规则（写的并不好，具体可以查看<a target="_blank" rel="noopener" href="https://blog.csdn.net/Mark_md/article/details/116486920" title="什么是热焊盘和反焊盘？">热焊盘、反焊盘</a>）</h3><ul>
+<li><strong>正片层</strong>（<strong>信号走线层</strong>）无铜-打孔为正焊盘（焊盘带铜）</li>
+<li><strong>负片层</strong>（<strong>中间层，如GND、PWR</strong>）全铜-打孔为负焊盘（不带铜绿色部分，从而将孔与负片隔开）</li>
+</ul>
+<p>在Plane下：</p>
+<ul>
+<li><p><strong>PlaneConnect</strong>（平面层连接方式）</p>
+<ul>
+<li>连接方式默认为Relief Connect，如果<ul>
+<li>在X层下打了个X网络的过孔，孔的四周会有几个桥臂与本层连接。</li>
+<li>在X层下打了个其他网络的过孔，孔的周围出现反焊盘（不带铜），起到隔离作用。</li>
+</ul>
+</li>
+<li>连接方式为Direct Connect ，如果孔的周围出现反焊盘（不带铜），起到隔离作用。</li>
+</ul>
+</li>
+<li><p><strong>PlaneClearance</strong>（负片层（<strong>中间层</strong>）焊盘）下修改间距为<strong>8mil</strong>，（默认20mil的间距，则连续紧密打孔时周围的反焊盘会把板子形成割裂（反焊盘没有铜）)</p>
+</li>
+<li><p><strong>PolygonConnect</strong>（正片层（<strong>信号走线层</strong>）焊盘）</p>
+<ul>
+<li><p>手工焊接选择Relief Connect，为十字连接（热焊盘），散热满，好焊接</p>
+</li>
+<li><p>如果用回流焊（温度很高），使用<strong>全连接</strong></p>
+</li>
+<li><p>如果考虑载流大，使用全连接</p>
+<p><strong>焊盘用十字连接，过孔用全连接：</strong><br>在<strong>高级-Via Connect-连接方式设置为Direct connect</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-丝印规则"><a href="#5-丝印规则" class="headerlink" title="5.丝印规则"></a>5.丝印规则</h2><p><strong>Manufacturing-Silk To Solder Mask Clearance-SilkToSolderMaskClearance</strong>下更改*<em>对象与丝印层的最小间距为2mil</em></p>
+<h1 id="扇孔处理、走线、覆铜（覆铜插件）"><a href="#扇孔处理、走线、覆铜（覆铜插件）" class="headerlink" title="扇孔处理、走线、覆铜（覆铜插件）"></a>扇孔处理、走线、覆铜（覆铜插件）</h1><p>短线直接交互式布线，长线打过孔，注意<strong>先拉出一根线，再放过孔，就会自动添加网络</strong></p>
+<blockquote>
+<p>临时碰到某条线属于电源线要加粗，但是没有提前加入PWR class，怎么处理？<br>选择该网络，<strong>右键-网络操作-Add selected Net to netclass</strong>,然后选择pwr，确定，最后还要在设计规则里面点开<strong>Width，重新点一下确定</strong></p>
+</blockquote>
+<p>尽量从<strong>焊盘中心出线，不要从顶角出线</strong>,从顶角出了的话，直接短路画一条可以自动修整</p>
+<p>修整：TOP层覆铜的时候，焊盘是十字连接，老实说现在一般都是回流焊了，所以全部用直接连接算了，在规则下，<strong>Plane-PolygonConnect-简单-连接方式设置为Direct Connect</strong></p>
+<h3 id="铺铜的时候需要设置：铺铜过程中，TAB-右侧下拉选择Pour-Over-All-Same-Net-Object，并勾选Remove-Dead-Copper"><a href="#铺铜的时候需要设置：铺铜过程中，TAB-右侧下拉选择Pour-Over-All-Same-Net-Object，并勾选Remove-Dead-Copper" class="headerlink" title="铺铜的时候需要设置：铺铜过程中，TAB-右侧下拉选择Pour Over All Same Net Object，并勾选Remove Dead Copper"></a><strong>铺铜的时候需要设置：铺铜过程中，TAB-右侧下拉选择Pour Over All Same Net Object，并勾选Remove Dead Copper</strong></h3><p>铺铜需要注意的<strong>细节</strong>：</p>
+<ul>
+<li><strong>电源线相关</strong>的路径老师<strong>直接覆铜代替走线</strong>，因为载流大，还能散热。</li>
+<li><strong>电源的地线覆铜后，要多放几个孔回流到地</strong>。</li>
+<li><strong>注意去耦的路径</strong>，如果本来先经过电容去耦，再出去，现在覆铜成一团了，电容去耦的意义不是很大，所以<strong>覆铜可以沿着去耦路径覆</strong>（其实<strong>等效于非常常宽的导线</strong>）。</li>
+</ul>
+<p>走线<strong>细节</strong>：</p>
+<ul>
+<li><strong>信号线能少打孔就少打孔</strong>，因为打孔会一定程度增加信号路径的阻抗</li>
+<li>走线有交叉的，可以一条走表层，一条走底层。</li>
+<li><strong>可以表层走一点，打个孔，再从底层走线</strong>，走线是非常灵活的</li>
+</ul>
+<blockquote>
+<p>画PCB过程中发现，USB芯片的封装，自身引脚之间间距小于10mil却会被报错？？？结局方法：规则-Clearance-勾选忽略同一封装内的焊盘间距</p>
+</blockquote>
+<p>PCB电源走线使用得捷电子-PCB印制线宽度计算器:</p>
+<ul>
+<li><strong>电流</strong>（覆铜的话，以最小宽度为准）</li>
+<li><strong>环境温度</strong> 室温25℃</li>
+<li><strong>厚度</strong> 设为1</li>
+<li><strong>温升</strong> 控制在10℃<br>得到的参数分为：</li>
+<li><strong>表层</strong>：信号层</li>
+<li><strong>内层</strong>：GND或者PWR<br>内层比外层会宽很多，因为散热更严格</li>
+</ul>
+<p>x层的分割线，复制后，在y层下使用<strong>E+A</strong>可以粘贴过来，同样是分割线</p>
+<p>在左侧边栏中，可以对各NET进行颜色修改，某层上的不同区域以颜色区别，显而易见</p>
+<p><strong>CTRL+拖动</strong>可以把走线法线方向移动</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/07/25/2022_07_25PCB%E7%BB%98%E5%88%B6/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/07/25/2022_07_24/"></a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-07-25</span>
+      <p><h1 id="1、Unknown-Pin"><a href="#1、Unknown-Pin" class="headerlink" title="1、Unknown Pin"></a>1、Unknown Pin</h1><p>原因：</p>
+<ol>
+<li>没有加封装</li>
+<li>封装管脚缺失</li>
+<li>管脚号不匹配，比如原理图器件的管脚（designator）用的是ABC，而封装用的是123，</li>
+<li>有隐藏管脚，上述123都试过的情况下仍然unknown pin，可以重新画一下原理图库，然后更新原理图</li>
+<li>还是存在unknown pin的情况下，不管三七二十一，先导出为pcb，验证，并去掉错误的钩，然后再执行更新，再回头去原理图保存一下，然后再导出pcb，验证的时候就会发现错误消失了<blockquote>
+<p>感觉是AD的BUG</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="2、绿色报错"><a href="#2、绿色报错" class="headerlink" title="2、绿色报错"></a>2、绿色报错</h1><p>先去掉所有的规则（钩全去掉）<br>然后单独开启所有的electrical规则即可</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/07/25/2022_07_24/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/07/22/%E9%80%9A%E4%BF%A1%E6%9D%BF%E6%9D%8E%E8%80%81%E5%B8%88%E6%96%B0%E7%9A%84%E8%A6%81%E6%B1%82/">2022_07_22通信板李老师新的要求</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-07-22</span>
+      <p><ul>
+<li>接插件不要使用原来的，换成<strong>带卡扣</strong>的，李老师又带我看了另一种板子的接口，用<strong>螺丝拧</strong>的，需要<strong>改原理图和封装</strong>，<strong>重新买接插件</strong>。</li>
+<li>USB插口换一种，<strong>USB-A母头</strong>，更牢固，需要<strong>改原理图和封装</strong>,<strong>重新买USB母口</strong>。</li>
+<li>信号线走线<strong>20-30mil</strong>，粗一点好</li>
+<li>电源线要<strong>粗</strong>，因为电流大<ul>
+<li>尤其150V，电压大，需要做<strong>绝缘</strong>：</li>
+</ul>
+<ol>
+<li>接口不能用另一个板子的那种接口，太小太细了，电流大容易烧坏, 需要用<strong>粗</strong>的。</li>
+<li>走线的时候要离其他部分<strong>远</strong>一点，不然容易击穿</li>
+</ol>
+</li>
+<li><strong>覆铜的厚度</strong>主要是？？厚度，使得保证<strong>温升不超过10°</strong>,<strong>徐帆师兄</strong>那有链接可以要一下，有相关的<strong>计算公式</strong>。</li>
+</ul>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/07/22/%E9%80%9A%E4%BF%A1%E6%9D%BF%E6%9D%8E%E8%80%81%E5%B8%88%E6%96%B0%E7%9A%84%E8%A6%81%E6%B1%82/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/07/19/2022_07_19altium_designer_PCB%E7%AC%94%E8%AE%B0/">PCB封装笔记</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-07-19</span>
+      <p><h1 id="1-焊盘"><a href="#1-焊盘" class="headerlink" title="1.焊盘"></a>1.焊盘</h1><ul>
+<li><p>top-layer : 无通孔的焊盘（带阻焊）</p>
+<blockquote>
+<p>表面封装常用</p>
+</blockquote>
+</li>
+<li><p>multi-layer : 带通孔的焊盘（带阻焊）</p>
+</li>
+</ul>
+<h1 id="2-绘制器件的所有焊盘"><a href="#2-绘制器件的所有焊盘" class="headerlink" title="2.绘制器件的所有焊盘"></a>2.绘制器件的所有焊盘</h1><ol>
+<li>先根据datasheet封装图，找到引脚的宽度（横向为x）和长度（纵向为y），并选取合适的焊盘，一般为无通孔的top-layer。  </li>
+<li>选中焊盘，在其pad-stack栏中，shape为形状，可选：</li>
+</ol>
+<ul>
+<li>圆形（round）</li>
+<li>矩形（rectangular）</li>
+<li>八角形（octagonal）</li>
+<li>圆角矩形（rounded rectangle）</li>
+</ul>
+<ol start="3">
+<li><p>在（X&#x2F;Y）中设置其宽度（X），数值为datasheet给出的最大值。</p>
+</li>
+<li><p>由器件的总宽度加上引脚长度可以得到对称引脚与所画的第一个引脚的中心距离。</p>
+</li>
+<li><p>对第一个引脚原地复制粘贴，使2者重合，选取其中之一，平移相应的距离</p>
+<blockquote>
+<ul>
+<li>选中对象，按下M键即可设置平移距离，平移时记得删掉多余的量。</li>
+<li>至此得到了一对关于中心对称的引脚。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>根据第一个引脚，横向复制粘贴得到横向第二个引脚，并重复，指导该侧引脚全部绘制完成。</p>
+</li>
+<li><p>将该侧引脚除开第一个引脚的所有引脚选中，关于第一个引脚的中心复制，并在对称引脚的中心处粘贴，得到了所有的引脚</p>
+<blockquote>
+<p>ctrl+E可以开启选取对象中心，再按一次则关闭</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="3-丝印"><a href="#3-丝印" class="headerlink" title="3. 丝印"></a>3. 丝印</h1><ol>
+<li><strong>编辑-设置参考-中心</strong>自动设置所有焊盘的几何中心，以该中心为参考点绘制丝印。</li>
+<li>首先<strong>打个草稿</strong>，在<strong>Top-layer层</strong>根据datasheet，从中心处，先绘制x方向，y方向两条任意的线段，然后平移得到边框，得到<strong>四条边的位置</strong>。</li>
+<li>切换到<strong>Top-overlay层（即丝印层）</strong>，依据草稿边框绘制丝印，使用<strong>SHIFT+空格</strong>切换丝印的走线方式为垂直。</li>
+<li>画完丝印后，点<strong>回Top-layer</strong>，按下<strong>SHIFT+S</strong>切换显示当前层，删掉先前Top-layer下绘制的底稿，丝印绘制完成。</li>
+</ol>
+<h1 id="进阶绘制焊盘"><a href="#进阶绘制焊盘" class="headerlink" title="进阶绘制焊盘"></a>进阶绘制焊盘</h1><p>设置好第一个焊盘，然后选中该焊盘，CTRL+C关于自身中心复制，别急着粘贴，而是选择<strong>编辑-特殊粘贴-阵列粘贴</strong>，设置好数量（包含本身），增量（增量为1，则默认从左往右序号+1，若增量为-1，则为从左往右序号-1），和间距，然后点击OK，再点击第一个焊盘的中心位置，即可得到一行所有焊盘。对成侧则可以先对称一个，设置好序号，然后增量-1来实现。</p>
+<h1 id="技巧总结"><a href="#技巧总结" class="headerlink" title="技巧总结"></a>技巧总结</h1><ul>
+<li><strong>复制</strong>：选中对象，CTRL+C，然后左键选取参考点，再CTRL+V，此时光标对准想要参考的地方，按下左键，完成粘贴。</li>
+<li><strong>平移</strong>：选中对象，按下M键，设置XY平移量，注意删除多余的量。</li>
+<li><strong>选取对象中心点</strong>：SHIFT+E</li>
+<li><strong>测量长度</strong>：CTRL+M测量，SHITF+C清除所有测量<blockquote>
+<p>吐槽一下AD，居然无法单独清除某条测量线，十分蛋疼</p>
+</blockquote>
+</li>
+<li><strong>编辑-设置参考-中心</strong>：自动设置所有焊盘构成的几何中心</li>
+<li><strong>SHIFT+空格</strong>：切换丝印走线方式，<strong>垂直</strong>、弧度、斜线</li>
+<li><strong>SHIFT+S</strong>:切换当前显示层（仅在某一类型的层内切换）</li>
+</ul>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/07/19/2022_07_19altium_designer_PCB%E7%AC%94%E8%AE%B0/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/07/17/2022_07_17%E6%9C%80%E8%BF%91%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85/">2022_07_18~2022_07_20任务清单</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-07-17</span>
+      <p><h1 id="目前需要做的事情"><a href="#目前需要做的事情" class="headerlink" title="目前需要做的事情"></a>目前需要做的事情</h1><p><em>重要性排序</em>  </p>
+<blockquote>
+<ol>
+<li><strong>mouser</strong>商城把器件加入购物车，18号去商业街下单。</li>
+<li>把剩下的元器件列表，找<strong>侯姐</strong>下单。<br>√</li>
+</ol>
+</blockquote>
+<ol start="3">
+<li><em><strong>2天之内学习画pcb</strong></em></li>
+</ol>
+<blockquote>
+<p>以上内容最好在20号之前完成</p>
+</blockquote>
+<ol start="4">
+<li>写<strong>verilog</strong>代码，主要包括：<ol>
+<li>读电量指令识别</li>
+<li>DAC控制</li>
+<li>仿真程序重新编写</li>
+</ol>
+</li>
+</ol>
+<h1 id="2022-07-19目前需要"><a href="#2022-07-19目前需要" class="headerlink" title="2022_07_19目前需要"></a>2022_07_19目前需要</h1><table>
+<thead>
+<tr>
+<th align="left">状态</th>
+<th align="center">型号</th>
+<th align="center">数量</th>
+<th align="center">单价</th>
+<th align="center">总价</th>
+<th align="right">渠道</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"></td>
+<td align="center">FT232HQ</td>
+<td align="center">6</td>
+<td align="center">55</td>
+<td align="center">330+运费10&#x3D;340</td>
+<td align="right">淘宝</td>
+</tr>
+<tr>
+<td align="left">√</td>
+<td align="center">HI-15530</td>
+<td align="center">3</td>
+<td align="center">450</td>
+<td align="center">1350</td>
+<td align="right">中商鼎盛</td>
+</tr>
+<tr>
+<td align="left">√</td>
+<td align="center">FDC3601N</td>
+<td align="center">3</td>
+<td align="center">5</td>
+<td align="center">15</td>
+<td align="right">中商鼎盛</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">XCF04SVO20C</td>
+<td align="center">3</td>
+<td align="center">169.95</td>
+<td align="center">509.85+运费8&#x3D;517.85</td>
+<td align="right">淘宝</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">DDZ9689</td>
+<td align="center">10</td>
+<td align="center">0.x</td>
+<td align="center">x</td>
+<td align="right">自掏腰包 淘宝</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">5.08mm 单排排针</td>
+<td align="center">？</td>
+<td align="center">？</td>
+<td align="center">？</td>
+<td align="right">自掏腰包 淘宝</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">LTC7000EMSE-1</td>
+<td align="center">3</td>
+<td align="center">200</td>
+<td align="center">600+3%发票税+18运费&#x3D;641</td>
+<td align="right">淘宝</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">2863.85</td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">立创</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">446.45</td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">√</td>
+<td align="center">贸泽</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">2616.62网上加6% &#x3D;2773.6172</td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">sum</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">6083.9172</td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+<h1 id="2022-07-19-15-15"><a href="#2022-07-19-15-15" class="headerlink" title="2022_07_19_15:15"></a>2022_07_19_15:15</h1><ul>
+<li>找罗博士借钱1945.3元，用于：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">状态</th>
+<th align="center">型号</th>
+<th align="center">数量</th>
+<th align="center">单价</th>
+<th align="center">总价</th>
+<th align="right">渠道</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">√</td>
+<td align="center">FT232HQ</td>
+<td align="center">6</td>
+<td align="center">55</td>
+<td align="center">330+运费10&#x3D;340</td>
+<td align="right">淘宝</td>
+</tr>
+<tr>
+<td align="left">√</td>
+<td align="center">XCF04SVO20C</td>
+<td align="center">3</td>
+<td align="center">169.95</td>
+<td align="center">509.85+运费8&#x3D;517.85</td>
+<td align="right">淘宝</td>
+</tr>
+<tr>
+<td align="left">√</td>
+<td align="center">LTC7000EMSE-1</td>
+<td align="center">3</td>
+<td align="center">200</td>
+<td align="center">600+3%发票税+18运费&#x3D;641</td>
+<td align="right">淘宝</td>
+</tr>
+<tr>
+<td align="left">√</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1498.85</td>
+<td align="right">淘宝</td>
+</tr>
+<tr>
+<td align="left">√</td>
+<td align="center">立创</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">446.45</td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">√</td>
+<td align="center">sum</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1945.3</td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+<h1 id="2022-07-19-19-22"><a href="#2022-07-19-19-22" class="headerlink" title="2022_07_19_19:22"></a>2022_07_19_19:22</h1><ul>
+<li>剩下的自掏腰包</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">状态</th>
+<th align="center">型号</th>
+<th align="center">数量</th>
+<th align="center">单价</th>
+<th align="center">总价</th>
+<th align="right">渠道</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">√</td>
+<td align="center">DDZ9689</td>
+<td align="center">10</td>
+<td align="center">0.15</td>
+<td align="center">1.5+4运费&#x3D;5.5</td>
+<td align="right">自掏腰包 淘宝</td>
+</tr>
+<tr>
+<td align="left">√</td>
+<td align="center">5.08mm 单排排针</td>
+<td align="center">2x20pin</td>
+<td align="center">0.35</td>
+<td align="center">0.7+3运费&#x3D;3.7</td>
+<td align="right">自掏腰包 淘宝</td>
+</tr>
+<tr>
+<td align="left">√</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">9.2</td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">√</td>
+<td align="center">sum</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">9.2</td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+<h1 id="2022-07-19-19-44所有器件已经购买完成"><a href="#2022-07-19-19-44所有器件已经购买完成" class="headerlink" title="2022_07_19_19:44所有器件已经购买完成"></a>2022_07_19_19:44所有器件已经购买完成</h1><ul>
+<li>账单</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">商城</th>
+<th align="center">罗博士</th>
+<th align="center">商业街</th>
+<th align="center">花费</th>
+<th align="center">加点数</th>
+<th align="right">是否归还</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">立创</td>
+<td align="center">√</td>
+<td align="center"></td>
+<td align="center">2120.3</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">贸泽</td>
+<td align="center"></td>
+<td align="center">√商业街_杜芳</td>
+<td align="center">2616.62</td>
+<td align="center">6%&#x3D;&gt;2773.6172</td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">淘宝</td>
+<td align="center">√</td>
+<td align="center"></td>
+<td align="center">1498.85</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">商业街</td>
+<td align="center"></td>
+<td align="center">√中商鼎盛_李姐</td>
+<td align="center">1365</td>
+<td align="center">？</td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">sum</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">7757.4672</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/07/17/2022_07_17%E6%9C%80%E8%BF%91%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/07/16/hello-world/">Hello World</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-07-16</span>
+      <p><p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/07/16/hello-world/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+
+
+<div id="pagination">
+  <a class="extend prev" rel="prev" href="/page/2/"></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+</div>
+
+<footer>
+  <div>
+  Copyright &copy; 2023.<a href="/">陶承的博客</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
+  </div>
+</footer>
+
+  </div>
+</div>
+</div>
+
+<button class="hamburger hamburger--arrow-r" type="button" title="menu">
+    <div class="hamburger-box">
+      <div class="hamburger-inner"></div>
+    </div>
+</button>
+<div class="menu visibility">
+  <div class="menu-head">
+    <span class="layer">
+      <div class="col">
+        <div class="row for-pic">
+          <div class="profile-pic">
+            <a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"/></a>
+          </div>
+        </div>
+        <div class="row for-name">
+          <p>陶承</p>
+          <span class="tagline">Hello, World!</span>
+        </div>
+      </div>
+    </span>
+  </div>
+  <nav class="menu-container">
+  <ul class="menu-items">
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+    
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
+        <ul>
+          <li><a href="/guestbook/">Guestbook</a></li>
+        <li><a href="/about/">About</a></li>
+        </ul>
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-link fa-fw"></i>Friends</span>
+        <ul>
+          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
+        </ul>
+    </li>
+  </ul>
+  </nav>
+</div>
+
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+</div>
+<script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.easing.min.js"></script>
+<script>
+(function () {
+	"use strict";
+	var goToTop = function() {
+		$(".js-gotop").on("click", function(event){
+			event.preventDefault();
+			$("html, body").animate({
+				scrollTop: $("html").offset().top
+			}, 500, "easeInOutExpo");
+			return false;
+		});
+		$(window).scroll(function(){
+			var $win = $(window);
+			if ($win.scrollTop() > 200) {
+				$(".js-top").addClass("active");
+			} else {
+				$(".js-top").removeClass("active");
+			}
+		});
+	};
+	$(function(){
+		goToTop();
+	});
+}());
+</script>
+
+
+</body>
+</html>
