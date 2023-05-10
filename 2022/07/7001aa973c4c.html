@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content=#58b77a>
+  <title>Category-1_学习 | 陶承的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="陶承">
+  <meta name="keywords" content="none">
+  <meta name="description" content="about learning embedded system">
+  <script id="hexo-configurations">
+  var CONFIG = {
+    root: '/',
+    theme: 'hexo-theme-lx-master',
+    version: '0.4.3',
+    localsearch:{
+      "enable": false,
+      "trigger": "auto",
+      "top_n_per_article": 1,
+      "unescape": false,
+      "preload": false
+      },
+    path: 'null'
+  };
+</script>
+
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/theme-lx@0.4.3/source/dist/css/main.min.css">
+  
+  <style type="text/css">
+    pre,
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+    html {
+      font-family: sans-serif;
+    }
+    body {
+      font-family: sans-serif;
+    }
+    h1, h2, h3, h4, h5, figure {
+      font-family: sans-serif;
+    }
+    .menu-container{
+      font-family: sans-serif;
+    }
+  </style>
+
+  <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+  <script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.jside.menu.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$(".menu-container").jSideMenu({
+	    jSidePosition: "position-right",
+	    jSideSticky: true,
+	    jSideSkin: "",
+	     });
+	}); 
+	</script>
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4/css/font-awesome.min.css">
+<meta name="generator" content="Hexo 6.2.0"></head>
+<body>
+<div class="single">
+
+<div id="page">
+<div class="header">
+  <div id="lx-aside" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/post_cover.min.jpeg)" data-stellar-background-ratio="0.5">
+    <div class="overlay">
+      
+      <div class="page-title">
+        <div class="avatar"><a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"></a></div>
+        <span>2022-07-19</span>
+        <h2>PCB封装笔记</h2>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div id="lx-main-content">
+  <div class="lx-post">
+    <div class="lx-entry padding">
+      <div>
+        <h1 id="1-焊盘"><a href="#1-焊盘" class="headerlink" title="1.焊盘"></a>1.焊盘</h1><ul>
+<li><p>top-layer : 无通孔的焊盘（带阻焊）</p>
+<blockquote>
+<p>表面封装常用</p>
+</blockquote>
+</li>
+<li><p>multi-layer : 带通孔的焊盘（带阻焊）</p>
+</li>
+</ul>
+<h1 id="2-绘制器件的所有焊盘"><a href="#2-绘制器件的所有焊盘" class="headerlink" title="2.绘制器件的所有焊盘"></a>2.绘制器件的所有焊盘</h1><ol>
+<li>先根据datasheet封装图，找到引脚的宽度（横向为x）和长度（纵向为y），并选取合适的焊盘，一般为无通孔的top-layer。  </li>
+<li>选中焊盘，在其pad-stack栏中，shape为形状，可选：</li>
+</ol>
+<ul>
+<li>圆形（round）</li>
+<li>矩形（rectangular）</li>
+<li>八角形（octagonal）</li>
+<li>圆角矩形（rounded rectangle）</li>
+</ul>
+<ol start="3">
+<li><p>在（X&#x2F;Y）中设置其宽度（X），数值为datasheet给出的最大值。</p>
+</li>
+<li><p>由器件的总宽度加上引脚长度可以得到对称引脚与所画的第一个引脚的中心距离。</p>
+</li>
+<li><p>对第一个引脚原地复制粘贴，使2者重合，选取其中之一，平移相应的距离</p>
+<blockquote>
+<ul>
+<li>选中对象，按下M键即可设置平移距离，平移时记得删掉多余的量。</li>
+<li>至此得到了一对关于中心对称的引脚。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>根据第一个引脚，横向复制粘贴得到横向第二个引脚，并重复，指导该侧引脚全部绘制完成。</p>
+</li>
+<li><p>将该侧引脚除开第一个引脚的所有引脚选中，关于第一个引脚的中心复制，并在对称引脚的中心处粘贴，得到了所有的引脚</p>
+<blockquote>
+<p>ctrl+E可以开启选取对象中心，再按一次则关闭</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="3-丝印"><a href="#3-丝印" class="headerlink" title="3. 丝印"></a>3. 丝印</h1><ol>
+<li><strong>编辑-设置参考-中心</strong>自动设置所有焊盘的几何中心，以该中心为参考点绘制丝印。</li>
+<li>首先<strong>打个草稿</strong>，在<strong>Top-layer层</strong>根据datasheet，从中心处，先绘制x方向，y方向两条任意的线段，然后平移得到边框，得到<strong>四条边的位置</strong>。</li>
+<li>切换到<strong>Top-overlay层（即丝印层）</strong>，依据草稿边框绘制丝印，使用<strong>SHIFT+空格</strong>切换丝印的走线方式为垂直。</li>
+<li>画完丝印后，点<strong>回Top-layer</strong>，按下<strong>SHIFT+S</strong>切换显示当前层，删掉先前Top-layer下绘制的底稿，丝印绘制完成。</li>
+</ol>
+<h1 id="进阶绘制焊盘"><a href="#进阶绘制焊盘" class="headerlink" title="进阶绘制焊盘"></a>进阶绘制焊盘</h1><p>设置好第一个焊盘，然后选中该焊盘，CTRL+C关于自身中心复制，别急着粘贴，而是选择<strong>编辑-特殊粘贴-阵列粘贴</strong>，设置好数量（包含本身），增量（增量为1，则默认从左往右序号+1，若增量为-1，则为从左往右序号-1），和间距，然后点击OK，再点击第一个焊盘的中心位置，即可得到一行所有焊盘。对成侧则可以先对称一个，设置好序号，然后增量-1来实现。</p>
+<h1 id="技巧总结"><a href="#技巧总结" class="headerlink" title="技巧总结"></a>技巧总结</h1><ul>
+<li><strong>复制</strong>：选中对象，CTRL+C，然后左键选取参考点，再CTRL+V，此时光标对准想要参考的地方，按下左键，完成粘贴。</li>
+<li><strong>平移</strong>：选中对象，按下M键，设置XY平移量，注意删除多余的量。</li>
+<li><strong>选取对象中心点</strong>：SHIFT+E</li>
+<li><strong>测量长度</strong>：CTRL+M测量，SHITF+C清除所有测量<blockquote>
+<p>吐槽一下AD，居然无法单独清除某条测量线，十分蛋疼</p>
+</blockquote>
+</li>
+<li><strong>编辑-设置参考-中心</strong>：自动设置所有焊盘构成的几何中心</li>
+<li><strong>SHIFT+空格</strong>：切换丝印走线方式，<strong>垂直</strong>、弧度、斜线</li>
+<li><strong>SHIFT+S</strong>:切换当前显示层（仅在某一类型的层内切换）</li>
+</ul>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lx-navigation">
+	<div class="lx-cover next lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-l.min.jpeg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2022/07/ab51512567f3.html">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Next</span>
+						<h3>2022_07...</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+        <div class="lx-cover prev lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-r.min.jpeg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2022/07/b2bc9ae3627d.html">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Prev</span>
+						<h3>2022_07...</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+
+</div>
+
+<footer>
+  <div>
+  Copyright &copy; 2023.<a href="/">陶承的博客</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
+  </div>
+</footer>
+
+</div>
+
+<button class="hamburger hamburger--arrow-r" type="button" title="menu">
+    <div class="hamburger-box">
+      <div class="hamburger-inner"></div>
+    </div>
+</button>
+<div class="menu visibility">
+  <div class="menu-head">
+    <span class="layer">
+      <div class="col">
+        <div class="row for-pic">
+          <div class="profile-pic">
+            <a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"/></a>
+          </div>
+        </div>
+        <div class="row for-name">
+          <p>陶承</p>
+          <span class="tagline">Hello, World!</span>
+        </div>
+      </div>
+    </span>
+  </div>
+  <nav class="menu-container">
+  <ul class="menu-items">
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+    
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
+        <ul>
+          <li><a href="/guestbook/">Guestbook</a></li>
+        <li><a href="/about/">About</a></li>
+        </ul>
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-link fa-fw"></i>Friends</span>
+        <ul>
+          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
+        </ul>
+    </li>
+  </ul>
+  </nav>
+</div>
+
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+</div>
+<script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.easing.min.js"></script>
+<script>
+(function () {
+	"use strict";
+	var goToTop = function() {
+		$(".js-gotop").on("click", function(event){
+			event.preventDefault();
+			$("html, body").animate({
+				scrollTop: $("html").offset().top
+			}, 500, "easeInOutExpo");
+			return false;
+		});
+		$(window).scroll(function(){
+			var $win = $(window);
+			if ($win.scrollTop() > 200) {
+				$(".js-top").addClass("active");
+			} else {
+				$(".js-top").removeClass("active");
+			}
+		});
+	};
+	$(function(){
+		goToTop();
+	});
+}());
+</script>
+
+
+</body>
+</html>

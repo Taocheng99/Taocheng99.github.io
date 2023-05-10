@@ -84,17 +84,17 @@
 
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/VGA%E9%A9%B1%E5%8A%A8%E5%AE%9E%E9%AA%8C%E7%9A%84%E7%96%91%E6%83%91/">VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10</span>
+      <h2 class="title"><a href="/2023/05/381b3eea5f02.html">VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
       <p><h1 id="VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了"><a href="#VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了" class="headerlink" title="VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了"></a>VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了</h1><p>十分疑惑</p>
 </p>
-      <div class="post-button"><a class="btn" href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/VGA%E9%A9%B1%E5%8A%A8%E5%AE%9E%E9%AA%8C%E7%9A%84%E7%96%91%E6%83%91/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2023/05/381b3eea5f02.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/VGA/">VGA显示器驱动设计及验证</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10</span>
+      <h2 class="title"><a href="/2023/05/f73c69ea1a59.html">VGA显示器驱动设计及验证</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
       <p><h1 id="1-理论部分"><a href="#1-理论部分" class="headerlink" title="1. 理论部分"></a>1. 理论部分</h1><hr>
 <h2 id="1-1-VGA接口"><a href="#1-1-VGA接口" class="headerlink" title="1.1 VGA接口"></a>1.1 VGA接口</h2><p>母头：带孔<br>公头：带针</p>
 <h2 id="1-2-VGA引脚定义"><a href="#1-2-VGA引脚定义" class="headerlink" title="1.2 VGA引脚定义"></a>1.2 VGA引脚定义</h2><p>15个引脚</p>
@@ -160,26 +160,26 @@
 <h2 id="2-2-FPGA信号分析"><a href="#2-2-FPGA信号分析" class="headerlink" title="2.2 FPGA信号分析"></a>2.2 FPGA信号分析</h2><p>图像信号由<strong>FPGA产生16bitRGB像素</strong>，经过权电阻网络进行DA转换后，获得VGA_R、VGA_G、VGA_B 3个模拟信号，模拟信号输入至VGA线。此外，<strong>FPGA还要输出行同步信号VGA_HSYNC和长同步信号VGA_VSYNC来控制图像</strong> </p>
 <h2 id="2-3-程序设计"><a href="#2-3-程序设计" class="headerlink" title="2.3 程序设计"></a>2.3 程序设计</h2><h4 id="2-3-1-VGA时钟信号"><a href="#2-3-1-VGA时钟信号" class="headerlink" title="2.3.1 VGA时钟信号"></a>2.3.1 VGA时钟信号</h4><p>本次实验选择640X480@60显示模式，其时钟为25.175MHz，板子是50MHz，无论是用rtl代码还是PLL，都无法产生，因此选择25MHz来代替25.175MHz，<strong>由于是低频信号，所以不会产生影响</strong></p>
 </p>
-      <div class="post-button"><a class="btn" href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/VGA/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2023/05/f73c69ea1a59.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/Altera%20IP%E6%A0%B8%E7%9A%84%E6%96%87%E4%BB%B6%E5%8B%BE%E9%80%89%E8%AE%BE%E7%BD%AE/">Altera IP核的文件勾选设置</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10</span>
+      <h2 class="title"><a href="/2023/05/83f630eca6a4.html">Altera IP核的文件勾选设置</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
       <p><p>在<strong>最后Summary栏</strong>中，需要</p>
 <ul>
 <li><strong>勾选_inst选项，意思是生成例化模板</strong></li>
 <li><strong>去掉_bb选项</strong></li>
 </ul>
 </p>
-      <div class="post-button"><a class="btn" href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/Altera%20IP%E6%A0%B8%E7%9A%84%E6%96%87%E4%BB%B6%E5%8B%BE%E9%80%89%E8%AE%BE%E7%BD%AE/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2023/05/83f630eca6a4.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/20220922_VGA%E4%BB%A3%E7%A0%81%E7%9A%84%E5%B0%8F%E9%94%99%E8%AF%AF%E5%BC%95%E5%8F%91%E6%98%BE%E7%A4%BA%E5%99%A8%E9%BB%91%E5%B1%8F/">VGA小错误引发显示器黑屏</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10</span>
+      <h2 class="title"><a href="/2023/05/b497eba54b0f.html">VGA小错误引发显示器黑屏</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
       <p><p>#VGA小错误引发显示器黑屏</p>
 <hr>
 <p>##出现的问题及原因<br>在VGA显示字符实验中，显示器直接黑屏，指示灯也橙色，表示无图像，由于复用了colorbar的大部分模块，而pic模块时序没问题，这就非常蛋疼了，后来对比野火代码，才发现是存储器访问的顺序有问题，导致像素点取的顺序有问题。</p>
@@ -196,13 +196,13 @@
 <li>用坐标来赋rgb时，按照的是先深度后宽度的方式赋值，并且注意宽度是从高到低依次赋值，这与存储器赋值时的代码顺序相同，也和图像逐行逐列显示的顺序相同，利用这2点记忆。</li>
 </ul>
 </p>
-      <div class="post-button"><a class="btn" href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/20220922_VGA%E4%BB%A3%E7%A0%81%E7%9A%84%E5%B0%8F%E9%94%99%E8%AF%AF%E5%BC%95%E5%8F%91%E6%98%BE%E7%A4%BA%E5%99%A8%E9%BB%91%E5%B1%8F/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2023/05/b497eba54b0f.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/20220913_HDMI/">HDMI接口</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10</span>
+      <h2 class="title"><a href="/2023/05/c40ff42dbaf6.html">HDMI接口</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
       <p><h1 id="1-HDMI理论"><a href="#1-HDMI理论" class="headerlink" title="1. HDMI理论"></a>1. HDMI理论</h1><hr>
 <h2 id="1-1-HDMI线"><a href="#1-1-HDMI线" class="headerlink" title="1.1 HDMI线"></a>1.1 HDMI线</h2><p>HDMI共有19根线，可分成4类：</p>
 <ul>
@@ -222,26 +222,26 @@
 <li>将10bit并行数据–&gt;差分串行数据</li>
 </ol>
 </p>
-      <div class="post-button"><a class="btn" href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/20220913_HDMI/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2023/05/c40ff42dbaf6.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/20220818_%E7%8A%B6%E6%80%81%E6%9C%BAVerilog/"></a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10</span>
+      <h2 class="title"><a href="/2023/05/478a71418bf0.html"></a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
       <p><hr>
 <h2 id="title：-2段式状态机Verilog"><a href="#title：-2段式状态机Verilog" class="headerlink" title="title： 2段式状态机Verilog"></a>title： 2段式状态机Verilog</h2><h1 id="3段式状态机"><a href="#3段式状态机" class="headerlink" title="3段式状态机"></a>3段式状态机</h1><h2 id="1-1-段落说明"><a href="#1-1-段落说明" class="headerlink" title="1.1 段落说明"></a>1.1 段落说明</h2><p><strong>第一段：</strong><br><strong>时序</strong>逻辑，将中间变量next_state赋值给<strong>state</strong></p>
 <p><strong>第二段：</strong><br><strong>组合</strong>逻辑，进行状态跳转（组合逻辑进行跳转比较符合人的直觉）</p>
 <p><strong>第三段</strong><br><strong>时序</strong>逻辑，在每个状态下对相应的变量进行赋值</p>
 <h2 id="1-2-Verilog代码"><a href="#1-2-Verilog代码" class="headerlink" title="1.2 Verilog代码"></a>1.2 Verilog代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">always@(posedge clk, negedge rst_n)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            state &lt;= 0;</span><br><span class="line">        end </span><br><span class="line">    else</span><br><span class="line">        begin</span><br><span class="line">            state &lt;= next_state;//next_state打一拍得到state</span><br><span class="line">        end </span><br><span class="line"></span><br><span class="line">always@(*)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            next_state = S0; //设置状态机复位时状态为S0</span><br><span class="line">        end</span><br><span class="line">    else</span><br><span class="line">        case(state) //重点，以当前的state为条件</span><br><span class="line">            S0:</span><br><span class="line">                begin</span><br><span class="line">                    if()</span><br><span class="line">                        next_state = S? //改变的是next_state的值</span><br><span class="line">                    else</span><br><span class="line">                        next_state = S?</span><br><span class="line">                end</span><br><span class="line">            S1:</span><br><span class="line">                begin</span><br><span class="line">                    if()</span><br><span class="line">                        next_state = S?</span><br><span class="line">                    else</span><br><span class="line">                        next_state = S?</span><br><span class="line">                end</span><br><span class="line">            S2:</span><br><span class="line">                begin</span><br><span class="line">                    if()</span><br><span class="line">                        next_state = S?</span><br><span class="line">                    else</span><br><span class="line">                        next_state = S?</span><br><span class="line">                end</span><br><span class="line">            ...</span><br><span class="line">            Default:       //别忘了组合逻辑要加default，否则会产生latch！</span><br><span class="line">                next_state = S?</span><br><span class="line">        endcase   //别忘了case-endcase</span><br><span class="line"></span><br><span class="line">always@(posegde clk, negedge rst_n)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            给所有涉及到的变量赋初值</span><br><span class="line">        end</span><br><span class="line">    else</span><br><span class="line">        case(state)</span><br><span class="line">            S0:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            S1:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            S2:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            S3:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            default:</span><br><span class="line">                给对应变量赋值 //这里可以不用加default,因为是时序逻辑，加上更规范</span><br><span class="line">        endcase</span><br><span class="line"></span><br><span class="line">            </span><br></pre></td></tr></table></figure>
 </p>
-      <div class="post-button"><a class="btn" href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/20220818_%E7%8A%B6%E6%80%81%E6%9C%BAVerilog/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2023/05/478a71418bf0.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/20220818_%E5%BC%82%E6%AD%A5%E5%A4%8D%E4%BD%8D_%E5%90%8C%E6%AD%A5%E9%87%8A%E6%94%BE/">异步复位，同步释放</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10</span>
+      <h2 class="title"><a href="/2023/05/9a566da7e87e.html">异步复位，同步释放</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
       <p><h1 id="异步复位，同步释放"><a href="#异步复位，同步释放" class="headerlink" title="异步复位，同步释放"></a>异步复位，同步释放</h1><h2 id="1-1-原因"><a href="#1-1-原因" class="headerlink" title="1.1 原因"></a>1.1 原因</h2><p>异步复位的优点很多，但是问题主要出现在异步复位信号<strong>恢复</strong>的时候，若果此时被时钟沿采集，容易出现<strong>亚稳态</strong>现象，影响系统工作。</p>
 <p><strong>注意，异步复位同步释放后，后续的所有always都是同步复位，且复位信号使用的是打拍后的复位</strong></p>
 <h2 id="1-2-优点"><a href="#1-2-优点" class="headerlink" title="1.2 优点"></a>1.2 优点</h2><ul>
@@ -260,34 +260,34 @@
 
 
 </p>
-      <div class="post-button"><a class="btn" href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/20220818_%E5%BC%82%E6%AD%A5%E5%A4%8D%E4%BD%8D_%E5%90%8C%E6%AD%A5%E9%87%8A%E6%94%BE/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2023/05/9a566da7e87e.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/20220818_inout%E5%9E%8B%E5%8F%98%E9%87%8F%E4%BB%BF%E7%9C%9F%E7%9A%84%E7%94%A8%E6%B3%95/">inout型变量的仿真</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10</span>
+      <h2 class="title"><a href="/2023/05/89ad2d367597.html">inout型变量的仿真</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
       <p><h1 id="inout型变量的仿真"><a href="#inout型变量的仿真" class="headerlink" title="inout型变量的仿真"></a>inout型变量的仿真</h1><h2 id="1-1-原理"><a href="#1-1-原理" class="headerlink" title="1.1 原理"></a>1.1 原理</h2><p>testbench代码中，对inout连续赋值一个reg型变量，记作X</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">assign wire&#123;inout&#125; = reg(x);</span><br><span class="line"></span><br><span class="line">//inout作输入时：</span><br><span class="line">z &lt;= 1&#x27;b1;</span><br><span class="line">x &lt;= 123;    则inout的值就是123</span><br><span class="line"></span><br><span class="line">//inout作输出时：</span><br><span class="line">z &lt;= 1&#x27;b0;</span><br><span class="line">x &lt;= 1&#x27;bz;     //设置为高阻态，表示变量x与inout端口断开连接</span><br></pre></td></tr></table></figure>
 
 <h2 id="1-2-参考资料"><a href="#1-2-参考资料" class="headerlink" title="1.2 参考资料"></a>1.2 参考资料</h2><p><a target="_blank" rel="noopener" href="http://blog.chinaaet.com/xzy610030/p/37525" title="最好的inout变量的仿真解释">inout变量的仿真</a></p>
 </p>
-      <div class="post-button"><a class="btn" href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/20220818_inout%E5%9E%8B%E5%8F%98%E9%87%8F%E4%BB%BF%E7%9C%9F%E7%9A%84%E7%94%A8%E6%B3%95/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2023/05/89ad2d367597.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/20220818_FPGA%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86/">FPGA跨时钟域处理</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10</span>
+      <h2 class="title"><a href="/2023/05/bf3ec6529dd1.html">FPGA跨时钟域处理</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
       <p><h1 id="FPGA跨时钟处理"><a href="#FPGA跨时钟处理" class="headerlink" title="FPGA跨时钟处理"></a>FPGA跨时钟处理</h1><h2 id="1-1-链接"><a href="#1-1-链接" class="headerlink" title="1.1 链接"></a>1.1 链接</h2><p><strong><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17r4y1s7Nn?spm_id_from=333.337.search-card.all.click&vd_source=ebce6585e03af701a1ff6ba2e47f8c8b,%22FPGA%E8%B7%A8%E6%97%B6%E9%92%9F%E5%A4%84%E7%90%86%22">1小时详细_FPGA跨时钟域处理</a></strong></p>
 </p>
-      <div class="post-button"><a class="btn" href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/20220818_FPGA%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2023/05/bf3ec6529dd1.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2023/02/28/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/1_%E5%8D%95%E7%89%87%E6%9C%BA/STM32/20230228_%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93%E6%8C%87%E9%92%88/">STM32结构体和结构体指针</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-02-28</span>
+      <h2 class="title"><a href="/2023/02/51bd37e3ca2a.html">STM32结构体和结构体指针</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-02-28 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/1-%E5%8D%95%E7%89%87%E6%9C%BA/">1_单片机</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/1-%E5%8D%95%E7%89%87%E6%9C%BA/STM32/">STM32</a></span>
       <p><p>#1 结构体</p>
 <h2 id="1-1最基本的结构体"><a href="#1-1最基本的结构体" class="headerlink" title="1.1最基本的结构体"></a>1.1最基本的结构体</h2><p>例如</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct  student&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; ;</span><br></pre></td></tr></table></figure>
@@ -314,7 +314,7 @@
 <p><strong>结构体指针的移动，表示跨越整个结构体变量！！！</strong><br><strong>结构体指针的移动，表示跨越整个结构体变量！！！</strong><br><strong>结构体指针的移动，表示跨越整个结构体变量！！！</strong><br>这样，在stm32中定义寄存器结构体时，定义一个结构体指针，该指针指向结构体的头地址，当指针+1时表示略过整个结构体</p>
 <h2 id="2-2-结构体指针的使用"><a href="#2-2-结构体指针的使用" class="headerlink" title="2.2 结构体指针的使用"></a>2.2 结构体指针的使用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">typedef struct&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; stu;              //定义结构体，改数据类型名为stu</span><br><span class="line"></span><br><span class="line">stu stu1;       // 定义结构体变量stu1</span><br><span class="line">stu *p=stu1     //定义结构体指针指向结构体变量头部</span><br><span class="line">p-&gt;a=1          //将结构体变量stu1的第一个int变量赋值为1</span><br></pre></td></tr></table></figure>
 </p>
-      <div class="post-button"><a class="btn" href="/2023/02/28/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/1_%E5%8D%95%E7%89%87%E6%9C%BA/STM32/20230228_%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93%E6%8C%87%E9%92%88/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2023/02/51bd37e3ca2a.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
 
