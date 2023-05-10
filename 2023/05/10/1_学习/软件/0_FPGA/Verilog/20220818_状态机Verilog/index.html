@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content=#58b77a>
+  <title>陶承的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="陶承">
+  <meta name="keywords" content="none">
+  <meta name="description" content="about learning embedded system">
+  <script id="hexo-configurations">
+  var CONFIG = {
+    root: '/',
+    theme: 'hexo-theme-lx-master',
+    version: '0.4.3',
+    localsearch:{
+      "enable": false,
+      "trigger": "auto",
+      "top_n_per_article": 1,
+      "unescape": false,
+      "preload": false
+      },
+    path: 'null'
+  };
+</script>
+
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/theme-lx@0.4.3/source/dist/css/main.min.css">
+  
+  <style type="text/css">
+    pre,
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+    html {
+      font-family: sans-serif;
+    }
+    body {
+      font-family: sans-serif;
+    }
+    h1, h2, h3, h4, h5, figure {
+      font-family: sans-serif;
+    }
+    .menu-container{
+      font-family: sans-serif;
+    }
+  </style>
+
+  <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+  <script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.jside.menu.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$(".menu-container").jSideMenu({
+	    jSidePosition: "position-right",
+	    jSideSticky: true,
+	    jSideSkin: "",
+	     });
+	}); 
+	</script>
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4/css/font-awesome.min.css">
+<meta name="generator" content="Hexo 6.2.0"></head>
+<body>
+<div class="single">
+
+<div id="page">
+<div class="header">
+  <div id="lx-aside" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/post_cover.min.jpeg)" data-stellar-background-ratio="0.5">
+    <div class="overlay">
+      
+      <div class="page-title">
+        <div class="avatar"><a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"></a></div>
+        <span>2023-05-10</span>
+        <h2></h2>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div id="lx-main-content">
+  <div class="lx-post">
+    <div class="lx-entry padding">
+      <div>
+        <hr>
+<h2 id="title：-2段式状态机Verilog"><a href="#title：-2段式状态机Verilog" class="headerlink" title="title： 2段式状态机Verilog"></a>title： 2段式状态机Verilog</h2><h1 id="3段式状态机"><a href="#3段式状态机" class="headerlink" title="3段式状态机"></a>3段式状态机</h1><h2 id="1-1-段落说明"><a href="#1-1-段落说明" class="headerlink" title="1.1 段落说明"></a>1.1 段落说明</h2><p><strong>第一段：</strong><br><strong>时序</strong>逻辑，将中间变量next_state赋值给<strong>state</strong></p>
+<p><strong>第二段：</strong><br><strong>组合</strong>逻辑，进行状态跳转（组合逻辑进行跳转比较符合人的直觉）</p>
+<p><strong>第三段</strong><br><strong>时序</strong>逻辑，在每个状态下对相应的变量进行赋值</p>
+<h2 id="1-2-Verilog代码"><a href="#1-2-Verilog代码" class="headerlink" title="1.2 Verilog代码"></a>1.2 Verilog代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">always@(posedge clk, negedge rst_n)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            state &lt;= 0;</span><br><span class="line">        end </span><br><span class="line">    else</span><br><span class="line">        begin</span><br><span class="line">            state &lt;= next_state;//next_state打一拍得到state</span><br><span class="line">        end </span><br><span class="line"></span><br><span class="line">always@(*)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            next_state = S0; //设置状态机复位时状态为S0</span><br><span class="line">        end</span><br><span class="line">    else</span><br><span class="line">        case(state) //重点，以当前的state为条件</span><br><span class="line">            S0:</span><br><span class="line">                begin</span><br><span class="line">                    if()</span><br><span class="line">                        next_state = S? //改变的是next_state的值</span><br><span class="line">                    else</span><br><span class="line">                        next_state = S?</span><br><span class="line">                end</span><br><span class="line">            S1:</span><br><span class="line">                begin</span><br><span class="line">                    if()</span><br><span class="line">                        next_state = S?</span><br><span class="line">                    else</span><br><span class="line">                        next_state = S?</span><br><span class="line">                end</span><br><span class="line">            S2:</span><br><span class="line">                begin</span><br><span class="line">                    if()</span><br><span class="line">                        next_state = S?</span><br><span class="line">                    else</span><br><span class="line">                        next_state = S?</span><br><span class="line">                end</span><br><span class="line">            ...</span><br><span class="line">            Default:       //别忘了组合逻辑要加default，否则会产生latch！</span><br><span class="line">                next_state = S?</span><br><span class="line">        endcase   //别忘了case-endcase</span><br><span class="line"></span><br><span class="line">always@(posegde clk, negedge rst_n)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            给所有涉及到的变量赋初值</span><br><span class="line">        end</span><br><span class="line">    else</span><br><span class="line">        case(state)</span><br><span class="line">            S0:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            S1:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            S2:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            S3:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            default:</span><br><span class="line">                给对应变量赋值 //这里可以不用加default,因为是时序逻辑，加上更规范</span><br><span class="line">        endcase</span><br><span class="line"></span><br><span class="line">            </span><br></pre></td></tr></table></figure>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lx-navigation">
+	<div class="lx-cover next lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-l.min.jpeg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/20220913_HDMI/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Next</span>
+						<h3>HDMI接口</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+        <div class="lx-cover prev lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-r.min.jpeg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2023/05/10/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0_FPGA/Verilog/20220818_%E5%BC%82%E6%AD%A5%E5%A4%8D%E4%BD%8D_%E5%90%8C%E6%AD%A5%E9%87%8A%E6%94%BE/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Prev</span>
+						<h3>异步复位，同步释放</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+
+</div>
+
+<footer>
+  <div>
+  Copyright &copy; 2023.<a href="/">陶承的博客</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
+  </div>
+</footer>
+
+</div>
+
+<button class="hamburger hamburger--arrow-r" type="button" title="menu">
+    <div class="hamburger-box">
+      <div class="hamburger-inner"></div>
+    </div>
+</button>
+<div class="menu visibility">
+  <div class="menu-head">
+    <span class="layer">
+      <div class="col">
+        <div class="row for-pic">
+          <div class="profile-pic">
+            <a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"/></a>
+          </div>
+        </div>
+        <div class="row for-name">
+          <p>陶承</p>
+          <span class="tagline">Hello, World!</span>
+        </div>
+      </div>
+    </span>
+  </div>
+  <nav class="menu-container">
+  <ul class="menu-items">
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+    
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
+        <ul>
+          <li><a href="/guestbook/">Guestbook</a></li>
+        <li><a href="/about/">About</a></li>
+        </ul>
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-link fa-fw"></i>Friends</span>
+        <ul>
+          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
+        </ul>
+    </li>
+  </ul>
+  </nav>
+</div>
+
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+</div>
+<script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.easing.min.js"></script>
+<script>
+(function () {
+	"use strict";
+	var goToTop = function() {
+		$(".js-gotop").on("click", function(event){
+			event.preventDefault();
+			$("html, body").animate({
+				scrollTop: $("html").offset().top
+			}, 500, "easeInOutExpo");
+			return false;
+		});
+		$(window).scroll(function(){
+			var $win = $(window);
+			if ($win.scrollTop() > 200) {
+				$(".js-top").addClass("active");
+			} else {
+				$(".js-top").removeClass("active");
+			}
+		});
+	};
+	$(function(){
+		goToTop();
+	});
+}());
+</script>
+
+
+</body>
+</html>

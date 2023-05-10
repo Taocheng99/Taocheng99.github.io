@@ -84,118 +84,100 @@
 
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2022/09/15/Altera%20IP%E6%A0%B8%E7%9A%84%E6%96%87%E4%BB%B6%E5%8B%BE%E9%80%89%E8%AE%BE%E7%BD%AE/">Altera IP核的文件勾选设置</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-09-15</span>
-      <p><p>在<strong>最后Summary栏</strong>中，需要</p>
+      <h2 class="title"><a href="/2023/02/26/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/1_%E5%8D%95%E7%89%87%E6%9C%BA/STM32/20230226_STM32%E5%8D%95%E7%89%87%E6%9C%BA%E7%BD%AE%E4%BD%8D%E6%B8%85%E9%9B%B6%E6%93%8D%E4%BD%9C/">STM32单片机置位清零操作</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-02-26</span>
+      <p><p>#STM32单片机置位清零操作</p>
 <ul>
-<li><strong>勾选_inst选项，意思是生成例化模板</strong></li>
-<li><strong>去掉_bb选项</strong></li>
+<li>置1<br>|&#x3D; (1&lt;&lt;?)<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果32位寄存器，想要改变4位为单位的位置，可以用更直观(1&lt;&lt;(4*k)),k取0表示最低0001，k取1表示0001_xxxx，k取2表示0001_xxxx_xxxx，以此类推</span><br></pre></td></tr></table></figure></li>
+<li>清0<br>&amp;&#x3D; ~(1&lt;&lt;?)</li>
 </ul>
 </p>
-      <div class="post-button"><a class="btn" href="/2022/09/15/Altera%20IP%E6%A0%B8%E7%9A%84%E6%96%87%E4%BB%B6%E5%8B%BE%E9%80%89%E8%AE%BE%E7%BD%AE/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2023/02/26/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/1_%E5%8D%95%E7%89%87%E6%9C%BA/STM32/20230226_STM32%E5%8D%95%E7%89%87%E6%9C%BA%E7%BD%AE%E4%BD%8D%E6%B8%85%E9%9B%B6%E6%93%8D%E4%BD%9C/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2022/09/14/VGA/">VGA显示器驱动设计及验证</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-09-14</span>
-      <p><h1 id="1-理论部分"><a href="#1-理论部分" class="headerlink" title="1. 理论部分"></a>1. 理论部分</h1><hr>
-<h2 id="1-1-VGA接口"><a href="#1-1-VGA接口" class="headerlink" title="1.1 VGA接口"></a>1.1 VGA接口</h2><p>母头：带孔<br>公头：带针</p>
-<h2 id="1-2-VGA引脚定义"><a href="#1-2-VGA引脚定义" class="headerlink" title="1.2 VGA引脚定义"></a>1.2 VGA引脚定义</h2><p>15个引脚</p>
-<h4 id="1-2-1-5个重要管脚"><a href="#1-2-1-5个重要管脚" class="headerlink" title="1.2.1 5个重要管脚"></a>1.2.1 5个重要管脚</h4><p>1、2、3 ：分别为RGB三原色红、绿、蓝（模拟信号）<br>13 ： 行同步 (HSYNC)<br>14 ： 场同步 (VSYNC)</p>
-<p>行同步信号和场同步信号是VGA图像传输时的重要同步信号。</p>
-<p>4、11、15：VGA接口的地址码，连接时可以悬空不接。</p>
-<h2 id="1-3-VGA显示原理"><a href="#1-3-VGA显示原理" class="headerlink" title="1.3 VGA显示原理"></a>1.3 VGA显示原理</h2><p>扫描，将像素点，在行同步信号和场同步信号的同步瞎，从上到下，从左到右顺序扫描到显示屏上：</p>
-<ol>
-<li>一行从左到右，扫完由第一行行尾部转移到第二行行首，开始从左到右，以此类推…</li>
-<li>扫完1帧，从最后一行尾部回到第一行首，重新开始即第二帧。</li>
+      <h2 class="title"><a href="/2022/11/23/0_Project/CommunicateBoard/20221123_%E9%80%9A%E4%BF%A1%E6%9D%BF%E4%B8%8A%E4%BD%8D%E6%9C%BA%E6%8E%A5%E6%94%B6TBUS%E6%97%B6%E6%AF%8F%E5%B8%A7EFLAG%E4%B8%BA1/"></a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-11-23</span>
+      <p><hr>
+<h2 id="title-通信板上位机接收TBUS时每帧EFLAG为1"><a href="#title-通信板上位机接收TBUS时每帧EFLAG为1" class="headerlink" title="title:通信板上位机接收TBUS时每帧EFLAG为1"></a>title:通信板上位机接收TBUS时每帧EFLAG为1</h2><h1 id="通信板上位机接收TBUS时每帧EFLAG为1"><a href="#通信板上位机接收TBUS时每帧EFLAG为1" class="headerlink" title="通信板上位机接收TBUS时每帧EFLAG为1"></a>通信板上位机接收TBUS时每帧EFLAG为1</h1><p>把老板子的TBUS和48V-in接在一起，挂在郭工板子的TBUS上，2者成功通信。通信过程中发现了一个以前从来没有注意到的问题：<br><strong>正常情况下，上位机接收到的数据并不会和TBUS的数据完全一致，头字节会由4变6，或由0变2。</strong><br>比如TBUS发来的是:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">45 88 C3 40 80 E0 40 80 E0 45 88 C3</span><br></pre></td></tr></table></figure>
+<p>上位机（串口助手）显示:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">65 88 C3 60 80 E0 60 80 E0 65 88 C3</span><br></pre></td></tr></table></figure>
+<p>原因在于，TBUS每次通信都是16位，FPGA程序接收时将16位添加上位机协议成24位，并且<strong>EFLAG&#x3D;1</strong>，也就是说，TBUS每16位，上位机对应3个字节，<strong>头字节将会由4(0100)变6(0110，因为EFLAG&#x3D;1)或由0(0000)变2(0010)</strong></p>
+<p>再次实验TBUS发来：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">05 88 C3 00 80 E0 00 80 E0 05 88 C3</span><br></pre></td></tr></table></figure>
+<p>上位机显示:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">25 88 C3 20 80 E0 20 80 E0 25 88 C3</span><br></pre></td></tr></table></figure></p>
+      <div class="post-button"><a class="btn" href="/2022/11/23/0_Project/CommunicateBoard/20221123_%E9%80%9A%E4%BF%A1%E6%9D%BF%E4%B8%8A%E4%BD%8D%E6%9C%BA%E6%8E%A5%E6%94%B6TBUS%E6%97%B6%E6%AF%8F%E5%B8%A7EFLAG%E4%B8%BA1/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/11/13/0_Project/CommunicateBoard/20221113_%E9%80%9A%E4%BF%A1%E6%9D%BF%E8%AE%BE%E8%AE%A1%E5%A4%B1%E8%AF%AF%E7%AC%94%E8%AE%B0/">通信板设计失误笔记</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-11-13</span>
+      <p><p>#通信板设计失误笔记</p>
+<p>##1.设计失误：<br>###1.1 模拟解码电路<br>####1.1.1 运放<br>两路DAC芯片输出没问题，但下一级的低通滤波器中运放构成的的电压跟随器没有负反馈，即<strong>U26和U22各自的1脚和2脚应该相连构成电压跟随器</strong>，好在相邻引脚，<strong>直接用锡焊在一起</strong>就能解决，<strong>PCB需要小改一下</strong>。</p>
+<p>####1.1.2 滑动变阻器<br>滑动变阻器的封装为倒放贴在PCB上的，需要换成立起来的</p>
+<h1 id="老师让将错就错，再直接焊2块？还是一块？"><a href="#老师让将错就错，再直接焊2块？还是一块？" class="headerlink" title="老师让将错就错，再直接焊2块？还是一块？"></a>老师让将错就错，再直接焊2块？还是一块？</h1></p>
+      <div class="post-button"><a class="btn" href="/2022/11/13/0_Project/CommunicateBoard/20221113_%E9%80%9A%E4%BF%A1%E6%9D%BF%E8%AE%BE%E8%AE%A1%E5%A4%B1%E8%AF%AF%E7%AC%94%E8%AE%B0/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/10/25/0_Project/CommunicateBoard/20221025_FPGA%E4%B8%8D%E8%AE%BA%E6%89%8B%E6%90%93%E6%97%B6%E9%92%9F%E8%BF%98%E6%98%AF%E5%BC%95PLL%E7%9A%84%E6%97%B6%E9%92%9F%E8%BF%9E%E7%BA%BF%E6%80%8E%E4%B9%88%E9%83%BD%E6%8A%A5%E9%94%99/">FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-10-25</span>
+      <p><h1 id="FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错"><a href="#FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错" class="headerlink" title="FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错"></a>FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>在给I2C模块赋1M时钟输入的时候，从PLL上引出来再手搓时钟，但是总是报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Place:1138 - Automatic clock placement failed. Please attempt to analyze the global clocking required for this</span><br><span class="line">   design and either lock the clock placement or area locate the logic driven by the clocks so that the clocks may be</span><br><span class="line">   placed in such a way that all logic driven by them may be routed. The main restriction on clock placement is that</span><br><span class="line">   only one clock output signal for any competing Global / Side pair of clocks may enter any region. For further</span><br><span class="line">   information see the &quot;Quadrant Clock Routing&quot; section in the Spartan3a Family Datasheet.</span><br></pre></td></tr></table></figure>
+<p>把时钟模块删掉就好了，折腾了很久，找不出原因</p>
+<h2 id="折腾过程中发现几点需要注意的地方："><a href="#折腾过程中发现几点需要注意的地方：" class="headerlink" title="折腾过程中发现几点需要注意的地方："></a>折腾过程中发现几点需要注意的地方：</h2><ol>
+<li>外部时钟进入后，如果经过了PLL，就不能再从输入的时钟上取时钟了，只能从PLL的输出上取，ISE的DCM中有CLK_0和CLK_IBUFG_OUT这两个输出可以。</li>
 </ol>
-<h2 id="1-4-VGA时序标准"><a href="#1-4-VGA时序标准" class="headerlink" title="1.4 VGA时序标准"></a>1.4 VGA时序标准</h2><p>以VESA VGA视频标准为例</p>
-<p>分别从行同步时序和场同步时序进行 </p>
-<h2 id="1-5-行扫描"><a href="#1-5-行扫描" class="headerlink" title="1.5 行扫描"></a>1.5 行扫描</h2><p>从第1个行同步脉冲到第2个之间为一个行扫描周期，<br>一个行扫描周期有6个阶段，顺次为：</p>
-<ol>
-<li>同步<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">行同步信号只有在同步阶段才保持高电平，其余阶段为低电平，行同步信号为一个周期性的信号（有的标准行同步信号反着来，需要注意）</span><br></pre></td></tr></table></figure></li>
-<li>后沿</li>
-<li>做边框</li>
-<li>有效图像</li>
-<li>有边框</li>
-<li>前沿</li>
-</ol>
-<p>其中，有效图像为行的像素点，其余5个阶段是起同步作用</p>
-<h2 id="1-6-场扫描"><a href="#1-6-场扫描" class="headerlink" title="1.6 场扫描"></a>1.6 场扫描</h2><p>类似的，也分为6个阶段</p>
-<ol>
-<li>同步<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">场同步信号只有在同步阶段才保持高电平，其余阶段为低电平，场同步信号为一个周期性的信号（有的标准行同步信号反着来，需要注意）</span><br></pre></td></tr></table></figure></li>
-<li>后沿</li>
-<li>上边框</li>
-<li>有效图像</li>
-<li>底边框</li>
-<li>前沿</li>
-</ol>
-<p>与行扫描不同在于，行扫描的6个阶段是以像素点为单位，而场扫描以行为单位</p>
-<p>一帧图像要在行扫描与场扫描共同作用下显示，只有在<strong>行扫描的有效图像</strong>阶段和<strong>场扫描的有效图像</strong>阶段，图像信息才是有效的，<strong>其他阶段则是对图像信号进行同步和消影</strong>。<br><strong>每完成一次场扫描周期，就完成了一帧图像显示。</strong></p>
-<h2 id="1-7-VGA显示模式及相关参数"><a href="#1-7-VGA显示模式及相关参数" class="headerlink" title="1.7 VGA显示模式及相关参数"></a>1.7 VGA显示模式及相关参数</h2><p>行扫描和场扫描各有6个阶段，每个阶段都有特定的参数，很重要。</p>
-<p>不同显示模式（分辨率，帧率），对应不同阶段的参数不一样。</p>
-<p><strong>行同步信号单位：像素点</strong><br><strong>场同步信号单位：行数</strong></p>
-<p>如<strong>640X480@60</strong></p>
-<ul>
-<li><p><strong>640</strong>：在一个行扫描周期中，有效显示图像每一行有640个像素点，即在行扫描的<strong>有效图像阶段</strong>，有<strong>640个像素点</strong>。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>因为为了调试方便，我把产生的I2C时钟输出为外部接口，仅仅去掉这个外部接口，就好了，一定程度上说明FPGA不能把时钟用来输出</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/10/25/0_Project/CommunicateBoard/20221025_FPGA%E4%B8%8D%E8%AE%BA%E6%89%8B%E6%90%93%E6%97%B6%E9%92%9F%E8%BF%98%E6%98%AF%E5%BC%95PLL%E7%9A%84%E6%97%B6%E9%92%9F%E8%BF%9E%E7%BA%BF%E6%80%8E%E4%B9%88%E9%83%BD%E6%8A%A5%E9%94%99/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/10/21/0_Project/CommunicateBoard/20211021_%E9%80%9A%E4%BF%A1%E6%9D%BF3%E8%B0%83%E8%AF%95/">通信板3调试</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-10-21</span>
+      <p><h1 id="通信板3调试"><a href="#通信板3调试" class="headerlink" title="通信板3调试"></a>通信板3调试</h1><h2 id="1-RS485"><a href="#1-RS485" class="headerlink" title="1. RS485"></a>1. RS485</h2><p>485走FPGA，在FPGA内将输入输出连通后，接485盒子做回环测试，波特率115200 发送2W个字节，成功接收到10W个字节，发送数&#x3D;接收数。</p>
+<p>但是波形很垃圾，印象中以前的波形是很干净的，方方正正有棱有角</p>
+<h2 id="2-TBUS"><a href="#2-TBUS" class="headerlink" title="2. TBUS"></a>2. TBUS</h2><p>一开始，关闭TBUS的时候，电压下降得很慢，并且会维持在10V，MOS的S和G都是10V，确实关断了，所以我怀疑是门极驱动给的G和S电压没有降下去。<br>后来李老师让加个1K负载试一下，因为是接了82uF的电容的，接上后发现开关非常丝滑，秒开秒关。<br>推测是因为没有负载接入的情况下，相当于开路，自举电容的电压放电很慢，因为RC系数非常大，接了负载后有了更快的放电通路，所以能正常关闭了</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/10/21/0_Project/CommunicateBoard/20211021_%E9%80%9A%E4%BF%A1%E6%9D%BF3%E8%B0%83%E8%AF%95/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/10/21/0_Project/CommunicateBoard/20221021_ISE%E6%89%BE%E4%B8%8D%E5%88%B0%E4%B8%8B%E8%BD%BD%E5%99%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">ISE找不到下载器的解决办法</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-10-21</span>
+      <p><h1 id="ISE找不到下载器的解决办法"><a href="#ISE找不到下载器的解决办法" class="headerlink" title="ISE找不到下载器的解决办法"></a>ISE找不到下载器的解决办法</h1><p><strong>现象</strong><br>如果从桌面图标点开的ISE，impact会提示找不到下载器<br>直接点击communication0826项目的工程文件打开ISE，就能正常下载</p>
+<p><strong>原因</strong></p>
+<p>和ISE与电脑的位数有关，32位的ISE只能用32位的电脑才能识别下载器，64位同理</p>
+<p>取自：<a target="_blank" rel="noopener" href="https://support.xilinx.com/s/article/30184?language=en_US">https://support.xilinx.com/s/article/30184?language=en_US</a> 的solution3</p>
+</p>
+      <div class="post-button"><a class="btn" href="/2022/10/21/0_Project/CommunicateBoard/20221021_ISE%E6%89%BE%E4%B8%8D%E5%88%B0%E4%B8%8B%E8%BD%BD%E5%99%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+    </div>
+  </div>
+  <div class="lx-entry padding">
+    <div>
+      <h2 class="title"><a href="/2022/10/21/3_%E5%8A%9E%E4%BA%8B%E6%B5%81%E7%A8%8B/20221021_%E7%94%B5%E5%AD%90%E7%A7%91%E5%A4%A7%E5%8F%91%E7%A5%A8%E6%8A%A5%E9%94%80%E6%B5%81%E7%A8%8B/">电子科大发票报销流程</a></h2>
+      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-10-21</span>
+      <p><h1 id="发票报销流程"><a href="#发票报销流程" class="headerlink" title="发票报销流程"></a>发票报销流程</h1><ol>
+<li><p>纸质发票：网上服务大厅——&gt;研究生快速通道中的财务信息综合门户——&gt;左侧网上预约报账——&gt;左侧报销单管理——&gt;左下方申请报销单——&gt;已阅读并同意——&gt;填老师给的报销项目号、自己的电话、附件张数（需要报销的发票的张数）、选择支付方式（自己买的就选个人转卡，别人买的选转账汇款）、点击确定是否发送短信、退单地点：主楼B2区2楼——&gt;下一步，然后照着做</p>
 </li>
-<li><p><strong>480</strong>：<strong>一个场扫描周期，有480行</strong></p>
+<li><p>电子发票：网上服务大厅——&gt;财务信息综合门户——&gt;右上方智能报销</p>
 </li>
-</ul>
-<p>640X480≈30W个像素点</p>
-<ul>
-<li><strong>60</strong>：<strong>每s刷新图像60次，即每s显示60帧图像</strong></li>
-</ul>
-<h4 id="1-7-1-行同步信号参数："><a href="#1-7-1-行同步信号参数：" class="headerlink" title="1.7.1 行同步信号参数："></a>1.7.1 行同步信号参数：</h4><p>时钟（MHz）参数：即像素时钟，每个时钟周期完成1个像素点的扫描，计算方式为：</p>
-<blockquote>
-<p><strong>时钟&#x3D;行扫描周期X场扫描周期X帧率</strong></p>
-<blockquote>
-<p>很好理解，行扫描周期X场扫描周期表示每1帧的像素点，再乘上帧率表示每秒一共多少个像素点，而一个像素点需要花费一个时钟周期，因此，结果就为时钟频率</p>
-</blockquote>
-</blockquote>
-<p>如同步为96，表示一个同步阶段需要96个时钟周期，保持96时钟高电平，其余时间为低电平；有效图像阶段为640，表示该阶段要640个时钟周期</p>
-<h4 id="1-7-2-场同步信号参数："><a href="#1-7-2-场同步信号参数：" class="headerlink" title="1.7.2 场同步信号参数："></a>1.7.2 场同步信号参数：</h4><p>单位为<strong>行</strong>，比如同步为2，表示同步阶段为2个行扫描时钟周期为高电平，其余时间为低电平；有效图像为480，表示有效图像阶段需要花费480个行扫描周期。</p>
-<h1 id="2-实战部分"><a href="#2-实战部分" class="headerlink" title="2.实战部分"></a>2.实战部分</h1><hr>
-<h2 id="2-1-硬件"><a href="#2-1-硬件" class="headerlink" title="2.1 硬件"></a>2.1 硬件</h2><h4 id="2-1-1-VGA接口电压标准"><a href="#2-1-1-VGA接口电压标准" class="headerlink" title="2.1.1 VGA接口电压标准"></a>2.1.1 VGA接口电压标准</h4><p>VGA为模拟信号，电压范围为<strong>0~0.714V</strong>，<strong>0V表示无色，0.714V表示满色</strong></p>
-<h4 id="2-1-1-AD转换"><a href="#2-1-1-AD转换" class="headerlink" title="2.1.1 AD转换"></a>2.1.1 AD转换</h4><p>FPGA输出为数字信号，而<strong>VGA接收的是模拟信号</strong>，需要进行转换，通常，使用<strong>AD7123</strong>是最稳定的，但是处于成本考虑，征途开发版使用了<strong>权电阻网络进行AD转换</strong></p>
-<h4 id="2-1-2-协议选择"><a href="#2-1-2-协议选择" class="headerlink" title="2.1.2 协议选择"></a>2.1.2 协议选择</h4><p>使用<strong>RGB565</strong>协议，即一个RGB像素，由16bit构成，高5bit为红色，中间6bit为绿色，低5bit为蓝色，因此权电阻网络需要根据上述来分配相应电阻</p>
-<p>此外，还有<strong>RGB332（即8bit）</strong> <strong>RGB888（即24bit）</strong>，位宽越多，显示越细腻</p>
-<h2 id="2-2-FPGA信号分析"><a href="#2-2-FPGA信号分析" class="headerlink" title="2.2 FPGA信号分析"></a>2.2 FPGA信号分析</h2><p>图像信号由<strong>FPGA产生16bitRGB像素</strong>，经过权电阻网络进行DA转换后，获得VGA_R、VGA_G、VGA_B 3个模拟信号，模拟信号输入至VGA线。此外，<strong>FPGA还要输出行同步信号VGA_HSYNC和长同步信号VGA_VSYNC来控制图像</strong> </p>
-<h2 id="2-3-程序设计"><a href="#2-3-程序设计" class="headerlink" title="2.3 程序设计"></a>2.3 程序设计</h2><h4 id="2-3-1-VGA时钟信号"><a href="#2-3-1-VGA时钟信号" class="headerlink" title="2.3.1 VGA时钟信号"></a>2.3.1 VGA时钟信号</h4><p>本次实验选择640X480@60显示模式，其时钟为25.175MHz，板子是50MHz，无论是用rtl代码还是PLL，都无法产生，因此选择25MHz来代替25.175MHz，<strong>由于是低频信号，所以不会产生影响</strong></p>
-</p>
-      <div class="post-button"><a class="btn" href="/2022/09/14/VGA/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2022/09/13/20220913_HDMI/">HDMI接口</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-09-13</span>
-      <p><h1 id="1-HDMI理论"><a href="#1-HDMI理论" class="headerlink" title="1. HDMI理论"></a>1. HDMI理论</h1><hr>
-<h2 id="1-1-HDMI线"><a href="#1-1-HDMI线" class="headerlink" title="1.1 HDMI线"></a>1.1 HDMI线</h2><p>HDMI共有19根线，可分成4类：</p>
-<ul>
-<li>TMDS<code> 一种技术</code></li>
-<li>DDC<code>显示模式相关信息通道，使用I2C接口，可以读取设备的产品信息</code></li>
-<li>CEC<code>预留，可不使用</code></li>
-<li>?</li>
-</ul>
-<p>19根中，有4对最重要：</p>
-<ul>
-<li>3对差分数据线（1 3、4 6、7 9、10 12）</li>
-<li>1对差分时钟线（10 12）</li>
-</ul>
-<h1 id="1-2-TMDS传输原理"><a href="#1-2-TMDS传输原理" class="headerlink" title="1.2 TMDS传输原理"></a>1.2 TMDS传输原理</h1><p>R、G、B三重图像数据各自独立，各自完成：</p>
-<ol>
-<li>8bit–&gt;10bit  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">其中第9位指示编码类型，第10位是根据前9位决定，目的</span><br><span class="line">是保证直流均衡，提高信号可靠性</span><br></pre></td></tr></table></figure></li>
-<li>将10bit并行数据–&gt;差分串行数据</li>
 </ol>
 </p>
-      <div class="post-button"><a class="btn" href="/2022/09/13/20220913_HDMI/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2022/10/21/3_%E5%8A%9E%E4%BA%8B%E6%B5%81%E7%A8%8B/20221021_%E7%94%B5%E5%AD%90%E7%A7%91%E5%A4%A7%E5%8F%91%E7%A5%A8%E6%8A%A5%E9%94%80%E6%B5%81%E7%A8%8B/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2022/09/07/20220907github%E6%8A%80%E5%B7%A7/">github技巧</a></h2>
+      <h2 class="title"><a href="/2022/09/07/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/3_Github/20220907github%E6%8A%80%E5%B7%A7/">github技巧</a></h2>
       <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-09-07</span>
       <p><h1 id="github技巧"><a href="#github技巧" class="headerlink" title="github技巧"></a>github技巧</h1><h2 id="1-找资源"><a href="#1-找资源" class="headerlink" title="1. 找资源"></a>1. 找资源</h2><ul>
 <li>找百科大全   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awesome xxx</span><br></pre></td></tr></table></figure></li>
@@ -219,81 +201,22 @@
 <li>issue表示向作者提出待解决的问题</li>
 </ul>
 </p>
-      <div class="post-button"><a class="btn" href="/2022/09/07/20220907github%E6%8A%80%E5%B7%A7/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2022/09/07/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/3_Github/20220907github%E6%8A%80%E5%B7%A7/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2022/08/30/matlab%E4%B8%AD%E7%9F%A9%E9%98%B5%EF%BC%88%E6%88%96%E5%90%91%E9%87%8F%EF%BC%89+%E5%B8%B8%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97/">matlab中矩阵（或向量）+常数的运算</a></h2>
+      <h2 class="title"><a href="/2022/08/30/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/2_Matlab/matlab%E4%B8%AD%E7%9F%A9%E9%98%B5%EF%BC%88%E6%88%96%E5%90%91%E9%87%8F%EF%BC%89+%E5%B8%B8%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97/">matlab中矩阵（或向量）+常数的运算</a></h2>
       <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-08-30</span>
       <p><h1 id="matlab中矩阵（或向量）-常数的运算"><a href="#matlab中矩阵（或向量）-常数的运算" class="headerlink" title="matlab中矩阵（或向量）+常数的运算"></a>matlab中矩阵（或向量）+常数的运算</h1><h2 id="1-1-运算结果"><a href="#1-1-运算结果" class="headerlink" title="1.1 运算结果"></a>1.1 运算结果</h2><p>相当于矩阵+<strong>维度相同</strong>且<strong>所有元素都为该常数</strong>的<strong>矩阵</strong><br>（而非常数倍的单位矩阵）</p>
 <h2 id="1-2-参考资料"><a href="#1-2-参考资料" class="headerlink" title="1.2 参考资料"></a>1.2 参考资料</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qwe900/article/details/106783607/">matlab矩阵和常数相加？居然不是和单位矩阵相加</a></p>
 </p>
-      <div class="post-button"><a class="btn" href="/2022/08/30/matlab%E4%B8%AD%E7%9F%A9%E9%98%B5%EF%BC%88%E6%88%96%E5%90%91%E9%87%8F%EF%BC%89+%E5%B8%B8%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2022/08/30/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/2_Matlab/matlab%E4%B8%AD%E7%9F%A9%E9%98%B5%EF%BC%88%E6%88%96%E5%90%91%E9%87%8F%EF%BC%89+%E5%B8%B8%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
   <div class="lx-entry padding">
     <div>
-      <h2 class="title"><a href="/2022/08/18/20220818_FPGA%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86/">FPGA跨时钟域处理</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-08-18</span>
-      <p><h1 id="FPGA跨时钟处理"><a href="#FPGA跨时钟处理" class="headerlink" title="FPGA跨时钟处理"></a>FPGA跨时钟处理</h1><h2 id="1-1-链接"><a href="#1-1-链接" class="headerlink" title="1.1 链接"></a>1.1 链接</h2><p><strong><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17r4y1s7Nn?spm_id_from=333.337.search-card.all.click&vd_source=ebce6585e03af701a1ff6ba2e47f8c8b,%22FPGA%E8%B7%A8%E6%97%B6%E9%92%9F%E5%A4%84%E7%90%86%22">1小时详细_FPGA跨时钟域处理</a></strong></p>
-</p>
-      <div class="post-button"><a class="btn" href="/2022/08/18/20220818_FPGA%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2022/08/18/20220818_inout%E5%9E%8B%E5%8F%98%E9%87%8F%E4%BB%BF%E7%9C%9F%E7%9A%84%E7%94%A8%E6%B3%95/">inout型变量的仿真</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-08-18</span>
-      <p><h1 id="inout型变量的仿真"><a href="#inout型变量的仿真" class="headerlink" title="inout型变量的仿真"></a>inout型变量的仿真</h1><h2 id="1-1-原理"><a href="#1-1-原理" class="headerlink" title="1.1 原理"></a>1.1 原理</h2><p>testbench代码中，对inout连续赋值一个reg型变量，记作X</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">assign wire&#123;inout&#125; = reg(x);</span><br><span class="line"></span><br><span class="line">//inout作输入时：</span><br><span class="line">z &lt;= 1&#x27;b1;</span><br><span class="line">x &lt;= 123;    则inout的值就是123</span><br><span class="line"></span><br><span class="line">//inout作输出时：</span><br><span class="line">z &lt;= 1&#x27;b0;</span><br><span class="line">x &lt;= 1&#x27;bz;     //设置为高阻态，表示变量x与inout端口断开连接</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-2-参考资料"><a href="#1-2-参考资料" class="headerlink" title="1.2 参考资料"></a>1.2 参考资料</h2><p><a target="_blank" rel="noopener" href="http://blog.chinaaet.com/xzy610030/p/37525" title="最好的inout变量的仿真解释">inout变量的仿真</a></p>
-</p>
-      <div class="post-button"><a class="btn" href="/2022/08/18/20220818_inout%E5%9E%8B%E5%8F%98%E9%87%8F%E4%BB%BF%E7%9C%9F%E7%9A%84%E7%94%A8%E6%B3%95/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2022/08/17/20220818_%E7%8A%B6%E6%80%81%E6%9C%BAVerilog/"></a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-08-17</span>
-      <p><hr>
-<h2 id="title：-2段式状态机Verilog"><a href="#title：-2段式状态机Verilog" class="headerlink" title="title： 2段式状态机Verilog"></a>title： 2段式状态机Verilog</h2><h1 id="3段式状态机"><a href="#3段式状态机" class="headerlink" title="3段式状态机"></a>3段式状态机</h1><h2 id="1-1-段落说明"><a href="#1-1-段落说明" class="headerlink" title="1.1 段落说明"></a>1.1 段落说明</h2><p><strong>第一段：</strong><br><strong>时序</strong>逻辑，将中间变量next_state赋值给<strong>state</strong></p>
-<p><strong>第二段：</strong><br><strong>组合</strong>逻辑，进行状态跳转（组合逻辑进行跳转比较符合人的直觉）</p>
-<p><strong>第三段</strong><br><strong>时序</strong>逻辑，在每个状态下对相应的变量进行赋值</p>
-<h2 id="1-2-Verilog代码"><a href="#1-2-Verilog代码" class="headerlink" title="1.2 Verilog代码"></a>1.2 Verilog代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">always@(posedge clk, negedge rst_n)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            state &lt;= 0;</span><br><span class="line">        end </span><br><span class="line">    else</span><br><span class="line">        begin</span><br><span class="line">            state &lt;= next_state;//next_state打一拍得到state</span><br><span class="line">        end </span><br><span class="line"></span><br><span class="line">always@(*)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            next_state = S0; //设置状态机复位时状态为S0</span><br><span class="line">        end</span><br><span class="line">    else</span><br><span class="line">        case(state) //重点，以当前的state为条件</span><br><span class="line">            S0:</span><br><span class="line">                begin</span><br><span class="line">                    if()</span><br><span class="line">                        next_state = S? //改变的是next_state的值</span><br><span class="line">                    else</span><br><span class="line">                        next_state = S?</span><br><span class="line">                end</span><br><span class="line">            S1:</span><br><span class="line">                begin</span><br><span class="line">                    if()</span><br><span class="line">                        next_state = S?</span><br><span class="line">                    else</span><br><span class="line">                        next_state = S?</span><br><span class="line">                end</span><br><span class="line">            S2:</span><br><span class="line">                begin</span><br><span class="line">                    if()</span><br><span class="line">                        next_state = S?</span><br><span class="line">                    else</span><br><span class="line">                        next_state = S?</span><br><span class="line">                end</span><br><span class="line">            ...</span><br><span class="line">            Default:       //别忘了组合逻辑要加default，否则会产生latch！</span><br><span class="line">                next_state = S?</span><br><span class="line">        endcase   //别忘了case-endcase</span><br><span class="line"></span><br><span class="line">always@(posegde clk, negedge rst_n)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            给所有涉及到的变量赋初值</span><br><span class="line">        end</span><br><span class="line">    else</span><br><span class="line">        case(state)</span><br><span class="line">            S0:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            S1:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            S2:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            S3:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            default:</span><br><span class="line">                给对应变量赋值 //这里可以不用加default,因为是时序逻辑，加上更规范</span><br><span class="line">        endcase</span><br><span class="line"></span><br><span class="line">            </span><br></pre></td></tr></table></figure>
-</p>
-      <div class="post-button"><a class="btn" href="/2022/08/17/20220818_%E7%8A%B6%E6%80%81%E6%9C%BAVerilog/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2022/08/17/20220818_%E5%BC%82%E6%AD%A5%E5%A4%8D%E4%BD%8D_%E5%90%8C%E6%AD%A5%E9%87%8A%E6%94%BE/">异步复位，同步释放</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-08-17</span>
-      <p><h1 id="异步复位，同步释放"><a href="#异步复位，同步释放" class="headerlink" title="异步复位，同步释放"></a>异步复位，同步释放</h1><h2 id="1-1-原因"><a href="#1-1-原因" class="headerlink" title="1.1 原因"></a>1.1 原因</h2><p>异步复位的优点很多，但是问题主要出现在异步复位信号<strong>恢复</strong>的时候，若果此时被时钟沿采集，容易出现<strong>亚稳态</strong>现象，影响系统工作。</p>
-<p><strong>注意，异步复位同步释放后，后续的所有always都是同步复位，且复位信号使用的是打拍后的复位</strong></p>
-<h2 id="1-2-优点"><a href="#1-2-优点" class="headerlink" title="1.2 优点"></a>1.2 优点</h2><ul>
-<li>避免复位信号释放时的亚稳态问题</li>
-<li>只要信号一有效，电路就复位，与时钟沿无关（废话，因为是<strong>异步</strong>复位）</li>
-<li>有效捕捉复位，即使是短脉冲复位也不会丢失</li>
-<li>有<strong>明确的的复位撤销行为</strong>。复位的撤离是同步信号，因此有量好的撤离时序和足够的<br>恢复时间</li>
-</ul>
-<h2 id="1-3-详情见"><a href="#1-3-详情见" class="headerlink" title="1.3 详情见"></a>1.3 详情见</h2><h2 id="1-4-Verilog代码"><a href="#1-4-Verilog代码" class="headerlink" title="1.4 Verilog代码"></a>1.4 Verilog代码</h2><p>标准版本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">module xxx(</span><br><span class="line">    input wire rst_n,</span><br><span class="line">    output reg async_n</span><br><span class="line">);</span><br><span class="line">reg rst_reg;</span><br><span class="line"></span><br><span class="line">always@(posedge clk, negedge rst_n)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            rst_reg &lt;= 1&#x27;b0;</span><br><span class="line">        end</span><br><span class="line">    else</span><br><span class="line">        begin</span><br><span class="line">            rst_reg &lt;= 1&#x27;b1; //这里注意复位信号给了一个确定的值，能不能就写成rst_reg &lt;= rst_n 呢？感觉不能</span><br><span class="line">        end</span><br><span class="line"></span><br><span class="line">always@(posedge clk , negedge rst_n)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            async_n &lt;= 1&#x27;b0;</span><br><span class="line">        end</span><br><span class="line">    else</span><br><span class="line">        begin</span><br><span class="line">            async_n &lt;= rst_reg; // 输入复位信号释放的时候，输出的复位信号是中间寄存器的下一级</span><br><span class="line">        end</span><br><span class="line"></span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
-<p>简化版本，1个always</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">module xxx(</span><br><span class="line">input wire rst_n,</span><br><span class="line">output reg rst_reg2</span><br><span class="line">);</span><br><span class="line">reg rst_reg1;</span><br><span class="line">always@(posedge clk, negedge rst_n)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            rst_reg1 &lt;= 1&#x27;b0;</span><br><span class="line">            rst_reg2 &lt;= 1&#x27;b0;</span><br><span class="line">        end</span><br><span class="line">    else</span><br><span class="line">        begin</span><br><span class="line">            rst_reg1 &lt;= 1&#x27;b1;</span><br><span class="line">            rst_reg2 &lt;= rst_reg1;   //一步到位</span><br><span class="line">        end</span><br><span class="line"></span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-</p>
-      <div class="post-button"><a class="btn" href="/2022/08/17/20220818_%E5%BC%82%E6%AD%A5%E5%A4%8D%E4%BD%8D_%E5%90%8C%E6%AD%A5%E9%87%8A%E6%94%BE/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2022/07/28/2022_07_28_%E5%B8%AE%E8%9D%88%E8%9D%88%E6%B5%8B%E8%AF%95%E9%80%9A%E4%BF%A1%E6%9D%BF/">communicateboard test</a></h2>
+      <h2 class="title"><a href="/2022/07/28/0_Project/CommunicateBoard/2022_07_28_%E5%B8%AE%E8%9D%88%E8%9D%88%E6%B5%8B%E8%AF%95%E9%80%9A%E4%BF%A1%E6%9D%BF/">communicateboard test</a></h2>
       <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-07-28</span>
       <p><h1 id="1-USB转RS485"><a href="#1-USB转RS485" class="headerlink" title="1. USB转RS485"></a>1. USB转RS485</h1><h2 id="1-1USB转485"><a href="#1-1USB转485" class="headerlink" title="1.1USB转485"></a>1.1USB转485</h2><p><strong>正常</strong>，发送<code>40 94 E8 40 80 C2 4F AB D5</code>，示波器观察波形一致，且符合485电平标准</p>
 <h2 id="1-2-板子与485盒子通信"><a href="#1-2-板子与485盒子通信" class="headerlink" title="1.2 板子与485盒子通信"></a>1.2 板子与485盒子通信</h2><h3 id="1-2-1-板子485发送"><a href="#1-2-1-板子485发送" class="headerlink" title="1.2.1 板子485发送"></a>1.2.1 板子485发送</h3><p><strong>正常</strong>，发送<code>40 94 E8 40 80 C2 4F AB D5</code>，用485盒子接收到相同内容，发送周期10ms，发送65943条，接收到65943条</p>
@@ -365,7 +288,7 @@
 </blockquote>
 <p>按照上位机手册的指导下，进行配置并编译下载，<strong>完成后要重启USB芯片，即拔掉USB再插上</strong></p>
 <h1 id="破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来"><a href="#破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来" class="headerlink" title="破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来"></a>破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来</h1></p>
-      <div class="post-button"><a class="btn" href="/2022/07/28/2022_07_28_%E5%B8%AE%E8%9D%88%E8%9D%88%E6%B5%8B%E8%AF%95%E9%80%9A%E4%BF%A1%E6%9D%BF/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
+      <div class="post-button"><a class="btn" href="/2022/07/28/0_Project/CommunicateBoard/2022_07_28_%E5%B8%AE%E8%9D%88%E8%9D%88%E6%B5%8B%E8%AF%95%E9%80%9A%E4%BF%A1%E6%9D%BF/" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
     </div>
   </div>
 

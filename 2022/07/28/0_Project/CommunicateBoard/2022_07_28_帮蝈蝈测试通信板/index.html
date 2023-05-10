@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content=#58b77a>
+  <title>communicateboard test | 陶承的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="陶承">
+  <meta name="keywords" content="none">
+  <meta name="description" content="about learning embedded system">
+  <script id="hexo-configurations">
+  var CONFIG = {
+    root: '/',
+    theme: 'hexo-theme-lx-master',
+    version: '0.4.3',
+    localsearch:{
+      "enable": false,
+      "trigger": "auto",
+      "top_n_per_article": 1,
+      "unescape": false,
+      "preload": false
+      },
+    path: 'null'
+  };
+</script>
+
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/theme-lx@0.4.3/source/dist/css/main.min.css">
+  
+  <style type="text/css">
+    pre,
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+    html {
+      font-family: sans-serif;
+    }
+    body {
+      font-family: sans-serif;
+    }
+    h1, h2, h3, h4, h5, figure {
+      font-family: sans-serif;
+    }
+    .menu-container{
+      font-family: sans-serif;
+    }
+  </style>
+
+  <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+  <script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.jside.menu.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$(".menu-container").jSideMenu({
+	    jSidePosition: "position-right",
+	    jSideSticky: true,
+	    jSideSkin: "",
+	     });
+	}); 
+	</script>
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4/css/font-awesome.min.css">
+<meta name="generator" content="Hexo 6.2.0"></head>
+<body>
+<div class="single">
+
+<div id="page">
+<div class="header">
+  <div id="lx-aside" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/post_cover.min.jpeg)" data-stellar-background-ratio="0.5">
+    <div class="overlay">
+      
+      <div class="page-title">
+        <div class="avatar"><a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"></a></div>
+        <span>2022-07-28</span>
+        <h2>communicateb...</h2>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div id="lx-main-content">
+  <div class="lx-post">
+    <div class="lx-entry padding">
+      <div>
+        <h1 id="1-USB转RS485"><a href="#1-USB转RS485" class="headerlink" title="1. USB转RS485"></a>1. USB转RS485</h1><h2 id="1-1USB转485"><a href="#1-1USB转485" class="headerlink" title="1.1USB转485"></a>1.1USB转485</h2><p><strong>正常</strong>，发送<code>40 94 E8 40 80 C2 4F AB D5</code>，示波器观察波形一致，且符合485电平标准</p>
+<h2 id="1-2-板子与485盒子通信"><a href="#1-2-板子与485盒子通信" class="headerlink" title="1.2 板子与485盒子通信"></a>1.2 板子与485盒子通信</h2><h3 id="1-2-1-板子485发送"><a href="#1-2-1-板子485发送" class="headerlink" title="1.2.1 板子485发送"></a>1.2.1 板子485发送</h3><p><strong>正常</strong>，发送<code>40 94 E8 40 80 C2 4F AB D5</code>，用485盒子接收到相同内容，发送周期10ms，发送65943条，接收到65943条</p>
+<h3 id="1-2-2-板子485接收"><a href="#1-2-2-板子485接收" class="headerlink" title="1.2.2 板子485接收"></a>1.2.2 板子485接收</h3><p><strong>不正常</strong>，115200波特率下，用了2个485盒子对接能通信，说明盒子是没问题的，但是任意一个盒子和板子通信，板子发盒子能收到，盒子发板子却不能收到，测了下波形：</p>
+<ul>
+<li>板子发出的正电平2.7V，负电平-2.7V。</li>
+<li>大盒子发出的正电平880mV，负电平-2.7V</li>
+<li>小盒子发出正电平5V，负电平-5V</li>
+</ul>
+<h3 id="1-2-3-板子与板子通信"><a href="#1-2-3-板子与板子通信" class="headerlink" title="1.2.3 板子与板子通信"></a>1.2.3 板子与板子通信</h3><p>给的板子（X）和第一块板子（Y）485通信，X发出Y能收到，且发多少收多少，但Y发出X收不到</p>
+<blockquote>
+<p>两个板子的输出485差分信号是一模一样的，应该是X的接收某处有问题</p>
+</blockquote>
+<h3 id="1-2-4-两块板子的接收路径测试"><a href="#1-2-4-两块板子的接收路径测试" class="headerlink" title="1.2.4 两块板子的接收路径测试"></a>1.2.4 两块板子的接收路径测试</h3><blockquote>
+<p>测试在板子485互相连接下进行<br>在正常情况下，AB连接时的电压会比开路时的电压小小一丢丢，不影响使用</p>
+</blockquote>
+<p>Y发X收：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="center">485差分</th>
+<th align="center">R<del>差分</del>两端电压</th>
+<th align="center">芯片AB差分电压</th>
+<th align="center">芯片A</th>
+<th align="right">芯片B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">第一块板</td>
+<td align="center">H≈2.25V L≈2.1V</td>
+<td align="center">H≈2.25V L≈2.1V</td>
+<td align="center">H≈2.25V L≈2.1V</td>
+<td align="center">两板相同</td>
+<td align="right">两板相同</td>
+</tr>
+<tr>
+<td align="left">蝈蝈的板</td>
+<td align="center">相同</td>
+<td align="center">相同</td>
+<td align="center">相同</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>这里已经出现问题了，AB电压高低电平应该关于0V对称，但是第一时间没有反应过来，后来才察觉。</p>
+</blockquote>
+<p>Y发X收：<br>发现高电平2.25V，低电平几乎0V，Y板肯定是收不到的，因为485的接收电平低电平必须满足&lt;200mV。故Y板一直监测到AB电压为高，却一直没有出现起始位。</p>
+<blockquote>
+<p>加深了485总线的电平标准印象：<br><strong>空闲</strong><br>AB&#x3D;<strong>-200mV~200mV</strong>，正好避让接收电平<br>发送<br>H：AB&#x3D;2<del>6V<br>L：AB&#x3D;-2</del>-6V<br>接收<br>H：AB&gt;200mV<br>L：AB&lt;200mV</p>
+</blockquote>
+<p>进一步测试发现，2板不连接的情况下<br><strong>Y板空闲AB≈0V，正常</strong><br><strong>X板空闲AB&#x3D;3V，居然是高电平</strong><br>显然，问题出在这</p>
+<p>进一步排查，首先怀疑485收发器MAX3485</p>
+<blockquote>
+<p>2块板子都是用的这个芯片</p>
+</blockquote>
+<p>查看datasheet，485收发器大部分时间处在接收状态，DE负责使能发送，DE高电平时才会发送，RE负责接收使能，高电平时停止接收，大部分时间都是低电平。</p>
+<p><strong>通信板的485使用的是半双工功能</strong>，具体方法是吧<strong>DE和RE</strong>接到一起，这样，两者由于真值表<strong>互补</strong>，所以<strong>任意时刻只能接收或发送</strong>，非常巧妙。</p>
+<p>Y板子<strong>485空闲</strong>的时候，AB电压0，<strong>DE&#x3D;0，RE&#x3D;0，处于接收状态</strong>，其485反过来输出给串口高电平，和串口UART通信空闲时高电平对上了。接收数据时，DE和RE当然保持0，而串口则从空闲时的高电平开始产生起始位，开始通信，这是正常的收发器接收流程。发送时，<strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong>。<br><strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong><br><strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong><br><strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong></p>
+<p><strong>X板子的DE居然一直保持高电平</strong>，无论发送和接收还是空闲，这导致了其时刻处于发送485状态，就算有485信号来，也无法转换成串口数据发送给USB</p>
+<h2 id="1-2-5-排查485收发器是否DE引脚被烧穿了"><a href="#1-2-5-排查485收发器是否DE引脚被烧穿了" class="headerlink" title="1.2.5 排查485收发器是否DE引脚被烧穿了"></a>1.2.5 排查485收发器是否DE引脚被烧穿了</h2><p>一开始怀疑DE引脚是否被烧穿，和自身的3.3V供电短接了（DE确定了下正常情况的高电平也是3.3V），用表笔测得是正常的，所有的引脚都测了一遍，并没有发现引脚有问题，485收发器的嫌疑初步排除，剩下就是FT232芯片了，其控制端一直处在高电平，是不是接线有问题，或者是内部烧坏了？<br>突然想起是不是没有配置的原因，终于找对了方向。</p>
+<blockquote>
+<h2 id="1-3-想法"><a href="#1-3-想法" class="headerlink" title="1.3 想法"></a>1.3 想法</h2><p>通信板485接收有问题，需要进一步测试</p>
+</blockquote>
+<h2 id="FT232上位机软件"><a href="#FT232上位机软件" class="headerlink" title="FT232上位机软件"></a>FT232上位机软件</h2><p>查上位机软件datasheet知道了可以把FT232配置成几种模式，但是没看到有RS485模式，里面提到细节可以去查看FT232的手册，所以去看了FT232手册，发现RS485是在<strong>FT232 UART模式</strong>下配置的<br>并在<strong>IO control 下 将C0设置为TXDEN</strong>，启用使能485引脚</p>
+<blockquote>
+<p>上位机手册P18~P19</p>
+</blockquote>
+<p>按照上位机手册的指导下，进行配置并编译下载，<strong>完成后要重启USB芯片，即拔掉USB再插上</strong></p>
+<h1 id="破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来"><a href="#破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来" class="headerlink" title="破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来"></a>破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lx-navigation">
+	<div class="lx-cover next lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-l.min.jpeg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2022/08/30/1_%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/2_Matlab/matlab%E4%B8%AD%E7%9F%A9%E9%98%B5%EF%BC%88%E6%88%96%E5%90%91%E9%87%8F%EF%BC%89+%E5%B8%B8%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Next</span>
+						<h3>matlab中...</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+        <div class="lx-cover prev lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-r.min.jpeg)">
+		<div class="overlay"></div>
+		<a class="copy" href="/2022/07/25/1_%E5%AD%A6%E4%B9%A0/%E7%A1%AC%E4%BB%B6/PCB/AltiumDesigner/2022_07_25PCB%E7%BB%98%E5%88%B6/">
+			<div class="display-t">
+				<div class="display-tc">
+					<div>
+						<span>Prev</span>
+						<h3>PCB绘制</h3>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+
+</div>
+
+<footer>
+  <div>
+  Copyright &copy; 2023.<a href="/">陶承的博客</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
+  </div>
+</footer>
+
+</div>
+
+<button class="hamburger hamburger--arrow-r" type="button" title="menu">
+    <div class="hamburger-box">
+      <div class="hamburger-inner"></div>
+    </div>
+</button>
+<div class="menu visibility">
+  <div class="menu-head">
+    <span class="layer">
+      <div class="col">
+        <div class="row for-pic">
+          <div class="profile-pic">
+            <a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"/></a>
+          </div>
+        </div>
+        <div class="row for-name">
+          <p>陶承</p>
+          <span class="tagline">Hello, World!</span>
+        </div>
+      </div>
+    </span>
+  </div>
+  <nav class="menu-container">
+  <ul class="menu-items">
+    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
+    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+    
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
+        <ul>
+          <li><a href="/guestbook/">Guestbook</a></li>
+        <li><a href="/about/">About</a></li>
+        </ul>
+    </li>
+    <li class="has-sub"><span class="dropdown-heading">
+      <i class="fa fa-link fa-fw"></i>Friends</span>
+        <ul>
+          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
+        </ul>
+    </li>
+  </ul>
+  </nav>
+</div>
+
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+</div>
+<script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.easing.min.js"></script>
+<script>
+(function () {
+	"use strict";
+	var goToTop = function() {
+		$(".js-gotop").on("click", function(event){
+			event.preventDefault();
+			$("html, body").animate({
+				scrollTop: $("html").offset().top
+			}, 500, "easeInOutExpo");
+			return false;
+		});
+		$(window).scroll(function(){
+			var $win = $(window);
+			if ($win.scrollTop() > 200) {
+				$(".js-top").addClass("active");
+			} else {
+				$(".js-top").removeClass("active");
+			}
+		});
+	};
+	$(function(){
+		goToTop();
+	});
+}());
+</script>
+
+
+</body>
+</html>
