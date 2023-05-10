@@ -1,385 +1,981 @@
+
+
 <!DOCTYPE html>
-<html lang="CN">
+<html lang="CN" data-default-color-scheme=auto>
+
+
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="theme-color" content=#58b77a>
-  <title>陶承的博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
   <meta name="author" content="陶承">
   <meta name="keywords" content="none">
-  <meta name="description" content="about learning embedded system">
-  <script id="hexo-configurations">
-  var CONFIG = {
-    root: '/',
-    theme: 'hexo-theme-lx-master',
-    version: '0.4.3',
-    localsearch:{
-      "enable": false,
-      "trigger": "auto",
-      "top_n_per_article": 1,
-      "unescape": false,
-      "preload": false
-      },
-    path: 'null'
-  };
-</script>
-
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="stylesheet" href="https://unpkg.com/theme-lx@0.4.3/source/dist/css/main.min.css">
   
-  <style type="text/css">
-    pre,
-    code {
-      font-family: 'Fira Code', monospace;
-    }
-    html {
-      font-family: sans-serif;
-    }
-    body {
-      font-family: sans-serif;
-    }
-    h1, h2, h3, h4, h5, figure {
-      font-family: sans-serif;
-    }
-    .menu-container{
-      font-family: sans-serif;
-    }
-  </style>
-
-  <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
-  <script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.jside.menu.min.js"></script>
-	<script>
-	$(document).ready(function(){
-	$(".menu-container").jSideMenu({
-	    jSidePosition: "position-right",
-	    jSideSticky: true,
-	    jSideSkin: "",
-	     });
-	}); 
-	</script>
+    <meta name="description" content="about learning embedded system">
+<meta property="og:type" content="website">
+<meta property="og:title" content="陶承的博客">
+<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:site_name" content="陶承的博客">
+<meta property="og:description" content="about learning embedded system">
+<meta property="og:locale">
+<meta property="article:author" content="陶承">
+<meta property="article:tag" content="none">
+<meta name="twitter:card" content="summary_large_image">
   
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4/css/font-awesome.min.css">
+  
+  
+  <title>陶承的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
-<body>
-<div id="page">
 
-<div class="header">
-  <div id="lx-aside" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/cover.min.jpeg)">
-    <div class="overlay">
-      
-      <div class="featured">
-        <div class="avatar"><a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"></a></div>
-        <span>陶承</span>
-        <h1>陶承的博客</h1>
-        <span>垃圾堆</span>
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Startseite</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Kategorien</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Schlagwörter</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>Über</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="An elegant Material-Design theme for Hexo"></span>
+          
+        </div>
+
         
       </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
     </div>
   </div>
 </div>
-<div id="lx-main-content">
-  <div class="lx-post">
 
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2023/02/bc3fc5e3dcd5.html">STM32单片机置位清零操作</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-02-26 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/1-%E5%8D%95%E7%89%87%E6%9C%BA/">1_单片机</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/1-%E5%8D%95%E7%89%87%E6%9C%BA/STM32/">STM32</a></span>
-      <p><p>#STM32单片机置位清零操作</p>
-<ul>
-<li>置1<br>|&#x3D; (1&lt;&lt;?)<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果32位寄存器，想要改变4位为单位的位置，可以用更直观(1&lt;&lt;(4*k)),k取0表示最低0001，k取1表示0001_xxxx，k取2表示0001_xxxx_xxxx，以此类推</span><br></pre></td></tr></table></figure></li>
-<li>清0<br>&amp;&#x3D; ~(1&lt;&lt;?)</li>
-</ul>
-</p>
-      <div class="post-button"><a class="btn" href="/2023/02/bc3fc5e3dcd5.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2022/11/1aefc1f48e84.html"></a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-11-23 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/0-Project/">0_Project</a>,<a class="category-link" href="/categories/0-Project/CommunicateBoard/">CommunicateBoard</a></span>
-      <p><hr>
-<h2 id="title-通信板上位机接收TBUS时每帧EFLAG为1"><a href="#title-通信板上位机接收TBUS时每帧EFLAG为1" class="headerlink" title="title:通信板上位机接收TBUS时每帧EFLAG为1"></a>title:通信板上位机接收TBUS时每帧EFLAG为1</h2><h1 id="通信板上位机接收TBUS时每帧EFLAG为1"><a href="#通信板上位机接收TBUS时每帧EFLAG为1" class="headerlink" title="通信板上位机接收TBUS时每帧EFLAG为1"></a>通信板上位机接收TBUS时每帧EFLAG为1</h1><p>把老板子的TBUS和48V-in接在一起，挂在郭工板子的TBUS上，2者成功通信。通信过程中发现了一个以前从来没有注意到的问题：<br><strong>正常情况下，上位机接收到的数据并不会和TBUS的数据完全一致，头字节会由4变6，或由0变2。</strong><br>比如TBUS发来的是:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">45 88 C3 40 80 E0 40 80 E0 45 88 C3</span><br></pre></td></tr></table></figure>
-<p>上位机（串口助手）显示:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">65 88 C3 60 80 E0 60 80 E0 65 88 C3</span><br></pre></td></tr></table></figure>
-<p>原因在于，TBUS每次通信都是16位，FPGA程序接收时将16位添加上位机协议成24位，并且<strong>EFLAG&#x3D;1</strong>，也就是说，TBUS每16位，上位机对应3个字节，<strong>头字节将会由4(0100)变6(0110，因为EFLAG&#x3D;1)或由0(0000)变2(0010)</strong></p>
-<p>再次实验TBUS发来：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">05 88 C3 00 80 E0 00 80 E0 05 88 C3</span><br></pre></td></tr></table></figure>
-<p>上位机显示:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">25 88 C3 20 80 E0 20 80 E0 25 88 C3</span><br></pre></td></tr></table></figure></p>
-      <div class="post-button"><a class="btn" href="/2022/11/1aefc1f48e84.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2022/11/5fcf89a50444.html">通信板设计失误笔记</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-11-13 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/0-Project/">0_Project</a>,<a class="category-link" href="/categories/0-Project/CommunicateBoard/">CommunicateBoard</a></span>
-      <p><p>#通信板设计失误笔记</p>
-<p>##1.设计失误：<br>###1.1 模拟解码电路<br>####1.1.1 运放<br>两路DAC芯片输出没问题，但下一级的低通滤波器中运放构成的的电压跟随器没有负反馈，即<strong>U26和U22各自的1脚和2脚应该相连构成电压跟随器</strong>，好在相邻引脚，<strong>直接用锡焊在一起</strong>就能解决，<strong>PCB需要小改一下</strong>。</p>
-<p>####1.1.2 滑动变阻器<br>滑动变阻器的封装为倒放贴在PCB上的，需要换成立起来的</p>
-<h1 id="老师让将错就错，再直接焊2块？还是一块？"><a href="#老师让将错就错，再直接焊2块？还是一块？" class="headerlink" title="老师让将错就错，再直接焊2块？还是一块？"></a>老师让将错就错，再直接焊2块？还是一块？</h1></p>
-      <div class="post-button"><a class="btn" href="/2022/11/5fcf89a50444.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2022/10/b38f19f69a0f.html">FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-10-25 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/0-Project/">0_Project</a>,<a class="category-link" href="/categories/0-Project/CommunicateBoard/">CommunicateBoard</a></span>
-      <p><h1 id="FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错"><a href="#FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错" class="headerlink" title="FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错"></a>FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>在给I2C模块赋1M时钟输入的时候，从PLL上引出来再手搓时钟，但是总是报错</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Place:1138 - Automatic clock placement failed. Please attempt to analyze the global clocking required for this</span><br><span class="line">   design and either lock the clock placement or area locate the logic driven by the clocks so that the clocks may be</span><br><span class="line">   placed in such a way that all logic driven by them may be routed. The main restriction on clock placement is that</span><br><span class="line">   only one clock output signal for any competing Global / Side pair of clocks may enter any region. For further</span><br><span class="line">   information see the &quot;Quadrant Clock Routing&quot; section in the Spartan3a Family Datasheet.</span><br></pre></td></tr></table></figure>
-<p>把时钟模块删掉就好了，折腾了很久，找不出原因</p>
-<h2 id="折腾过程中发现几点需要注意的地方："><a href="#折腾过程中发现几点需要注意的地方：" class="headerlink" title="折腾过程中发现几点需要注意的地方："></a>折腾过程中发现几点需要注意的地方：</h2><ol>
-<li>外部时钟进入后，如果经过了PLL，就不能再从输入的时钟上取时钟了，只能从PLL的输出上取，ISE的DCM中有CLK_0和CLK_IBUFG_OUT这两个输出可以。</li>
-</ol>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>因为为了调试方便，我把产生的I2C时钟输出为外部接口，仅仅去掉这个外部接口，就好了，一定程度上说明FPGA不能把时钟用来输出</p>
-</p>
-      <div class="post-button"><a class="btn" href="/2022/10/b38f19f69a0f.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2022/10/2917742f75e4.html">通信板3调试</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-10-21 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/0-Project/">0_Project</a>,<a class="category-link" href="/categories/0-Project/CommunicateBoard/">CommunicateBoard</a></span>
-      <p><h1 id="通信板3调试"><a href="#通信板3调试" class="headerlink" title="通信板3调试"></a>通信板3调试</h1><h2 id="1-RS485"><a href="#1-RS485" class="headerlink" title="1. RS485"></a>1. RS485</h2><p>485走FPGA，在FPGA内将输入输出连通后，接485盒子做回环测试，波特率115200 发送2W个字节，成功接收到10W个字节，发送数&#x3D;接收数。</p>
-<p>但是波形很垃圾，印象中以前的波形是很干净的，方方正正有棱有角</p>
-<h2 id="2-TBUS"><a href="#2-TBUS" class="headerlink" title="2. TBUS"></a>2. TBUS</h2><p>一开始，关闭TBUS的时候，电压下降得很慢，并且会维持在10V，MOS的S和G都是10V，确实关断了，所以我怀疑是门极驱动给的G和S电压没有降下去。<br>后来李老师让加个1K负载试一下，因为是接了82uF的电容的，接上后发现开关非常丝滑，秒开秒关。<br>推测是因为没有负载接入的情况下，相当于开路，自举电容的电压放电很慢，因为RC系数非常大，接了负载后有了更快的放电通路，所以能正常关闭了</p>
-</p>
-      <div class="post-button"><a class="btn" href="/2022/10/2917742f75e4.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2022/10/9589d10d7226.html">ISE找不到下载器的解决办法</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-10-21 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/0-Project/">0_Project</a>,<a class="category-link" href="/categories/0-Project/CommunicateBoard/">CommunicateBoard</a></span>
-      <p><h1 id="ISE找不到下载器的解决办法"><a href="#ISE找不到下载器的解决办法" class="headerlink" title="ISE找不到下载器的解决办法"></a>ISE找不到下载器的解决办法</h1><p><strong>现象</strong><br>如果从桌面图标点开的ISE，impact会提示找不到下载器<br>直接点击communication0826项目的工程文件打开ISE，就能正常下载</p>
-<p><strong>原因</strong></p>
-<p>和ISE与电脑的位数有关，32位的ISE只能用32位的电脑才能识别下载器，64位同理</p>
-<p>取自：<a target="_blank" rel="noopener" href="https://support.xilinx.com/s/article/30184?language=en_US">https://support.xilinx.com/s/article/30184?language=en_US</a> 的solution3</p>
-</p>
-      <div class="post-button"><a class="btn" href="/2022/10/9589d10d7226.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2022/10/4638e859b447.html">电子科大发票报销流程</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-10-21 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/3-%E5%8A%9E%E4%BA%8B%E6%B5%81%E7%A8%8B/">3_办事流程</a></span>
-      <p><h1 id="发票报销流程"><a href="#发票报销流程" class="headerlink" title="发票报销流程"></a>发票报销流程</h1><ol>
-<li><p>纸质发票：网上服务大厅——&gt;研究生快速通道中的财务信息综合门户——&gt;左侧网上预约报账——&gt;左侧报销单管理——&gt;左下方申请报销单——&gt;已阅读并同意——&gt;填老师给的报销项目号、自己的电话、附件张数（需要报销的发票的张数）、选择支付方式（自己买的就选个人转卡，别人买的选转账汇款）、点击确定是否发送短信、退单地点：主楼B2区2楼——&gt;下一步，然后照着做</p>
-</li>
-<li><p>电子发票：网上服务大厅——&gt;财务信息综合门户——&gt;右上方智能报销</p>
-</li>
-</ol>
-</p>
-      <div class="post-button"><a class="btn" href="/2022/10/4638e859b447.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2022/09/e5d035f21412.html">github技巧</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-09-07 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/3-Github/">3_Github</a></span>
-      <p><h1 id="github技巧"><a href="#github技巧" class="headerlink" title="github技巧"></a>github技巧</h1><h2 id="1-找资源"><a href="#1-找资源" class="headerlink" title="1. 找资源"></a>1. 找资源</h2><ul>
-<li>找百科大全   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awesome xxx</span><br></pre></td></tr></table></figure></li>
-<li>找例子   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxx sample</span><br></pre></td></tr></table></figure></li>
-<li>找空项目架子<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxx starter/ xxx boilerplate</span><br></pre></td></tr></table></figure></li>
-<li>找教程 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxx tutorial</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="2-三个基本要素"><a href="#2-三个基本要素" class="headerlink" title="2. 三个基本要素"></a>2. 三个基本要素</h2><ul>
-<li>commite 提交</li>
-<li>repository 仓库</li>
-<li>branch 分支<br>每个分支可以代表不同功能，最后需要一个人集成到main里面，构成完整的程序</li>
-</ul>
-<h2 id="3-如何白嫖一个项目？"><a href="#3-如何白嫖一个项目？" class="headerlink" title="3.如何白嫖一个项目？"></a>3.如何白嫖一个项目？</h2><ol>
-<li>点击star收藏，保存在自己的主页中</li>
-<li>点击下载，复制链接，然后在自己电脑上对应文件夹下，通过git命令<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clone 链接</span><br></pre></td></tr></table></figure>
-可以直接将整个项目复制下来</li>
-</ol>
-<h2 id="3-时间机器（一个钟表的图案）"><a href="#3-时间机器（一个钟表的图案）" class="headerlink" title="3. 时间机器（一个钟表的图案）"></a>3. 时间机器（一个钟表的图案）</h2><p>点击时间机器可以查看项目从一开始到最后经历的删减，点击对应修改事件的哈希值可以查看修改的详情，其中红色表示修改前的代码，绿色表示修改后的代码可以学习别人是如何创建一个项目以及如何完善一个项目的</p>
-<h2 id="4-star、issue"><a href="#4-star、issue" class="headerlink" title="4. star、issue"></a>4. star、issue</h2><ul>
-<li>star数量表示收藏数量，点击star可以收藏，方便寻找</li>
-<li>issue表示向作者提出待解决的问题</li>
-</ul>
-</p>
-      <div class="post-button"><a class="btn" href="/2022/09/e5d035f21412.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2022/08/f3be157704bd.html">matlab中矩阵（或向量）+常数的运算</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-08-30 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/2-Matlab/">2_Matlab</a></span>
-      <p><h1 id="matlab中矩阵（或向量）-常数的运算"><a href="#matlab中矩阵（或向量）-常数的运算" class="headerlink" title="matlab中矩阵（或向量）+常数的运算"></a>matlab中矩阵（或向量）+常数的运算</h1><h2 id="1-1-运算结果"><a href="#1-1-运算结果" class="headerlink" title="1.1 运算结果"></a>1.1 运算结果</h2><p>相当于矩阵+<strong>维度相同</strong>且<strong>所有元素都为该常数</strong>的<strong>矩阵</strong><br>（而非常数倍的单位矩阵）</p>
-<h2 id="1-2-参考资料"><a href="#1-2-参考资料" class="headerlink" title="1.2 参考资料"></a>1.2 参考资料</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qwe900/article/details/106783607/">matlab矩阵和常数相加？居然不是和单位矩阵相加</a></p>
-</p>
-      <div class="post-button"><a class="btn" href="/2022/08/f3be157704bd.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2022/07/09cb3dc4ccdc.html">communicateboard test</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2022-07-28 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/0-Project/">0_Project</a>,<a class="category-link" href="/categories/0-Project/CommunicateBoard/">CommunicateBoard</a></span>
-      <p><h1 id="1-USB转RS485"><a href="#1-USB转RS485" class="headerlink" title="1. USB转RS485"></a>1. USB转RS485</h1><h2 id="1-1USB转485"><a href="#1-1USB转485" class="headerlink" title="1.1USB转485"></a>1.1USB转485</h2><p><strong>正常</strong>，发送<code>40 94 E8 40 80 C2 4F AB D5</code>，示波器观察波形一致，且符合485电平标准</p>
-<h2 id="1-2-板子与485盒子通信"><a href="#1-2-板子与485盒子通信" class="headerlink" title="1.2 板子与485盒子通信"></a>1.2 板子与485盒子通信</h2><h3 id="1-2-1-板子485发送"><a href="#1-2-1-板子485发送" class="headerlink" title="1.2.1 板子485发送"></a>1.2.1 板子485发送</h3><p><strong>正常</strong>，发送<code>40 94 E8 40 80 C2 4F AB D5</code>，用485盒子接收到相同内容，发送周期10ms，发送65943条，接收到65943条</p>
-<h3 id="1-2-2-板子485接收"><a href="#1-2-2-板子485接收" class="headerlink" title="1.2.2 板子485接收"></a>1.2.2 板子485接收</h3><p><strong>不正常</strong>，115200波特率下，用了2个485盒子对接能通信，说明盒子是没问题的，但是任意一个盒子和板子通信，板子发盒子能收到，盒子发板子却不能收到，测了下波形：</p>
-<ul>
-<li>板子发出的正电平2.7V，负电平-2.7V。</li>
-<li>大盒子发出的正电平880mV，负电平-2.7V</li>
-<li>小盒子发出正电平5V，负电平-5V</li>
-</ul>
-<h3 id="1-2-3-板子与板子通信"><a href="#1-2-3-板子与板子通信" class="headerlink" title="1.2.3 板子与板子通信"></a>1.2.3 板子与板子通信</h3><p>给的板子（X）和第一块板子（Y）485通信，X发出Y能收到，且发多少收多少，但Y发出X收不到</p>
-<blockquote>
-<p>两个板子的输出485差分信号是一模一样的，应该是X的接收某处有问题</p>
-</blockquote>
-<h3 id="1-2-4-两块板子的接收路径测试"><a href="#1-2-4-两块板子的接收路径测试" class="headerlink" title="1.2.4 两块板子的接收路径测试"></a>1.2.4 两块板子的接收路径测试</h3><blockquote>
-<p>测试在板子485互相连接下进行<br>在正常情况下，AB连接时的电压会比开路时的电压小小一丢丢，不影响使用</p>
-</blockquote>
-<p>Y发X收：</p>
-<table>
-<thead>
-<tr>
-<th align="left"></th>
-<th align="center">485差分</th>
-<th align="center">R<del>差分</del>两端电压</th>
-<th align="center">芯片AB差分电压</th>
-<th align="center">芯片A</th>
-<th align="right">芯片B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">第一块板</td>
-<td align="center">H≈2.25V L≈2.1V</td>
-<td align="center">H≈2.25V L≈2.1V</td>
-<td align="center">H≈2.25V L≈2.1V</td>
-<td align="center">两板相同</td>
-<td align="right">两板相同</td>
-</tr>
-<tr>
-<td align="left">蝈蝈的板</td>
-<td align="center">相同</td>
-<td align="center">相同</td>
-<td align="center">相同</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>这里已经出现问题了，AB电压高低电平应该关于0V对称，但是第一时间没有反应过来，后来才察觉。</p>
-</blockquote>
-<p>Y发X收：<br>发现高电平2.25V，低电平几乎0V，Y板肯定是收不到的，因为485的接收电平低电平必须满足&lt;200mV。故Y板一直监测到AB电压为高，却一直没有出现起始位。</p>
-<blockquote>
-<p>加深了485总线的电平标准印象：<br><strong>空闲</strong><br>AB&#x3D;<strong>-200mV~200mV</strong>，正好避让接收电平<br>发送<br>H：AB&#x3D;2<del>6V<br>L：AB&#x3D;-2</del>-6V<br>接收<br>H：AB&gt;200mV<br>L：AB&lt;200mV</p>
-</blockquote>
-<p>进一步测试发现，2板不连接的情况下<br><strong>Y板空闲AB≈0V，正常</strong><br><strong>X板空闲AB&#x3D;3V，居然是高电平</strong><br>显然，问题出在这</p>
-<p>进一步排查，首先怀疑485收发器MAX3485</p>
-<blockquote>
-<p>2块板子都是用的这个芯片</p>
-</blockquote>
-<p>查看datasheet，485收发器大部分时间处在接收状态，DE负责使能发送，DE高电平时才会发送，RE负责接收使能，高电平时停止接收，大部分时间都是低电平。</p>
-<p><strong>通信板的485使用的是半双工功能</strong>，具体方法是吧<strong>DE和RE</strong>接到一起，这样，两者由于真值表<strong>互补</strong>，所以<strong>任意时刻只能接收或发送</strong>，非常巧妙。</p>
-<p>Y板子<strong>485空闲</strong>的时候，AB电压0，<strong>DE&#x3D;0，RE&#x3D;0，处于接收状态</strong>，其485反过来输出给串口高电平，和串口UART通信空闲时高电平对上了。接收数据时，DE和RE当然保持0，而串口则从空闲时的高电平开始产生起始位，开始通信，这是正常的收发器接收流程。发送时，<strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong>。<br><strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong><br><strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong><br><strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong></p>
-<p><strong>X板子的DE居然一直保持高电平</strong>，无论发送和接收还是空闲，这导致了其时刻处于发送485状态，就算有485信号来，也无法转换成串口数据发送给USB</p>
-<h2 id="1-2-5-排查485收发器是否DE引脚被烧穿了"><a href="#1-2-5-排查485收发器是否DE引脚被烧穿了" class="headerlink" title="1.2.5 排查485收发器是否DE引脚被烧穿了"></a>1.2.5 排查485收发器是否DE引脚被烧穿了</h2><p>一开始怀疑DE引脚是否被烧穿，和自身的3.3V供电短接了（DE确定了下正常情况的高电平也是3.3V），用表笔测得是正常的，所有的引脚都测了一遍，并没有发现引脚有问题，485收发器的嫌疑初步排除，剩下就是FT232芯片了，其控制端一直处在高电平，是不是接线有问题，或者是内部烧坏了？<br>突然想起是不是没有配置的原因，终于找对了方向。</p>
-<blockquote>
-<h2 id="1-3-想法"><a href="#1-3-想法" class="headerlink" title="1.3 想法"></a>1.3 想法</h2><p>通信板485接收有问题，需要进一步测试</p>
-</blockquote>
-<h2 id="FT232上位机软件"><a href="#FT232上位机软件" class="headerlink" title="FT232上位机软件"></a>FT232上位机软件</h2><p>查上位机软件datasheet知道了可以把FT232配置成几种模式，但是没看到有RS485模式，里面提到细节可以去查看FT232的手册，所以去看了FT232手册，发现RS485是在<strong>FT232 UART模式</strong>下配置的<br>并在<strong>IO control 下 将C0设置为TXDEN</strong>，启用使能485引脚</p>
-<blockquote>
-<p>上位机手册P18~P19</p>
-</blockquote>
-<p>按照上位机手册的指导下，进行配置并编译下载，<strong>完成后要重启USB芯片，即拔掉USB再插上</strong></p>
-<h1 id="破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来"><a href="#破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来" class="headerlink" title="破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来"></a>破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来</h1></p>
-      <div class="post-button"><a class="btn" href="/2022/07/09cb3dc4ccdc.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-
-
-<div id="pagination">
-  <a class="extend prev" rel="prev" href="/"></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"></a>
 </div>
 
-<footer>
-  <div>
-  Copyright &copy; 2023.<a href="/">陶承的博客</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
-  </div>
-</footer>
+  </header>
 
-  </div>
-</div>
-</div>
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          style="margin-top: 0">
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
 
-<button class="hamburger hamburger--arrow-r" type="button" title="menu">
-    <div class="hamburger-box">
-      <div class="hamburger-inner"></div>
-    </div>
-</button>
-<div class="menu visibility">
-  <div class="menu-head">
-    <span class="layer">
-      <div class="col">
-        <div class="row for-pic">
-          <div class="profile-pic">
-            <a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"/></a>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/bc3fc5e3dcd5.html" target="_self">
+          STM32单片机置位清零操作
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/bc3fc5e3dcd5.html" target="_self">
+        <div>
+          #STM32单片机置位清零操作  置1|&#x3D; (1&lt;&lt;?)1如果32位寄存器，想要改变4位为单位的位置，可以用更直观(1&lt;&lt;(4*k)),k取0表示最低0001，k取1表示0001_xxxx，k取2表示0001_xxxx_xxxx，以此类推 清0&amp;&#x3D; ~(1&lt;&lt;?)
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-26 16:32" pubdate>
+              2023-02-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/" class="category-chain-item">1_学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/1-%E5%8D%95%E7%89%87%E6%9C%BA/" class="category-chain-item">1_单片机</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/1-%E5%8D%95%E7%89%87%E6%9C%BA/STM32/" class="category-chain-item">STM32</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/11/1aefc1f48e84.html" target="_self">
+          
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/1aefc1f48e84.html" target="_self">
+        <div>
+          title:通信板上位机接收TBUS时每帧EFLAG为1通信板上位机接收TBUS时每帧EFLAG为1把老板子的TBUS和48V-in接在一起，挂在郭工板子的TBUS上，2者成功通信。通信过程中发现了一个以前从来没有注意到的问题：正常情况下，上位机接收到的数据并不会和TBUS的数据完全一致，头字节会由4变6，或由0变2。比如TBUS发来的是: 145 88 C3 40 80 E0 40 80 E0
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-23 22:00" pubdate>
+              2022-11-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/0-Project/" class="category-chain-item">0_Project</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/0-Project/CommunicateBoard/" class="category-chain-item">CommunicateBoard</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/11/5fcf89a50444.html" target="_self">
+          通信板设计失误笔记
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/5fcf89a50444.html" target="_self">
+        <div>
+          #通信板设计失误笔记 ##1.设计失误：###1.1 模拟解码电路####1.1.1 运放两路DAC芯片输出没问题，但下一级的低通滤波器中运放构成的的电压跟随器没有负反馈，即U26和U22各自的1脚和2脚应该相连构成电压跟随器，好在相邻引脚，直接用锡焊在一起就能解决，PCB需要小改一下。 ####1.1.2 滑动变阻器滑动变阻器的封装为倒放贴在PCB上的，需要换成立起来的 老师让将错就错，再直接焊
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-13 22:07" pubdate>
+              2022-11-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/0-Project/" class="category-chain-item">0_Project</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/0-Project/CommunicateBoard/" class="category-chain-item">CommunicateBoard</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/b38f19f69a0f.html" target="_self">
+          FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/b38f19f69a0f.html" target="_self">
+        <div>
+          FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错现象在给I2C模块赋1M时钟输入的时候，从PLL上引出来再手搓时钟，但是总是报错 12345Place:1138 - Automatic clock placement failed. Please attempt to analyze the global clocking required for this   design and eith
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-25 23:06" pubdate>
+              2022-10-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/0-Project/" class="category-chain-item">0_Project</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/0-Project/CommunicateBoard/" class="category-chain-item">CommunicateBoard</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/2917742f75e4.html" target="_self">
+          通信板3调试
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/2917742f75e4.html" target="_self">
+        <div>
+          通信板3调试1. RS485485走FPGA，在FPGA内将输入输出连通后，接485盒子做回环测试，波特率115200 发送2W个字节，成功接收到10W个字节，发送数&#x3D;接收数。 但是波形很垃圾，印象中以前的波形是很干净的，方方正正有棱有角 2. TBUS一开始，关闭TBUS的时候，电压下降得很慢，并且会维持在10V，MOS的S和G都是10V，确实关断了，所以我怀疑是门极驱动给的G和S电压
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-21 17:23" pubdate>
+              2022-10-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/0-Project/" class="category-chain-item">0_Project</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/0-Project/CommunicateBoard/" class="category-chain-item">CommunicateBoard</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/9589d10d7226.html" target="_self">
+          ISE找不到下载器的解决办法
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/9589d10d7226.html" target="_self">
+        <div>
+          ISE找不到下载器的解决办法现象如果从桌面图标点开的ISE，impact会提示找不到下载器直接点击communication0826项目的工程文件打开ISE，就能正常下载 原因 和ISE与电脑的位数有关，32位的ISE只能用32位的电脑才能识别下载器，64位同理 取自：https://support.xilinx.com/s/article/30184?language=en_US 的soluti
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-21 15:12" pubdate>
+              2022-10-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/0-Project/" class="category-chain-item">0_Project</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/0-Project/CommunicateBoard/" class="category-chain-item">CommunicateBoard</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/4638e859b447.html" target="_self">
+          电子科大发票报销流程
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/4638e859b447.html" target="_self">
+        <div>
+          发票报销流程 纸质发票：网上服务大厅——&gt;研究生快速通道中的财务信息综合门户——&gt;左侧网上预约报账——&gt;左侧报销单管理——&gt;左下方申请报销单——&gt;已阅读并同意——&gt;填老师给的报销项目号、自己的电话、附件张数（需要报销的发票的张数）、选择支付方式（自己买的就选个人转卡，别人买的选转账汇款）、点击确定是否发送短信、退单地点：主楼B2区2楼——&gt;下一步，然后照着
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-21 14:56" pubdate>
+              2022-10-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/3-%E5%8A%9E%E4%BA%8B%E6%B5%81%E7%A8%8B/" class="category-chain-item">3_办事流程</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/e5d035f21412.html" target="_self">
+          github技巧
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/e5d035f21412.html" target="_self">
+        <div>
+          github技巧1. 找资源 找百科大全   1awesome xxx 找例子   1xxx sample 找空项目架子1xxx starter/ xxx boilerplate 找教程 1xxx tutorial  2. 三个基本要素 commite 提交 repository 仓库 branch 分支每个分支可以代表不同功能，最后需要一个人集成到main里面，构成完整的程序  3.如何白嫖一个
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-07 19:03" pubdate>
+              2022-09-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/" class="category-chain-item">1_学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/3-Github/" class="category-chain-item">3_Github</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/08/f3be157704bd.html" target="_self">
+          matlab中矩阵（或向量）+常数的运算
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/08/f3be157704bd.html" target="_self">
+        <div>
+          matlab中矩阵（或向量）+常数的运算1.1 运算结果相当于矩阵+维度相同且所有元素都为该常数的矩阵（而非常数倍的单位矩阵） 1.2 参考资料matlab矩阵和常数相加？居然不是和单位矩阵相加
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-08-30 00:11" pubdate>
+              2022-08-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/" class="category-chain-item">1_学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/2-Matlab/" class="category-chain-item">2_Matlab</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/07/09cb3dc4ccdc.html" target="_self">
+          communicateboard test
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/07/09cb3dc4ccdc.html" target="_self">
+        <div>
+          1. USB转RS4851.1USB转485正常，发送40 94 E8 40 80 C2 4F AB D5，示波器观察波形一致，且符合485电平标准 1.2 板子与485盒子通信1.2.1 板子485发送正常，发送40 94 E8 40 80 C2 4F AB D5，用485盒子接收到相同内容，发送周期10ms，发送65943条，接收到65943条 1.2.2 板子485接收不正常，115200波
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-28 16:26" pubdate>
+              2022-07-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/0-Project/" class="category-chain-item">0_Project</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/0-Project/CommunicateBoard/" class="category-chain-item">CommunicateBoard</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
           </div>
         </div>
-        <div class="row for-name">
-          <p>陶承</p>
-          <span class="tagline">Hello, World!</span>
-        </div>
       </div>
-    </span>
-  </div>
-  <nav class="menu-container">
-  <ul class="menu-items">
-    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
-    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
     
-    <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
-        <ul>
-          <li><a href="/guestbook/">Guestbook</a></li>
-        <li><a href="/about/">About</a></li>
-        </ul>
-    </li>
-    <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-link fa-fw"></i>Friends</span>
-        <ul>
-          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
-        </ul>
-    </li>
-  </ul>
-  </nav>
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Suchen</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Stichwort</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="gototop js-top">
-  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
 </div>
-<script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.easing.min.js"></script>
-<script>
-(function () {
-	"use strict";
-	var goToTop = function() {
-		$(".js-gotop").on("click", function(event){
-			event.preventDefault();
-			$("html, body").animate({
-				scrollTop: $("html").offset().top
-			}, 500, "easeInOutExpo");
-			return false;
-		});
-		$(window).scroll(function(){
-			var $win = $(window);
-			if ($win.scrollTop() > 200) {
-				$(".js-top").addClass("active");
-			} else {
-				$(".js-top").removeClass("active");
-			}
-		});
-	};
-	$(function(){
-		goToTop();
-	});
-}());
-</script>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
 
 
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog funktioniert am besten mit aktiviertem JavaScript</div>
+  </noscript>
 </body>
 </html>

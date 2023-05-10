@@ -1,97 +1,287 @@
+
+
 <!DOCTYPE html>
-<html lang="CN">
+<html lang="CN" data-default-color-scheme=auto>
+
+
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="theme-color" content=#58b77a>
-  <title>Category-1_学习 | 陶承的博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
   <meta name="author" content="陶承">
   <meta name="keywords" content="none">
-  <meta name="description" content="about learning embedded system">
-  <script id="hexo-configurations">
-  var CONFIG = {
-    root: '/',
-    theme: 'hexo-theme-lx-master',
-    version: '0.4.3',
-    localsearch:{
-      "enable": false,
-      "trigger": "auto",
-      "top_n_per_article": 1,
-      "unescape": false,
-      "preload": false
-      },
-    path: 'null'
-  };
-</script>
-
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="stylesheet" href="https://unpkg.com/theme-lx@0.4.3/source/dist/css/main.min.css">
   
-  <style type="text/css">
-    pre,
-    code {
-      font-family: 'Fira Code', monospace;
-    }
-    html {
-      font-family: sans-serif;
-    }
-    body {
-      font-family: sans-serif;
-    }
-    h1, h2, h3, h4, h5, figure {
-      font-family: sans-serif;
-    }
-    .menu-container{
-      font-family: sans-serif;
-    }
-  </style>
-
-  <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
-  <script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.jside.menu.min.js"></script>
-	<script>
-	$(document).ready(function(){
-	$(".menu-container").jSideMenu({
-	    jSidePosition: "position-right",
-	    jSideSticky: true,
-	    jSideSkin: "",
-	     });
-	}); 
-	</script>
+    <meta name="description" content="#VGA小错误引发显示器黑屏  ##出现的问题及原因在VGA显示字符实验中，显示器直接黑屏，指示灯也橙色，表示无图像，由于复用了colorbar的大部分模块，而pic模块时序没问题，这就非常蛋疼了，后来对比野火代码，才发现是存储器访问的顺序有问题，导致像素点取的顺序有问题。  在VGA显示字符的实验中，用代码生成了存储器 12345678910111213141516171819202122232">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VGA小错误引发显示器黑屏">
+<meta property="og:url" content="http://example.com/2023/05/b497eba54b0f.html">
+<meta property="og:site_name" content="陶承的博客">
+<meta property="og:description" content="#VGA小错误引发显示器黑屏  ##出现的问题及原因在VGA显示字符实验中，显示器直接黑屏，指示灯也橙色，表示无图像，由于复用了colorbar的大部分模块，而pic模块时序没问题，这就非常蛋疼了，后来对比野火代码，才发现是存储器访问的顺序有问题，导致像素点取的顺序有问题。  在VGA显示字符的实验中，用代码生成了存储器 12345678910111213141516171819202122232">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-05-10T06:04:56.779Z">
+<meta property="article:modified_time" content="2023-05-10T06:14:45.444Z">
+<meta property="article:author" content="陶承">
+<meta property="article:tag" content="none">
+<meta name="twitter:card" content="summary_large_image">
   
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4/css/font-awesome.min.css">
+  
+  
+  <title>VGA小错误引发显示器黑屏 - 陶承的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
-<body>
-<div class="single">
 
-<div id="page">
-<div class="header">
-  <div id="lx-aside" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/post_cover.min.jpeg)" data-stellar-background-ratio="0.5">
-    <div class="overlay">
-      
-      <div class="page-title">
-        <div class="avatar"><a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"></a></div>
-        <span>2023-05-10</span>
-        <h2>VGA小错误引发显示器黑屏</h2>
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Startseite</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Kategorien</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Schlagwörter</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>Über</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="VGA小错误引发显示器黑屏"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-10 14:04" pubdate>
+          May 10, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.2k wörter
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          52 minuten
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
         
       </div>
+
+      
     </div>
   </div>
 </div>
-<div id="lx-main-content">
-  <div class="lx-post">
-    <div class="lx-entry padding">
-      <div>
-        <p>#VGA小错误引发显示器黑屏</p>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">VGA小错误引发显示器黑屏</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>#VGA小错误引发显示器黑屏</p>
 <hr>
 <p>##出现的问题及原因<br>在VGA显示字符实验中，显示器直接黑屏，指示灯也橙色，表示无图像，由于复用了colorbar的大部分模块，而pic模块时序没问题，这就非常蛋疼了，后来对比野火代码，才发现是存储器访问的顺序有问题，导致像素点取的顺序有问题。</p>
 <hr>
 <p>在VGA显示字符的实验中，用代码生成了存储器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">reg [255:0] char [63:0];//深度为64，宽度256</span><br><span class="line"></span><br><span class="line">always@(posedge vga_clk)        //赋值他喵的按照深度从低到高赋，每个深度的宽度从高到低赋，服了</span><br><span class="line">    begin</span><br><span class="line">        char[0 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[1 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[2 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[3 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[4 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000070000000001C00040000000;</span><br><span class="line">        char[5 ] &lt;=   256&#x27;h000000000000000000000000000000000000000003E000000000F00078000000;</span><br><span class="line">        char[6 ] &lt;=   256&#x27;h000000000000000000000380000000000000060003E000000000F8007E000000;</span><br><span class="line">        char[7 ] &lt;=   256&#x27;h0000038000780000000003E0000000000000078001E000000000F0003E000000;</span><br><span class="line">        char[8 ] &lt;=   256&#x27;h00003FE003FE0000000001F00000000000000FC001E000000000F0003C000000;</span><br><span class="line">        char[9 ] &lt;=   256&#x27;h0007FFF07F3F0000000001F00000000000001F8001C000000000F0003C000000;</span><br><span class="line">        char[10] &lt;=   256&#x27;h07FF81F7F83E0000000001F00000000000003E0001C000000000E0003C000000;</span><br><span class="line">        char[11] &lt;=   256&#x27;h03E1C1E1C0780000000001E0000000000000780001C000000000E0003C000000;</span><br><span class="line">        char[12] &lt;=   256&#x27;h03C1C1E000700000000001E0000000000000E00001C000000000E00038000000;</span><br><span class="line">        char[13] &lt;=   256&#x27;h01C1C1E000E00000000000E0000000000003C001C1C000000000E00038000000;</span><br><span class="line">        char[14] &lt;=   256&#x27;h01C0C1C001C00000000000E00000000000077001F1C000000000E000387C0000;</span><br><span class="line">        char[15] &lt;=   256&#x27;h01C0FDC001800000000000E00180000000187800F1C000000000E0003FFC0000;</span><br><span class="line">        char[16] &lt;=   256&#x27;h00E7F9C07B000000000000E001E000000000700071C000000000E0007FF00000;</span><br><span class="line">        char[17] &lt;=   256&#x27;h00FFC1803E000000000001E001F000000000700011C000000000E007FFC00000;</span><br><span class="line">        char[18] &lt;=   256&#x27;h00E0C1801F000000000001E003F800000000700001C000000000FF1FFE000000;</span><br><span class="line">        char[19] &lt;=   256&#x27;h00E0C3800F000000000001E003F80000000033C001C00000000FFE0FF8000000;</span><br><span class="line">        char[20] &lt;=   256&#x27;h0060C38007038000000401C007C0000000003FE001C0000000FFF00030000000;</span><br><span class="line">        char[21] &lt;=   256&#x27;h0060C700013FE000000701C00F0000000001FE0781C0000000FFE00030000000;</span><br><span class="line">        char[22] &lt;=   256&#x27;h0071FF0007FFF0000007C1C01C000000001FF003C1C000000000E00030000000;</span><br><span class="line">        char[23] &lt;=   256&#x27;h003FC200FF83F8000003E1C03800000003FF7001E1C000000000E00030000000;</span><br><span class="line">        char[24] &lt;=   256&#x27;h0030C07FF803F8000001E1C0E00000001FF8F000E1C000000000E00030000000;</span><br><span class="line">        char[25] &lt;=   256&#x27;h0000C03F9C03C0000001F1C1800000000FE0F00041C000000000E20033800000;</span><br><span class="line">        char[26] &lt;=   256&#x27;h0000C0000E0700000000F1C0000000000301F00001C0F8000000EC003FE00000;</span><br><span class="line">        char[27] &lt;=   256&#x27;h0000C4000F040000000061E0000000000003F80001DFFC000000F801FFE00000;</span><br><span class="line">        char[28] &lt;=   256&#x27;h0000FF000E000000000001E0000000000003FF0003FFFC000000F07FE3E00000;</span><br><span class="line">        char[29] &lt;=   256&#x27;h000FFE000E000000000003F000000000000777807FF800000001E07F03C00000;</span><br><span class="line">        char[30] &lt;=   256&#x27;h007FF0000E000000000003D800000000000E73BFFFC000000003E00003C00000;</span><br><span class="line">        char[31] &lt;=   256&#x27;h001EC000060000000000039C00000000001C707FE1C000000007E00003800000;</span><br><span class="line">        char[32] &lt;=   256&#x27;h0000C000060000000000038C00000000001C700C01C00000001EE03C03800000;</span><br><span class="line">        char[33] &lt;=   256&#x27;h0000C0E00600000000000786000000000038700001C00000007CE01E03800000;</span><br><span class="line">        char[34] &lt;=   256&#x27;h0000CFC00600000000000707000000000070700001C0000001F8E00707000000;</span><br><span class="line">        char[35] &lt;=   256&#x27;h0000FE0006000000000007038000000000E0700001C000000FF0E00387000000;</span><br><span class="line">        char[36] &lt;=   256&#x27;h0007F0000700000000000F01C000000001C0700001C000000FC0E001C7000000;</span><br><span class="line">        char[37] &lt;=   256&#x27;h007F80000700000000000E01E00000000300700001C000000780E000EE000000;</span><br><span class="line">        char[38] &lt;=   256&#x27;h0FFE00000700000000001E00F00000000600700001C000000300E0007E000000;</span><br><span class="line">        char[39] &lt;=   256&#x27;h0FF000000700000000001C00780000000800700001C000000000E0003C000000;</span><br><span class="line">        char[40] &lt;=   256&#x27;h07C0000007000000000038003C0000001000700001C000000000E0007E000000;</span><br><span class="line">        char[41] &lt;=   256&#x27;h0100000007000000000078003F0000000000700001C000000000E000FF800000;</span><br><span class="line">        char[42] &lt;=   256&#x27;h00000000070000000000F0001F8000000000700001C000000000E001F7C00000;</span><br><span class="line">        char[43] &lt;=   256&#x27;h00000000070000000001E0000FE000000000700001C000000000E007C3F00000;</span><br><span class="line">        char[44] &lt;=   256&#x27;h00000000070000000003C00007F800000000F00001C00000001FE01F81FC0000;</span><br><span class="line">        char[45] &lt;=   256&#x27;h000000000F000000000F800007FE00000000F00001C000000007E0FC00FF8000;</span><br><span class="line">        char[46] &lt;=   256&#x27;h000000070F000000001E000003FFC0000000700001C000000003E3E0007FF000;</span><br><span class="line">        char[47] &lt;=   256&#x27;h00000003FF000000007C000001FFF8000000600001C000000001C000003FFC00;</span><br><span class="line">        char[48] &lt;=   256&#x27;h00000000FE00000001E00000007FF8000000600001C000000001C00000000000;</span><br><span class="line">        char[49] &lt;=   256&#x27;h000000007E00000003000000000000000000200001C000000000800000000000;</span><br><span class="line">        char[50] &lt;=   256&#x27;h000000003C000000000000000000000000000000018000000000000000000000;</span><br><span class="line">        char[51] &lt;=   256&#x27;h0000000038000000000000000000000000000000008000000000000000000000;</span><br><span class="line">        char[52] &lt;=   256&#x27;h0000000010000000000000000000000000000000008000000000000000000000;</span><br><span class="line">        char[53] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[54] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[55] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[56] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[57] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[58] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[59] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[60] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[61] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[62] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[63] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs 1c">reg [<span class="hljs-number">255</span>:<span class="hljs-number">0</span>] char [<span class="hljs-number">63</span>:<span class="hljs-number">0</span>];<span class="hljs-comment">//深度为64，宽度256</span><br><br>always@(posedge vga_clk)        <span class="hljs-comment">//赋值他喵的按照深度从低到高赋，每个深度的宽度从高到低赋，服了</span><br>    begin<br>        char[<span class="hljs-number">0</span> ] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000</span>;<br>        char[1 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>        char[<span class="hljs-number">2</span> ] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000</span>;<br>        char[3 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>        char[<span class="hljs-number">4</span> ] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000007</span><span class="hljs-number">0000000001</span>C<span class="hljs-number">0004000000</span>0;<br>        char[5 ] &lt;=   256&#x27;h000000000000000000000000000000000000000003E000000000F00078000000;<br>        char[<span class="hljs-number">6</span> ] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000003800000</span><span class="hljs-number">00000000060003</span>E<span class="hljs-number">00000000</span>0F<span class="hljs-number">8007</span>E<span class="hljs-number">000000</span>;<br>        char[7 ] &lt;=   256&#x27;h0000038000780000000003E0000000000000078001E000000000F0003E000000;<br>        char[<span class="hljs-number">8</span> ] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0000</span>3FE003FE<span class="hljs-number">0000000001</span>F<span class="hljs-number">00000000000000</span>FC001E<span class="hljs-number">00000000</span>0F<span class="hljs-number">0003</span>C<span class="hljs-number">000000</span>;<br>        char[9 ] &lt;=   256&#x27;h0007FFF07F3F0000000001F00000000000001F8001C000000000F0003C000000;<br>        char[<span class="hljs-number">10</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h07FF81F7F83E<span class="hljs-number">0000000001</span>F<span class="hljs-number">00000000000003</span>E<span class="hljs-number">0001</span>C<span class="hljs-number">00000000</span>0E<span class="hljs-number">0003</span>C<span class="hljs-number">000000</span>;<br>        char[11] &lt;=   256&#x27;h03E1C1E1C0780000000001E0000000000000780001C000000000E0003C000000;<br>        char[<span class="hljs-number">12</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h03C1C1E<span class="hljs-number">00070000000000</span>1E<span class="hljs-number">000000000000</span>0E<span class="hljs-number">0000</span>1C<span class="hljs-number">00000000</span>0E<span class="hljs-number">0003800000</span>0;<br>        char[13] &lt;=   256&#x27;h01C1C1E000E00000000000E0000000000003C001C1C000000000E00038000000;<br>        char[<span class="hljs-number">14</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h01C0C1C001C<span class="hljs-number">0000000000</span>0E<span class="hljs-number">00000000000077</span>001F1C<span class="hljs-number">00000000</span>0E<span class="hljs-number">000387</span>C<span class="hljs-number">0000</span>;<br>        char[15] &lt;=   256&#x27;h01C0FDC001800000000000E00180000000187800F1C000000000E0003FFC0000;<br>        char[<span class="hljs-number">16</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h00E7F9C07B<span class="hljs-number">000000000000</span>E001E<span class="hljs-number">00000000070007</span>1C<span class="hljs-number">00000000</span>0E<span class="hljs-number">0007</span>FF<span class="hljs-number">0000</span>0;<br>        char[17] &lt;=   256&#x27;h00FFC1803E000000000001E001F000000000700011C000000000E007FFC00000;<br>        char[<span class="hljs-number">18</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h00E0C<span class="hljs-number">1801</span>F<span class="hljs-number">000000000001</span>E003F<span class="hljs-number">80000000070000</span>1C<span class="hljs-number">00000000</span>0FF1FFE<span class="hljs-number">000000</span>;<br>        char[19] &lt;=   256&#x27;h00E0C3800F000000000001E003F80000000033C001C00000000FFE0FF8000000;<br>        char[<span class="hljs-number">20</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0060</span>C<span class="hljs-number">38007038000000</span>401C007C<span class="hljs-number">0000000003</span>FE001C<span class="hljs-number">000000</span>0FFF<span class="hljs-number">0003000000</span>0;<br>        char[21] &lt;=   256&#x27;h0060C700013FE000000701C00F0000000001FE0781C0000000FFE00030000000;<br>        char[<span class="hljs-number">22</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0071</span>FF<span class="hljs-number">0007</span>FFF<span class="hljs-number">000000</span>7C1C01C<span class="hljs-number">00000000</span>1FF003C1C<span class="hljs-number">00000000</span>0E<span class="hljs-number">0003000000</span>0;<br>        char[23] &lt;=   256&#x27;h003FC200FF83F8000003E1C03800000003FF7001E1C000000000E00030000000;<br>        char[<span class="hljs-number">24</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0030</span>C07FF803F<span class="hljs-number">800000</span>1E1C0E<span class="hljs-number">00000001</span>FF8F000E1C<span class="hljs-number">00000000</span>0E<span class="hljs-number">0003000000</span>0;<br>        char[25] &lt;=   256&#x27;h0000C03F9C03C0000001F1C1800000000FE0F00041C000000000E20033800000;<br>        char[<span class="hljs-number">26</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0000</span>C<span class="hljs-number">0000</span>E<span class="hljs-number">0700000000</span>F1C<span class="hljs-number">000000000030</span>1F<span class="hljs-number">0000</span>1C0F<span class="hljs-number">800000</span>0EC003FE<span class="hljs-number">0000</span>0;<br>        char[27] &lt;=   256&#x27;h0000C4000F040000000061E0000000000003F80001DFFC000000F801FFE00000;<br>        char[<span class="hljs-number">28</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0000</span>FF000E<span class="hljs-number">000000000001</span>E<span class="hljs-number">000000000000</span>3FF<span class="hljs-number">0003</span>FFFC<span class="hljs-number">000000</span>F07FE3E<span class="hljs-number">0000</span>0;<br>        char[29] &lt;=   256&#x27;h000FFE000E000000000003F000000000000777807FF800000001E07F03C00000;<br>        char[<span class="hljs-number">30</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h007FF<span class="hljs-number">0000</span>E<span class="hljs-number">000000000003</span>D<span class="hljs-number">800000000000</span>E73BFFFC<span class="hljs-number">00000000</span>3E<span class="hljs-number">0000</span>3C<span class="hljs-number">0000</span>0;<br>        char[31] &lt;=   256&#x27;h001EC000060000000000039C00000000001C707FE1C000000007E00003800000;<br>        char[<span class="hljs-number">32</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0000</span>C<span class="hljs-number">00006000000000</span><span class="hljs-number">0038</span>C<span class="hljs-number">0000000000</span>1C700C01C<span class="hljs-number">00000001</span>EE03C<span class="hljs-number">03800000</span>;<br>        char[33] &lt;=   256&#x27;h0000C0E00600000000000786000000000038700001C00000007CE01E03800000;<br>        char[<span class="hljs-number">34</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0000</span>CFC<span class="hljs-number">00600000000000</span><span class="hljs-number">70700000000007</span><span class="hljs-number">070000</span>1C<span class="hljs-number">000000</span>1F8E<span class="hljs-number">0070700000</span>0;<br>        char[35] &lt;=   256&#x27;h0000FE0006000000000007038000000000E0700001C000000FF0E00387000000;<br>        char[<span class="hljs-number">36</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0007</span>F<span class="hljs-number">00007000000000</span>00F01C<span class="hljs-number">00000000</span>1C<span class="hljs-number">070000</span>1C<span class="hljs-number">000000</span>FC0E001C<span class="hljs-number">700000</span>0;<br>        char[37] &lt;=   256&#x27;h007F80000700000000000E01E00000000300700001C000000780E000EE000000;<br>        char[<span class="hljs-number">38</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h0FFE<span class="hljs-number">00000700000000</span>001E00F<span class="hljs-number">00000000600700</span>001C<span class="hljs-number">00000030</span>0E<span class="hljs-number">0007</span>E<span class="hljs-number">000000</span>;<br>        char[39] &lt;=   256&#x27;h0FF000000700000000001C00780000000800700001C000000000E0003C000000;<br>        char[<span class="hljs-number">40</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h07C<span class="hljs-number">00000070000000</span><span class="hljs-number">00038003</span>C<span class="hljs-number">00000010007000</span>01C<span class="hljs-number">00000000</span>0E<span class="hljs-number">0007</span>E<span class="hljs-number">000000</span>;<br>        char[41] &lt;=   256&#x27;h0100000007000000000078003F0000000000700001C000000000E000FF800000;<br>        char[<span class="hljs-number">42</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000070000</span><span class="hljs-number">000000</span>F<span class="hljs-number">0001</span>F<span class="hljs-number">80000000007000</span>01C<span class="hljs-number">00000000</span>0E001F7C<span class="hljs-number">0000</span>0;<br>        char[43] &lt;=   256&#x27;h00000000070000000001E0000FE000000000700001C000000000E007C3F00000;<br>        char[<span class="hljs-number">44</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000070000</span><span class="hljs-number">000003</span>C<span class="hljs-number">0000</span>7F<span class="hljs-number">80000000</span>0F<span class="hljs-number">0000</span>1C<span class="hljs-number">00000001</span>FE01F81FC<span class="hljs-number">0000</span>;<br>        char[45] &lt;=   256&#x27;h000000000F000000000F800007FE00000000F00001C000000007E0FC00FF8000;<br>        char[<span class="hljs-number">46</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000007</span>0F<span class="hljs-number">00000000</span>1E<span class="hljs-number">000003</span>FFC<span class="hljs-number">000000070000</span>1C<span class="hljs-number">00000000</span>3E3E<span class="hljs-number">0007</span>FF000;<br>        char[47] &lt;=   256&#x27;h00000003FF000000007C000001FFF8000000600001C000000001C000003FFC00;<br>        char[<span class="hljs-number">48</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000</span>FE<span class="hljs-number">00000001</span>E<span class="hljs-number">00000007</span>FF<span class="hljs-number">800000060000</span>1C<span class="hljs-number">00000000</span>1C<span class="hljs-number">0000000000</span>0;<br>        char[49] &lt;=   256&#x27;h000000007E00000003000000000000000000200001C000000000800000000000;<br>        char[<span class="hljs-number">50</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000</span>3C<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00018000000000</span><span class="hljs-number">000000000000</span>;<br>        char[51] &lt;=   256&#x27;h0000000038000000000000000000000000000000008000000000000000000000;<br>        char[<span class="hljs-number">52</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000100000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">80000000000000</span><span class="hljs-number">00000000</span>;<br>        char[53] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>        char[<span class="hljs-number">54</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000</span>;<br>        char[55] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>        char[<span class="hljs-number">56</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000</span>;<br>        char[57] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>        char[<span class="hljs-number">58</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000</span>;<br>        char[59] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>        char[<span class="hljs-number">60</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000</span>;<br>        char[61] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>        char[<span class="hljs-number">62</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000</span>;<br>        char[63] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>    end<br></code></pre></td></tr></table></figure>
 <p>然后在显示区域中，按照坐标从（0，0）到（255，63），赋值的时候用的是</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">char[char_y][char_x];</span><br></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scss">char<span class="hljs-selector-attr">[char_y]</span><span class="hljs-selector-attr">[char_x]</span>;<br></code></pre></td></tr></table></figure>
 <p>的方式。</p>
 <p>有几个比较绕的地方：</p>
 <ul>
@@ -100,122 +290,386 @@
 <li>用坐标来赋rgb时，按照的是先深度后宽度的方式赋值，并且注意宽度是从高到低依次赋值，这与存储器赋值时的代码顺序相同，也和图像逐行逐列显示的顺序相同，利用这2点记忆。</li>
 </ul>
 
-      </div>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/" class="category-chain-item">1_学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/" class="category-chain-item">0_FPGA</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/" class="category-chain-item">Verilog</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
     </div>
-  </div>
-</div>
-<div class="lx-navigation">
-	<div class="lx-cover next lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-l.min.jpeg)">
-		<div class="overlay"></div>
-		<a class="copy" href="/2023/05/83f630eca6a4.html">
-			<div class="display-t">
-				<div class="display-tc">
-					<div>
-						<span>Next</span>
-						<h3>Altera ...</h3>
-					</div>
-				</div>
-			</div>
-		</a>
-	</div>
-        <div class="lx-cover prev lx-cover-sm" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/footer-r.min.jpeg)">
-		<div class="overlay"></div>
-		<a class="copy" href="/2023/05/c40ff42dbaf6.html">
-			<div class="display-t">
-				<div class="display-tc">
-					<div>
-						<span>Prev</span>
-						<h3>HDMI接口</h3>
-					</div>
-				</div>
-			</div>
-		</a>
-	</div>
+  
+  
 </div>
 
-</div>
 
-<footer>
-  <div>
-  Copyright &copy; 2023.<a href="/">陶承的博客</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
-  </div>
-</footer>
+              
+  
 
-</div>
-
-<button class="hamburger hamburger--arrow-r" type="button" title="menu">
-    <div class="hamburger-box">
-      <div class="hamburger-inner"></div>
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>VGA小错误引发显示器黑屏</div>
+      <div>http://example.com/2023/05/b497eba54b0f.html</div>
     </div>
-</button>
-<div class="menu visibility">
-  <div class="menu-head">
-    <span class="layer">
-      <div class="col">
-        <div class="row for-pic">
-          <div class="profile-pic">
-            <a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"/></a>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Beitragsautor</div>
+          <div>陶承</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Veröffentlicht am</div>
+          <div>May 10, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Urheberrechtshinweis</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
           </div>
         </div>
-        <div class="row for-name">
-          <p>陶承</p>
-          <span class="tagline">Hello, World!</span>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/05/83f630eca6a4.html" title="Altera IP核的文件勾选设置">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Altera IP核的文件勾选设置</span>
+                        <span class="visible-mobile">Vorheriger</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/05/c40ff42dbaf6.html" title="HDMI接口">
+                        <span class="hidden-mobile">HDMI接口</span>
+                        <span class="visible-mobile">Nächster</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
-    </span>
-  </div>
-  <nav class="menu-container">
-  <ul class="menu-items">
-    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
-    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
-    
-    <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
-        <ul>
-          <li><a href="/guestbook/">Guestbook</a></li>
-        <li><a href="/about/">About</a></li>
-        </ul>
-    </li>
-    <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-link fa-fw"></i>Friends</span>
-        <ul>
-          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
-        </ul>
-    </li>
-  </ul>
-  </nav>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Inhaltsverzeichnis</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
-<div class="gototop js-top">
-  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+
+
+  </aside>
+
+
+    </div>
+  </div>
 </div>
-<script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.easing.min.js"></script>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Suchen</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Stichwort</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
 <script>
-(function () {
-	"use strict";
-	var goToTop = function() {
-		$(".js-gotop").on("click", function(event){
-			event.preventDefault();
-			$("html, body").animate({
-				scrollTop: $("html").offset().top
-			}, 500, "easeInOutExpo");
-			return false;
-		});
-		$(window).scroll(function(){
-			var $win = $(window);
-			if ($win.scrollTop() > 200) {
-				$(".js-top").addClass("active");
-			} else {
-				$(".js-top").removeClass("active");
-			}
-		});
-	};
-	$(function(){
-		goToTop();
-	});
-}());
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
 </script>
 
 
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog funktioniert am besten mit aktiviertem JavaScript</div>
+  </noscript>
 </body>
 </html>

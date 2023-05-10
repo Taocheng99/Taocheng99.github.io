@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了</title>
+    <link href="/2023/05/381b3eea5f02.html"/>
+    <url>/2023/05/381b3eea5f02.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了"><a href="#VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了" class="headerlink" title="VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了"></a>VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了</h1><p>十分疑惑</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>软件</category>
+      
+      <category>0_FPGA</category>
+      
+      <category>Verilog</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>VGA显示器驱动设计及验证</title>
+    <link href="/2023/05/f73c69ea1a59.html"/>
+    <url>/2023/05/f73c69ea1a59.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-理论部分"><a href="#1-理论部分" class="headerlink" title="1. 理论部分"></a>1. 理论部分</h1><hr><h2 id="1-1-VGA接口"><a href="#1-1-VGA接口" class="headerlink" title="1.1 VGA接口"></a>1.1 VGA接口</h2><p>母头：带孔<br>公头：带针</p><h2 id="1-2-VGA引脚定义"><a href="#1-2-VGA引脚定义" class="headerlink" title="1.2 VGA引脚定义"></a>1.2 VGA引脚定义</h2><p>15个引脚</p><h4 id="1-2-1-5个重要管脚"><a href="#1-2-1-5个重要管脚" class="headerlink" title="1.2.1 5个重要管脚"></a>1.2.1 5个重要管脚</h4><p>1、2、3 ：分别为RGB三原色红、绿、蓝（模拟信号）<br>13 ： 行同步 (HSYNC)<br>14 ： 场同步 (VSYNC)</p><p>行同步信号和场同步信号是VGA图像传输时的重要同步信号。</p><p>4、11、15：VGA接口的地址码，连接时可以悬空不接。</p><h2 id="1-3-VGA显示原理"><a href="#1-3-VGA显示原理" class="headerlink" title="1.3 VGA显示原理"></a>1.3 VGA显示原理</h2><p>扫描，将像素点，在行同步信号和场同步信号的同步瞎，从上到下，从左到右顺序扫描到显示屏上：</p><ol><li>一行从左到右，扫完由第一行行尾部转移到第二行行首，开始从左到右，以此类推…</li><li>扫完1帧，从最后一行尾部回到第一行首，重新开始即第二帧。</li></ol><h2 id="1-4-VGA时序标准"><a href="#1-4-VGA时序标准" class="headerlink" title="1.4 VGA时序标准"></a>1.4 VGA时序标准</h2><p>以VESA VGA视频标准为例</p><p>分别从行同步时序和场同步时序进行 </p><h2 id="1-5-行扫描"><a href="#1-5-行扫描" class="headerlink" title="1.5 行扫描"></a>1.5 行扫描</h2><p>从第1个行同步脉冲到第2个之间为一个行扫描周期，<br>一个行扫描周期有6个阶段，顺次为：</p><ol><li>同步<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">行同步信号只有在同步阶段才保持高电平，其余阶段为低电平，行同步信号为一个周期性的信号（有的标准行同步信号反着来，需要注意）<br></code></pre></td></tr></table></figure></li><li>后沿</li><li>做边框</li><li>有效图像</li><li>有边框</li><li>前沿</li></ol><p>其中，有效图像为行的像素点，其余5个阶段是起同步作用</p><h2 id="1-6-场扫描"><a href="#1-6-场扫描" class="headerlink" title="1.6 场扫描"></a>1.6 场扫描</h2><p>类似的，也分为6个阶段</p><ol><li>同步<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">场同步信号只有在同步阶段才保持高电平，其余阶段为低电平，场同步信号为一个周期性的信号（有的标准行同步信号反着来，需要注意）<br></code></pre></td></tr></table></figure></li><li>后沿</li><li>上边框</li><li>有效图像</li><li>底边框</li><li>前沿</li></ol><p>与行扫描不同在于，行扫描的6个阶段是以像素点为单位，而场扫描以行为单位</p><p>一帧图像要在行扫描与场扫描共同作用下显示，只有在<strong>行扫描的有效图像</strong>阶段和<strong>场扫描的有效图像</strong>阶段，图像信息才是有效的，<strong>其他阶段则是对图像信号进行同步和消影</strong>。<br><strong>每完成一次场扫描周期，就完成了一帧图像显示。</strong></p><h2 id="1-7-VGA显示模式及相关参数"><a href="#1-7-VGA显示模式及相关参数" class="headerlink" title="1.7 VGA显示模式及相关参数"></a>1.7 VGA显示模式及相关参数</h2><p>行扫描和场扫描各有6个阶段，每个阶段都有特定的参数，很重要。</p><p>不同显示模式（分辨率，帧率），对应不同阶段的参数不一样。</p><p><strong>行同步信号单位：像素点</strong><br><strong>场同步信号单位：行数</strong></p><p>如<strong>640X480@60</strong></p><ul><li><p><strong>640</strong>：在一个行扫描周期中，有效显示图像每一行有640个像素点，即在行扫描的<strong>有效图像阶段</strong>，有<strong>640个像素点</strong>。</p></li><li><p><strong>480</strong>：<strong>一个场扫描周期，有480行</strong></p></li></ul><p>640X480≈30W个像素点</p><ul><li><strong>60</strong>：<strong>每s刷新图像60次，即每s显示60帧图像</strong></li></ul><h4 id="1-7-1-行同步信号参数："><a href="#1-7-1-行同步信号参数：" class="headerlink" title="1.7.1 行同步信号参数："></a>1.7.1 行同步信号参数：</h4><p>时钟（MHz）参数：即像素时钟，每个时钟周期完成1个像素点的扫描，计算方式为：</p><blockquote><p><strong>时钟&#x3D;行扫描周期X场扫描周期X帧率</strong></p><blockquote><p>很好理解，行扫描周期X场扫描周期表示每1帧的像素点，再乘上帧率表示每秒一共多少个像素点，而一个像素点需要花费一个时钟周期，因此，结果就为时钟频率</p></blockquote></blockquote><p>如同步为96，表示一个同步阶段需要96个时钟周期，保持96时钟高电平，其余时间为低电平；有效图像阶段为640，表示该阶段要640个时钟周期</p><h4 id="1-7-2-场同步信号参数："><a href="#1-7-2-场同步信号参数：" class="headerlink" title="1.7.2 场同步信号参数："></a>1.7.2 场同步信号参数：</h4><p>单位为<strong>行</strong>，比如同步为2，表示同步阶段为2个行扫描时钟周期为高电平，其余时间为低电平；有效图像为480，表示有效图像阶段需要花费480个行扫描周期。</p><h1 id="2-实战部分"><a href="#2-实战部分" class="headerlink" title="2.实战部分"></a>2.实战部分</h1><hr><h2 id="2-1-硬件"><a href="#2-1-硬件" class="headerlink" title="2.1 硬件"></a>2.1 硬件</h2><h4 id="2-1-1-VGA接口电压标准"><a href="#2-1-1-VGA接口电压标准" class="headerlink" title="2.1.1 VGA接口电压标准"></a>2.1.1 VGA接口电压标准</h4><p>VGA为模拟信号，电压范围为<strong>0~0.714V</strong>，<strong>0V表示无色，0.714V表示满色</strong></p><h4 id="2-1-1-AD转换"><a href="#2-1-1-AD转换" class="headerlink" title="2.1.1 AD转换"></a>2.1.1 AD转换</h4><p>FPGA输出为数字信号，而<strong>VGA接收的是模拟信号</strong>，需要进行转换，通常，使用<strong>AD7123</strong>是最稳定的，但是处于成本考虑，征途开发版使用了<strong>权电阻网络进行AD转换</strong></p><h4 id="2-1-2-协议选择"><a href="#2-1-2-协议选择" class="headerlink" title="2.1.2 协议选择"></a>2.1.2 协议选择</h4><p>使用<strong>RGB565</strong>协议，即一个RGB像素，由16bit构成，高5bit为红色，中间6bit为绿色，低5bit为蓝色，因此权电阻网络需要根据上述来分配相应电阻</p><p>此外，还有<strong>RGB332（即8bit）</strong> <strong>RGB888（即24bit）</strong>，位宽越多，显示越细腻</p><h2 id="2-2-FPGA信号分析"><a href="#2-2-FPGA信号分析" class="headerlink" title="2.2 FPGA信号分析"></a>2.2 FPGA信号分析</h2><p>图像信号由<strong>FPGA产生16bitRGB像素</strong>，经过权电阻网络进行DA转换后，获得VGA_R、VGA_G、VGA_B 3个模拟信号，模拟信号输入至VGA线。此外，<strong>FPGA还要输出行同步信号VGA_HSYNC和长同步信号VGA_VSYNC来控制图像</strong> </p><h2 id="2-3-程序设计"><a href="#2-3-程序设计" class="headerlink" title="2.3 程序设计"></a>2.3 程序设计</h2><h4 id="2-3-1-VGA时钟信号"><a href="#2-3-1-VGA时钟信号" class="headerlink" title="2.3.1 VGA时钟信号"></a>2.3.1 VGA时钟信号</h4><p>本次实验选择640X480@60显示模式，其时钟为25.175MHz，板子是50MHz，无论是用rtl代码还是PLL，都无法产生，因此选择25MHz来代替25.175MHz，<strong>由于是低频信号，所以不会产生影响</strong></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>软件</category>
+      
+      <category>0_FPGA</category>
+      
+      <category>Verilog</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Altera IP核的文件勾选设置</title>
+    <link href="/2023/05/83f630eca6a4.html"/>
+    <url>/2023/05/83f630eca6a4.html</url>
+    
+    <content type="html"><![CDATA[<p>在<strong>最后Summary栏</strong>中，需要</p><ul><li><strong>勾选_inst选项，意思是生成例化模板</strong></li><li><strong>去掉_bb选项</strong></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>软件</category>
+      
+      <category>0_FPGA</category>
+      
+      <category>Verilog</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>VGA小错误引发显示器黑屏</title>
+    <link href="/2023/05/b497eba54b0f.html"/>
+    <url>/2023/05/b497eba54b0f.html</url>
+    
+    <content type="html"><![CDATA[<p>#VGA小错误引发显示器黑屏</p><hr><p>##出现的问题及原因<br>在VGA显示字符实验中，显示器直接黑屏，指示灯也橙色，表示无图像，由于复用了colorbar的大部分模块，而pic模块时序没问题，这就非常蛋疼了，后来对比野火代码，才发现是存储器访问的顺序有问题，导致像素点取的顺序有问题。</p><hr><p>在VGA显示字符的实验中，用代码生成了存储器</p><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs 1c">reg [<span class="hljs-number">255</span>:<span class="hljs-number">0</span>] char [<span class="hljs-number">63</span>:<span class="hljs-number">0</span>];<span class="hljs-comment">//深度为64，宽度256</span><br><br>always@(posedge vga_clk)        <span class="hljs-comment">//赋值他喵的按照深度从低到高赋，每个深度的宽度从高到低赋，服了</span><br>    begin<br>        char[<span class="hljs-number">0</span> ] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000</span>;<br>        char[1 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>        char[<span class="hljs-number">2</span> ] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000</span>;<br>        char[3 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>        char[<span class="hljs-number">4</span> ] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000007</span><span class="hljs-number">0000000001</span>C<span class="hljs-number">0004000000</span>0;<br>        char[5 ] &lt;=   256&#x27;h000000000000000000000000000000000000000003E000000000F00078000000;<br>        char[<span class="hljs-number">6</span> ] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000003800000</span><span class="hljs-number">00000000060003</span>E<span class="hljs-number">00000000</span>0F<span class="hljs-number">8007</span>E<span class="hljs-number">000000</span>;<br>        char[7 ] &lt;=   256&#x27;h0000038000780000000003E0000000000000078001E000000000F0003E000000;<br>        char[<span class="hljs-number">8</span> ] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0000</span>3FE003FE<span class="hljs-number">0000000001</span>F<span class="hljs-number">00000000000000</span>FC001E<span class="hljs-number">00000000</span>0F<span class="hljs-number">0003</span>C<span class="hljs-number">000000</span>;<br>        char[9 ] &lt;=   256&#x27;h0007FFF07F3F0000000001F00000000000001F8001C000000000F0003C000000;<br>        char[<span class="hljs-number">10</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h07FF81F7F83E<span class="hljs-number">0000000001</span>F<span class="hljs-number">00000000000003</span>E<span class="hljs-number">0001</span>C<span class="hljs-number">00000000</span>0E<span class="hljs-number">0003</span>C<span class="hljs-number">000000</span>;<br>        char[11] &lt;=   256&#x27;h03E1C1E1C0780000000001E0000000000000780001C000000000E0003C000000;<br>        char[<span class="hljs-number">12</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h03C1C1E<span class="hljs-number">00070000000000</span>1E<span class="hljs-number">000000000000</span>0E<span class="hljs-number">0000</span>1C<span class="hljs-number">00000000</span>0E<span class="hljs-number">0003800000</span>0;<br>        char[13] &lt;=   256&#x27;h01C1C1E000E00000000000E0000000000003C001C1C000000000E00038000000;<br>        char[<span class="hljs-number">14</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h01C0C1C001C<span class="hljs-number">0000000000</span>0E<span class="hljs-number">00000000000077</span>001F1C<span class="hljs-number">00000000</span>0E<span class="hljs-number">000387</span>C<span class="hljs-number">0000</span>;<br>        char[15] &lt;=   256&#x27;h01C0FDC001800000000000E00180000000187800F1C000000000E0003FFC0000;<br>        char[<span class="hljs-number">16</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h00E7F9C07B<span class="hljs-number">000000000000</span>E001E<span class="hljs-number">00000000070007</span>1C<span class="hljs-number">00000000</span>0E<span class="hljs-number">0007</span>FF<span class="hljs-number">0000</span>0;<br>        char[17] &lt;=   256&#x27;h00FFC1803E000000000001E001F000000000700011C000000000E007FFC00000;<br>        char[<span class="hljs-number">18</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h00E0C<span class="hljs-number">1801</span>F<span class="hljs-number">000000000001</span>E003F<span class="hljs-number">80000000070000</span>1C<span class="hljs-number">00000000</span>0FF1FFE<span class="hljs-number">000000</span>;<br>        char[19] &lt;=   256&#x27;h00E0C3800F000000000001E003F80000000033C001C00000000FFE0FF8000000;<br>        char[<span class="hljs-number">20</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0060</span>C<span class="hljs-number">38007038000000</span>401C007C<span class="hljs-number">0000000003</span>FE001C<span class="hljs-number">000000</span>0FFF<span class="hljs-number">0003000000</span>0;<br>        char[21] &lt;=   256&#x27;h0060C700013FE000000701C00F0000000001FE0781C0000000FFE00030000000;<br>        char[<span class="hljs-number">22</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0071</span>FF<span class="hljs-number">0007</span>FFF<span class="hljs-number">000000</span>7C1C01C<span class="hljs-number">00000000</span>1FF003C1C<span class="hljs-number">00000000</span>0E<span class="hljs-number">0003000000</span>0;<br>        char[23] &lt;=   256&#x27;h003FC200FF83F8000003E1C03800000003FF7001E1C000000000E00030000000;<br>        char[<span class="hljs-number">24</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0030</span>C07FF803F<span class="hljs-number">800000</span>1E1C0E<span class="hljs-number">00000001</span>FF8F000E1C<span class="hljs-number">00000000</span>0E<span class="hljs-number">0003000000</span>0;<br>        char[25] &lt;=   256&#x27;h0000C03F9C03C0000001F1C1800000000FE0F00041C000000000E20033800000;<br>        char[<span class="hljs-number">26</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0000</span>C<span class="hljs-number">0000</span>E<span class="hljs-number">0700000000</span>F1C<span class="hljs-number">000000000030</span>1F<span class="hljs-number">0000</span>1C0F<span class="hljs-number">800000</span>0EC003FE<span class="hljs-number">0000</span>0;<br>        char[27] &lt;=   256&#x27;h0000C4000F040000000061E0000000000003F80001DFFC000000F801FFE00000;<br>        char[<span class="hljs-number">28</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0000</span>FF000E<span class="hljs-number">000000000001</span>E<span class="hljs-number">000000000000</span>3FF<span class="hljs-number">0003</span>FFFC<span class="hljs-number">000000</span>F07FE3E<span class="hljs-number">0000</span>0;<br>        char[29] &lt;=   256&#x27;h000FFE000E000000000003F000000000000777807FF800000001E07F03C00000;<br>        char[<span class="hljs-number">30</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h007FF<span class="hljs-number">0000</span>E<span class="hljs-number">000000000003</span>D<span class="hljs-number">800000000000</span>E73BFFFC<span class="hljs-number">00000000</span>3E<span class="hljs-number">0000</span>3C<span class="hljs-number">0000</span>0;<br>        char[31] &lt;=   256&#x27;h001EC000060000000000039C00000000001C707FE1C000000007E00003800000;<br>        char[<span class="hljs-number">32</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0000</span>C<span class="hljs-number">00006000000000</span><span class="hljs-number">0038</span>C<span class="hljs-number">0000000000</span>1C700C01C<span class="hljs-number">00000001</span>EE03C<span class="hljs-number">03800000</span>;<br>        char[33] &lt;=   256&#x27;h0000C0E00600000000000786000000000038700001C00000007CE01E03800000;<br>        char[<span class="hljs-number">34</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0000</span>CFC<span class="hljs-number">00600000000000</span><span class="hljs-number">70700000000007</span><span class="hljs-number">070000</span>1C<span class="hljs-number">000000</span>1F8E<span class="hljs-number">0070700000</span>0;<br>        char[35] &lt;=   256&#x27;h0000FE0006000000000007038000000000E0700001C000000FF0E00387000000;<br>        char[<span class="hljs-number">36</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">0007</span>F<span class="hljs-number">00007000000000</span>00F01C<span class="hljs-number">00000000</span>1C<span class="hljs-number">070000</span>1C<span class="hljs-number">000000</span>FC0E001C<span class="hljs-number">700000</span>0;<br>        char[37] &lt;=   256&#x27;h007F80000700000000000E01E00000000300700001C000000780E000EE000000;<br>        char[<span class="hljs-number">38</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h0FFE<span class="hljs-number">00000700000000</span>001E00F<span class="hljs-number">00000000600700</span>001C<span class="hljs-number">00000030</span>0E<span class="hljs-number">0007</span>E<span class="hljs-number">000000</span>;<br>        char[39] &lt;=   256&#x27;h0FF000000700000000001C00780000000800700001C000000000E0003C000000;<br>        char[<span class="hljs-number">40</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h07C<span class="hljs-number">00000070000000</span><span class="hljs-number">00038003</span>C<span class="hljs-number">00000010007000</span>01C<span class="hljs-number">00000000</span>0E<span class="hljs-number">0007</span>E<span class="hljs-number">000000</span>;<br>        char[41] &lt;=   256&#x27;h0100000007000000000078003F0000000000700001C000000000E000FF800000;<br>        char[<span class="hljs-number">42</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000070000</span><span class="hljs-number">000000</span>F<span class="hljs-number">0001</span>F<span class="hljs-number">80000000007000</span>01C<span class="hljs-number">00000000</span>0E001F7C<span class="hljs-number">0000</span>0;<br>        char[43] &lt;=   256&#x27;h00000000070000000001E0000FE000000000700001C000000000E007C3F00000;<br>        char[<span class="hljs-number">44</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000070000</span><span class="hljs-number">000003</span>C<span class="hljs-number">0000</span>7F<span class="hljs-number">80000000</span>0F<span class="hljs-number">0000</span>1C<span class="hljs-number">00000001</span>FE01F81FC<span class="hljs-number">0000</span>;<br>        char[45] &lt;=   256&#x27;h000000000F000000000F800007FE00000000F00001C000000007E0FC00FF8000;<br>        char[<span class="hljs-number">46</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000007</span>0F<span class="hljs-number">00000000</span>1E<span class="hljs-number">000003</span>FFC<span class="hljs-number">000000070000</span>1C<span class="hljs-number">00000000</span>3E3E<span class="hljs-number">0007</span>FF000;<br>        char[47] &lt;=   256&#x27;h00000003FF000000007C000001FFF8000000600001C000000001C000003FFC00;<br>        char[<span class="hljs-number">48</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000</span>FE<span class="hljs-number">00000001</span>E<span class="hljs-number">00000007</span>FF<span class="hljs-number">800000060000</span>1C<span class="hljs-number">00000000</span>1C<span class="hljs-number">0000000000</span>0;<br>        char[49] &lt;=   256&#x27;h000000007E00000003000000000000000000200001C000000000800000000000;<br>        char[<span class="hljs-number">50</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000</span>3C<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00018000000000</span><span class="hljs-number">000000000000</span>;<br>        char[51] &lt;=   256&#x27;h0000000038000000000000000000000000000000008000000000000000000000;<br>        char[<span class="hljs-number">52</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000100000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">80000000000000</span><span class="hljs-number">00000000</span>;<br>        char[53] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>        char[<span class="hljs-number">54</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000</span>;<br>        char[55] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>        char[<span class="hljs-number">56</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000</span>;<br>        char[57] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>        char[<span class="hljs-number">58</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000</span>;<br>        char[59] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>        char[<span class="hljs-number">60</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000</span>;<br>        char[61] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>        char[<span class="hljs-number">62</span>] &lt;=   <span class="hljs-number">256</span>&#x27;h<span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000000000</span><span class="hljs-number">00000000</span>;<br>        char[63] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;<br>    end<br></code></pre></td></tr></table></figure><p>然后在显示区域中，按照坐标从（0，0）到（255，63），赋值的时候用的是</p><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scss">char<span class="hljs-selector-attr">[char_y]</span><span class="hljs-selector-attr">[char_x]</span>;<br></code></pre></td></tr></table></figure><p>的方式。</p><p>有几个比较绕的地方：</p><ul><li>定义存储器是先宽度后深度。</li><li>always赋值存储器时不用写复位，直接begin end。</li><li>用坐标来赋rgb时，按照的是先深度后宽度的方式赋值，并且注意宽度是从高到低依次赋值，这与存储器赋值时的代码顺序相同，也和图像逐行逐列显示的顺序相同，利用这2点记忆。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>软件</category>
+      
+      <category>0_FPGA</category>
+      
+      <category>Verilog</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>HDMI接口</title>
+    <link href="/2023/05/c40ff42dbaf6.html"/>
+    <url>/2023/05/c40ff42dbaf6.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-HDMI理论"><a href="#1-HDMI理论" class="headerlink" title="1. HDMI理论"></a>1. HDMI理论</h1><hr><h2 id="1-1-HDMI线"><a href="#1-1-HDMI线" class="headerlink" title="1.1 HDMI线"></a>1.1 HDMI线</h2><p>HDMI共有19根线，可分成4类：</p><ul><li>TMDS<code> 一种技术</code></li><li>DDC<code>显示模式相关信息通道，使用I2C接口，可以读取设备的产品信息</code></li><li>CEC<code>预留，可不使用</code></li><li>?</li></ul><p>19根中，有4对最重要：</p><ul><li>3对差分数据线（1 3、4 6、7 9、10 12）</li><li>1对差分时钟线（10 12）</li></ul><h1 id="1-2-TMDS传输原理"><a href="#1-2-TMDS传输原理" class="headerlink" title="1.2 TMDS传输原理"></a>1.2 TMDS传输原理</h1><p>R、G、B三重图像数据各自独立，各自完成：</p><ol><li>8bit–&gt;10bit  <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">其中第9位指示编码类型，第10位是根据前9位决定，目的<br>是保证直流均衡，提高信号可靠性<br></code></pre></td></tr></table></figure></li><li>将10bit并行数据–&gt;差分串行数据</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>软件</category>
+      
+      <category>0_FPGA</category>
+      
+      <category>Verilog</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title></title>
+    <link href="/2023/05/478a71418bf0.html"/>
+    <url>/2023/05/478a71418bf0.html</url>
+    
+    <content type="html"><![CDATA[<hr><h2 id="title：-2段式状态机Verilog"><a href="#title：-2段式状态机Verilog" class="headerlink" title="title： 2段式状态机Verilog"></a>title： 2段式状态机Verilog</h2><h1 id="3段式状态机"><a href="#3段式状态机" class="headerlink" title="3段式状态机"></a>3段式状态机</h1><h2 id="1-1-段落说明"><a href="#1-1-段落说明" class="headerlink" title="1.1 段落说明"></a>1.1 段落说明</h2><p><strong>第一段：</strong><br><strong>时序</strong>逻辑，将中间变量next_state赋值给<strong>state</strong></p><p><strong>第二段：</strong><br><strong>组合</strong>逻辑，进行状态跳转（组合逻辑进行跳转比较符合人的直觉）</p><p><strong>第三段</strong><br><strong>时序</strong>逻辑，在每个状态下对相应的变量进行赋值</p><h2 id="1-2-Verilog代码"><a href="#1-2-Verilog代码" class="headerlink" title="1.2 Verilog代码"></a>1.2 Verilog代码</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> clk, <span class="hljs-keyword">negedge</span> rst_n)<br>    <span class="hljs-keyword">if</span>(rst_n == <span class="hljs-number">1&#x27;b0</span>)<br>        <span class="hljs-keyword">begin</span><br>            state &lt;= <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">end</span> <br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-keyword">begin</span><br>            state &lt;= next_state;<span class="hljs-comment">//next_state打一拍得到state</span><br>        <span class="hljs-keyword">end</span> <br><br><span class="hljs-keyword">always</span>@(*)<br>    <span class="hljs-keyword">if</span>(rst_n == <span class="hljs-number">1&#x27;b0</span>)<br>        <span class="hljs-keyword">begin</span><br>            next_state = S0; <span class="hljs-comment">//设置状态机复位时状态为S0</span><br>        <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-keyword">case</span>(state) <span class="hljs-comment">//重点，以当前的state为条件</span><br>            S0:<br>                <span class="hljs-keyword">begin</span><br>                    <span class="hljs-keyword">if</span>()<br>                        next_state = S? <span class="hljs-comment">//改变的是next_state的值</span><br>                    <span class="hljs-keyword">else</span><br>                        next_state = S?<br>                <span class="hljs-keyword">end</span><br>            S1:<br>                <span class="hljs-keyword">begin</span><br>                    <span class="hljs-keyword">if</span>()<br>                        next_state = S?<br>                    <span class="hljs-keyword">else</span><br>                        next_state = S?<br>                <span class="hljs-keyword">end</span><br>            S2:<br>                <span class="hljs-keyword">begin</span><br>                    <span class="hljs-keyword">if</span>()<br>                        next_state = S?<br>                    <span class="hljs-keyword">else</span><br>                        next_state = S?<br>                <span class="hljs-keyword">end</span><br>            ...<br>            Default:       <span class="hljs-comment">//别忘了组合逻辑要加default，否则会产生latch！</span><br>                next_state = S?<br>        <span class="hljs-keyword">endcase</span>   <span class="hljs-comment">//别忘了case-endcase</span><br><br><span class="hljs-keyword">always</span>@(posegde clk, <span class="hljs-keyword">negedge</span> rst_n)<br>    <span class="hljs-keyword">if</span>(rst_n == <span class="hljs-number">1&#x27;b0</span>)<br>        <span class="hljs-keyword">begin</span><br>            给所有涉及到的变量赋初值<br>        <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-keyword">case</span>(state)<br>            S0:<br>                给对应变量赋值<br>            S1:<br>                给对应变量赋值<br>            S2:<br>                给对应变量赋值<br>            S3:<br>                给对应变量赋值<br>            <span class="hljs-keyword">default</span>:<br>                给对应变量赋值 <span class="hljs-comment">//这里可以不用加default,因为是时序逻辑，加上更规范</span><br>        <span class="hljs-keyword">endcase</span><br><br>            <br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>软件</category>
+      
+      <category>0_FPGA</category>
+      
+      <category>Verilog</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>异步复位，同步释放</title>
+    <link href="/2023/05/9a566da7e87e.html"/>
+    <url>/2023/05/9a566da7e87e.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="异步复位，同步释放"><a href="#异步复位，同步释放" class="headerlink" title="异步复位，同步释放"></a>异步复位，同步释放</h1><h2 id="1-1-原因"><a href="#1-1-原因" class="headerlink" title="1.1 原因"></a>1.1 原因</h2><p>异步复位的优点很多，但是问题主要出现在异步复位信号<strong>恢复</strong>的时候，若果此时被时钟沿采集，容易出现<strong>亚稳态</strong>现象，影响系统工作。</p><p><strong>注意，异步复位同步释放后，后续的所有always都是同步复位，且复位信号使用的是打拍后的复位</strong></p><h2 id="1-2-优点"><a href="#1-2-优点" class="headerlink" title="1.2 优点"></a>1.2 优点</h2><ul><li>避免复位信号释放时的亚稳态问题</li><li>只要信号一有效，电路就复位，与时钟沿无关（废话，因为是<strong>异步</strong>复位）</li><li>有效捕捉复位，即使是短脉冲复位也不会丢失</li><li>有<strong>明确的的复位撤销行为</strong>。复位的撤离是同步信号，因此有量好的撤离时序和足够的<br>恢复时间</li></ul><h2 id="1-3-详情见"><a href="#1-3-详情见" class="headerlink" title="1.3 详情见"></a>1.3 详情见</h2><h2 id="1-4-Verilog代码"><a href="#1-4-Verilog代码" class="headerlink" title="1.4 Verilog代码"></a>1.4 Verilog代码</h2><p>标准版本</p><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> xxx(<br>    <span class="hljs-keyword">input</span> <span class="hljs-keyword">wire</span> rst_n,<br>    <span class="hljs-keyword">output</span> <span class="hljs-keyword">reg</span> async_n<br>);<br><span class="hljs-keyword">reg</span> rst_reg;<br><br><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> clk, <span class="hljs-keyword">negedge</span> rst_n)<br>    <span class="hljs-keyword">if</span>(rst_n == <span class="hljs-number">1&#x27;b0</span>)<br>        <span class="hljs-keyword">begin</span><br>            rst_reg &lt;= <span class="hljs-number">1&#x27;b0</span>;<br>        <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-keyword">begin</span><br>            rst_reg &lt;= <span class="hljs-number">1&#x27;b1</span>; <span class="hljs-comment">//这里注意复位信号给了一个确定的值，能不能就写成rst_reg &lt;= rst_n 呢？感觉不能</span><br>        <span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> clk , <span class="hljs-keyword">negedge</span> rst_n)<br>    <span class="hljs-keyword">if</span>(rst_n == <span class="hljs-number">1&#x27;b0</span>)<br>        <span class="hljs-keyword">begin</span><br>            async_n &lt;= <span class="hljs-number">1&#x27;b0</span>;<br>        <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-keyword">begin</span><br>            async_n &lt;= rst_reg; <span class="hljs-comment">// 输入复位信号释放的时候，输出的复位信号是中间寄存器的下一级</span><br>        <span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure><p>简化版本，1个always</p><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> xxx(<br><span class="hljs-keyword">input</span> <span class="hljs-keyword">wire</span> rst_n,<br><span class="hljs-keyword">output</span> <span class="hljs-keyword">reg</span> rst_reg2<br>);<br><span class="hljs-keyword">reg</span> rst_reg1;<br><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> clk, <span class="hljs-keyword">negedge</span> rst_n)<br>    <span class="hljs-keyword">if</span>(rst_n == <span class="hljs-number">1&#x27;b0</span>)<br>        <span class="hljs-keyword">begin</span><br>            rst_reg1 &lt;= <span class="hljs-number">1&#x27;b0</span>;<br>            rst_reg2 &lt;= <span class="hljs-number">1&#x27;b0</span>;<br>        <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-keyword">begin</span><br>            rst_reg1 &lt;= <span class="hljs-number">1&#x27;b1</span>;<br>            rst_reg2 &lt;= rst_reg1;   <span class="hljs-comment">//一步到位</span><br>        <span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>软件</category>
+      
+      <category>0_FPGA</category>
+      
+      <category>Verilog</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>inout型变量的仿真</title>
+    <link href="/2023/05/89ad2d367597.html"/>
+    <url>/2023/05/89ad2d367597.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="inout型变量的仿真"><a href="#inout型变量的仿真" class="headerlink" title="inout型变量的仿真"></a>inout型变量的仿真</h1><h2 id="1-1-原理"><a href="#1-1-原理" class="headerlink" title="1.1 原理"></a>1.1 原理</h2><p>testbench代码中，对inout连续赋值一个reg型变量，记作X</p><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> <span class="hljs-keyword">wire</span>&#123;<span class="hljs-keyword">inout</span>&#125; = <span class="hljs-keyword">reg</span>(x);<br><br><span class="hljs-comment">//inout作输入时：</span><br>z &lt;= <span class="hljs-number">1&#x27;b1</span>;<br>x &lt;= <span class="hljs-number">123</span>;    则<span class="hljs-keyword">inout</span>的值就是<span class="hljs-number">123</span><br><br><span class="hljs-comment">//inout作输出时：</span><br>z &lt;= <span class="hljs-number">1&#x27;b0</span>;<br>x &lt;= <span class="hljs-number">1&#x27;bz</span>;     <span class="hljs-comment">//设置为高阻态，表示变量x与inout端口断开连接</span><br></code></pre></td></tr></table></figure><h2 id="1-2-参考资料"><a href="#1-2-参考资料" class="headerlink" title="1.2 参考资料"></a>1.2 参考资料</h2><p><a href="http://blog.chinaaet.com/xzy610030/p/37525" title="最好的inout变量的仿真解释">inout变量的仿真</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>软件</category>
+      
+      <category>0_FPGA</category>
+      
+      <category>Verilog</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>FPGA跨时钟域处理</title>
+    <link href="/2023/05/bf3ec6529dd1.html"/>
+    <url>/2023/05/bf3ec6529dd1.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="FPGA跨时钟处理"><a href="#FPGA跨时钟处理" class="headerlink" title="FPGA跨时钟处理"></a>FPGA跨时钟处理</h1><h2 id="1-1-链接"><a href="#1-1-链接" class="headerlink" title="1.1 链接"></a>1.1 链接</h2><p><strong><a href="https://www.bilibili.com/video/BV17r4y1s7Nn?spm_id_from=333.337.search-card.all.click&vd_source=ebce6585e03af701a1ff6ba2e47f8c8b,%22FPGA%E8%B7%A8%E6%97%B6%E9%92%9F%E5%A4%84%E7%90%86%22">1小时详细_FPGA跨时钟域处理</a></strong></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>软件</category>
+      
+      <category>0_FPGA</category>
+      
+      <category>Verilog</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>STM32结构体和结构体指针</title>
+    <link href="/2023/02/51bd37e3ca2a.html"/>
+    <url>/2023/02/51bd37e3ca2a.html</url>
+    
+    <content type="html"><![CDATA[<p>#1 结构体</p><h2 id="1-1最基本的结构体"><a href="#1-1最基本的结构体" class="headerlink" title="1.1最基本的结构体"></a>1.1最基本的结构体</h2><p>例如</p><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs abnf">struct  student&#123;<br>    int     a<span class="hljs-comment">;</span><br>    char    b<span class="hljs-comment">;</span><br>&#125; <span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure><p>即定义了一种<strong>被称为struct student(学生结构)的数据结构</strong>，他只是一种结构而不是变量，这种结构的规定了内容为先是int然后一个char</p><p>注意，<strong>结构体(数据结构)的名称是struct student!而不是student</strong></p><h2 id="1-2定义结构体的同时定义结构体变量"><a href="#1-2定义结构体的同时定义结构体变量" class="headerlink" title="1.2定义结构体的同时定义结构体变量"></a>1.2定义结构体的同时定义结构体变量</h2><p>例如</p><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs abnf">struct  student&#123;<br>    int     a<span class="hljs-comment">;</span><br>    char    b<span class="hljs-comment">;</span><br>&#125; stu1<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure><p>如1.1，定义了一个被称为struct student的结构体(数据类型),同时又定义了一个结构体变量stu1，这个变量不再是一个类型，而是一个具有struct student数据结构的实体，于是可以使用变量名字来干一些具体的事情了</p><h2 id="1-3定义结构体，然后typedef更改类型名称"><a href="#1-3定义结构体，然后typedef更改类型名称" class="headerlink" title="1.3定义结构体，然后typedef更改类型名称"></a>1.3定义结构体，然后typedef更改类型名称</h2><p>例如</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">student</span>&#123;<br>    <span class="hljs-type">int</span>     a;<br>    <span class="hljs-type">char</span>    b;<br>&#125; stu;<br></code></pre></td></tr></table></figure><p>这种写法等价于</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span>  <span class="hljs-title class_">student</span>&#123;<br>    <span class="hljs-type">int</span>     a;<br>    <span class="hljs-type">char</span>    b;<br>&#125; ;<br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">student</span> stu;<br></code></pre></td></tr></table></figure><p>即先定义了一种称为struct student的数据结构，然后用typedef将这种<strong>数据结构改名</strong>为stu。<br>此后，定义结构体变量的时候不用再写成struct student stu1的形式了，而是可以少写几个字，比如直接</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">stu stu1    <span class="hljs-regexp">//</span>第一个stu等价于struct student，<br>            <span class="hljs-regexp">//</span>第二个stu1为结构体变量名<br></code></pre></td></tr></table></figure><h2 id="1-4-1-3的typedef简化形式"><a href="#1-4-1-3的typedef简化形式" class="headerlink" title="1.4 1.3的typedef简化形式"></a>1.4 1.3的typedef简化形式</h2><p>例如</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span>&#123;<br>    <span class="hljs-type">int</span>     a;<br>    <span class="hljs-type">char</span>    b;<br>&#125; stu;<br></code></pre></td></tr></table></figure><p>既然typedef把struct student数据结构改名为了stu，student这个名字已经失去了意义，因为后续如果要再对student类型的结构体定义变量，都是直接用stu了,<br><strong>所以当用typedef定义结构体时，可以直接去掉结构体(数据结构)的名称。</strong><br>此后如果需要定义结构体变量，可以直接这样</p><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">stu stu1<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure><p>#2 结构体指针<br>##2.1 基本结构体指针<br><em><em>结构体名称</em> 指针变量&#x3D;&amp;结构体变量</em>*</p><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-keyword">struct</span>  <span class="hljs-type">student</span>&#123;<br>    int     a;<br>    char    b;<br>&#125; ;<br><span class="hljs-keyword">struct</span> <span class="hljs-type">student</span> stu1;<br><br><span class="hljs-keyword">struct</span> <span class="hljs-type">student</span> *p=stu1  <span class="hljs-comment">//即定义一个结构体变量，然后</span><br>                        <span class="hljs-comment">//让他指向结构体变量的头部</span><br></code></pre></td></tr></table></figure><p><strong>结构体指针的类型是struct student！！！</strong><br><strong>结构体指针的类型是struct student！！！</strong><br><strong>结构体指针的类型是struct student！！！</strong></p><p>就像定义一个整形指针时，一般直接int *p&#x3D;&amp;a，这个int是指针类型的意思</p><p><strong>结构体指针的移动，表示跨越整个结构体变量！！！</strong><br><strong>结构体指针的移动，表示跨越整个结构体变量！！！</strong><br><strong>结构体指针的移动，表示跨越整个结构体变量！！！</strong><br>这样，在stm32中定义寄存器结构体时，定义一个结构体指针，该指针指向结构体的头地址，当指针+1时表示略过整个结构体</p><h2 id="2-2-结构体指针的使用"><a href="#2-2-结构体指针的使用" class="headerlink" title="2.2 结构体指针的使用"></a>2.2 结构体指针的使用</h2><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span>&#123;<br>    <span class="hljs-type">int</span>     a;<br>    <span class="hljs-type">char</span>    b;<br>&#125; stu;              <span class="hljs-comment">//定义结构体，改数据类型名为stu</span><br><br>stu stu1;       <span class="hljs-comment">// 定义结构体变量stu1</span><br>stu *p=stu1     <span class="hljs-comment">//定义结构体指针指向结构体变量头部</span><br>p-&gt;a=<span class="hljs-number">1</span>          <span class="hljs-comment">//将结构体变量stu1的第一个int变量赋值为1</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>软件</category>
+      
+      <category>1_单片机</category>
+      
+      <category>STM32</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>STM32单片机置位清零操作</title>
+    <link href="/2023/02/bc3fc5e3dcd5.html"/>
+    <url>/2023/02/bc3fc5e3dcd5.html</url>
+    
+    <content type="html"><![CDATA[<p>#STM32单片机置位清零操作</p><ul><li>置1<br>|&#x3D; (1&lt;&lt;?)<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode">如果<span class="hljs-number">32</span>位寄存器，想要改变<span class="hljs-number">4</span>位为单位的位置，可以用更直观<span class="hljs-comment">(1&lt;&lt;(4*k)</span>),k取<span class="hljs-number">0</span>表示最低<span class="hljs-number">0001</span>，k取<span class="hljs-number">1</span>表示<span class="hljs-number">0001</span>_xxxx，k取<span class="hljs-number">2</span>表示<span class="hljs-number">0001</span>_xxxx_xxxx，以此类推<br></code></pre></td></tr></table></figure></li><li>清0<br>&amp;&#x3D; ~(1&lt;&lt;?)</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>软件</category>
+      
+      <category>1_单片机</category>
+      
+      <category>STM32</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title></title>
+    <link href="/2022/11/1aefc1f48e84.html"/>
+    <url>/2022/11/1aefc1f48e84.html</url>
+    
+    <content type="html"><![CDATA[<hr><h2 id="title-通信板上位机接收TBUS时每帧EFLAG为1"><a href="#title-通信板上位机接收TBUS时每帧EFLAG为1" class="headerlink" title="title:通信板上位机接收TBUS时每帧EFLAG为1"></a>title:通信板上位机接收TBUS时每帧EFLAG为1</h2><h1 id="通信板上位机接收TBUS时每帧EFLAG为1"><a href="#通信板上位机接收TBUS时每帧EFLAG为1" class="headerlink" title="通信板上位机接收TBUS时每帧EFLAG为1"></a>通信板上位机接收TBUS时每帧EFLAG为1</h1><p>把老板子的TBUS和48V-in接在一起，挂在郭工板子的TBUS上，2者成功通信。通信过程中发现了一个以前从来没有注意到的问题：<br><strong>正常情况下，上位机接收到的数据并不会和TBUS的数据完全一致，头字节会由4变6，或由0变2。</strong><br>比如TBUS发来的是:</p><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">45 </span><span class="hljs-number">88</span> C3 <span class="hljs-number">40</span> <span class="hljs-number">80</span> E0 <span class="hljs-number">40</span> <span class="hljs-number">80</span> E0 <span class="hljs-number">45</span> <span class="hljs-number">88</span> C3<br></code></pre></td></tr></table></figure><p>上位机（串口助手）显示:</p><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">65 </span><span class="hljs-number">88</span> C3 <span class="hljs-number">60</span> <span class="hljs-number">80</span> E0 <span class="hljs-number">60</span> <span class="hljs-number">80</span> E0 <span class="hljs-number">65</span> <span class="hljs-number">88</span> C3<br></code></pre></td></tr></table></figure><p>原因在于，TBUS每次通信都是16位，FPGA程序接收时将16位添加上位机协议成24位，并且<strong>EFLAG&#x3D;1</strong>，也就是说，TBUS每16位，上位机对应3个字节，<strong>头字节将会由4(0100)变6(0110，因为EFLAG&#x3D;1)或由0(0000)变2(0010)</strong></p><p>再次实验TBUS发来：</p><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">05 </span><span class="hljs-number">88</span> C3 <span class="hljs-number">00</span> <span class="hljs-number">80</span> E0 <span class="hljs-number">00</span> <span class="hljs-number">80</span> E0 <span class="hljs-number">05</span> <span class="hljs-number">88</span> C3<br></code></pre></td></tr></table></figure><p>上位机显示:</p><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">25 </span><span class="hljs-number">88</span> C3 <span class="hljs-number">20</span> <span class="hljs-number">80</span> E0 <span class="hljs-number">20</span> <span class="hljs-number">80</span> E0 <span class="hljs-number">25</span> <span class="hljs-number">88</span> C3<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>0_Project</category>
+      
+      <category>CommunicateBoard</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>通信板设计失误笔记</title>
+    <link href="/2022/11/5fcf89a50444.html"/>
+    <url>/2022/11/5fcf89a50444.html</url>
+    
+    <content type="html"><![CDATA[<p>#通信板设计失误笔记</p><p>##1.设计失误：<br>###1.1 模拟解码电路<br>####1.1.1 运放<br>两路DAC芯片输出没问题，但下一级的低通滤波器中运放构成的的电压跟随器没有负反馈，即<strong>U26和U22各自的1脚和2脚应该相连构成电压跟随器</strong>，好在相邻引脚，<strong>直接用锡焊在一起</strong>就能解决，<strong>PCB需要小改一下</strong>。</p><p>####1.1.2 滑动变阻器<br>滑动变阻器的封装为倒放贴在PCB上的，需要换成立起来的</p><h1 id="老师让将错就错，再直接焊2块？还是一块？"><a href="#老师让将错就错，再直接焊2块？还是一块？" class="headerlink" title="老师让将错就错，再直接焊2块？还是一块？"></a>老师让将错就错，再直接焊2块？还是一块？</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>0_Project</category>
+      
+      <category>CommunicateBoard</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错</title>
+    <link href="/2022/10/b38f19f69a0f.html"/>
+    <url>/2022/10/b38f19f69a0f.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错"><a href="#FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错" class="headerlink" title="FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错"></a>FPGA不论手搓时钟还是引PLL的时钟连线怎么都报错</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>在给I2C模块赋1M时钟输入的时候，从PLL上引出来再手搓时钟，但是总是报错</p><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">Place:<span class="hljs-number">1138</span> - Automatic clock placement failed. Please attempt <span class="hljs-built_in">to</span> analyze <span class="hljs-keyword">the</span> <span class="hljs-built_in">global</span> clocking required <span class="hljs-keyword">for</span> this<br>   design <span class="hljs-keyword">and</span> either lock <span class="hljs-keyword">the</span> clock placement <span class="hljs-keyword">or</span> area locate <span class="hljs-keyword">the</span> logic driven <span class="hljs-keyword">by</span> <span class="hljs-keyword">the</span> clocks so that <span class="hljs-keyword">the</span> clocks may be<br>   placed <span class="hljs-keyword">in</span> such <span class="hljs-keyword">a</span> way that all logic driven <span class="hljs-keyword">by</span> them may be routed. The main restriction <span class="hljs-keyword">on</span> <span class="hljs-title">clock</span> <span class="hljs-title">placement</span> <span class="hljs-title">is</span> <span class="hljs-title">that</span><br>   only <span class="hljs-literal">one</span> clock output signal <span class="hljs-keyword">for</span> <span class="hljs-keyword">any</span> competing Global / Side pair <span class="hljs-keyword">of</span> clocks may enter <span class="hljs-keyword">any</span> region. For further<br>   information see <span class="hljs-keyword">the</span> <span class="hljs-string">&quot;Quadrant Clock Routing&quot;</span> section <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> Spartan3a Family Datasheet.<br></code></pre></td></tr></table></figure><p>把时钟模块删掉就好了，折腾了很久，找不出原因</p><h2 id="折腾过程中发现几点需要注意的地方："><a href="#折腾过程中发现几点需要注意的地方：" class="headerlink" title="折腾过程中发现几点需要注意的地方："></a>折腾过程中发现几点需要注意的地方：</h2><ol><li>外部时钟进入后，如果经过了PLL，就不能再从输入的时钟上取时钟了，只能从PLL的输出上取，ISE的DCM中有CLK_0和CLK_IBUFG_OUT这两个输出可以。</li></ol><h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>因为为了调试方便，我把产生的I2C时钟输出为外部接口，仅仅去掉这个外部接口，就好了，一定程度上说明FPGA不能把时钟用来输出</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>0_Project</category>
+      
+      <category>CommunicateBoard</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>通信板3调试</title>
+    <link href="/2022/10/2917742f75e4.html"/>
+    <url>/2022/10/2917742f75e4.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="通信板3调试"><a href="#通信板3调试" class="headerlink" title="通信板3调试"></a>通信板3调试</h1><h2 id="1-RS485"><a href="#1-RS485" class="headerlink" title="1. RS485"></a>1. RS485</h2><p>485走FPGA，在FPGA内将输入输出连通后，接485盒子做回环测试，波特率115200 发送2W个字节，成功接收到10W个字节，发送数&#x3D;接收数。</p><p>但是波形很垃圾，印象中以前的波形是很干净的，方方正正有棱有角</p><h2 id="2-TBUS"><a href="#2-TBUS" class="headerlink" title="2. TBUS"></a>2. TBUS</h2><p>一开始，关闭TBUS的时候，电压下降得很慢，并且会维持在10V，MOS的S和G都是10V，确实关断了，所以我怀疑是门极驱动给的G和S电压没有降下去。<br>后来李老师让加个1K负载试一下，因为是接了82uF的电容的，接上后发现开关非常丝滑，秒开秒关。<br>推测是因为没有负载接入的情况下，相当于开路，自举电容的电压放电很慢，因为RC系数非常大，接了负载后有了更快的放电通路，所以能正常关闭了</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>0_Project</category>
+      
+      <category>CommunicateBoard</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ISE找不到下载器的解决办法</title>
+    <link href="/2022/10/9589d10d7226.html"/>
+    <url>/2022/10/9589d10d7226.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="ISE找不到下载器的解决办法"><a href="#ISE找不到下载器的解决办法" class="headerlink" title="ISE找不到下载器的解决办法"></a>ISE找不到下载器的解决办法</h1><p><strong>现象</strong><br>如果从桌面图标点开的ISE，impact会提示找不到下载器<br>直接点击communication0826项目的工程文件打开ISE，就能正常下载</p><p><strong>原因</strong></p><p>和ISE与电脑的位数有关，32位的ISE只能用32位的电脑才能识别下载器，64位同理</p><p>取自：<a href="https://support.xilinx.com/s/article/30184?language=en_US">https://support.xilinx.com/s/article/30184?language=en_US</a> 的solution3</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>0_Project</category>
+      
+      <category>CommunicateBoard</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>电子科大发票报销流程</title>
+    <link href="/2022/10/4638e859b447.html"/>
+    <url>/2022/10/4638e859b447.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="发票报销流程"><a href="#发票报销流程" class="headerlink" title="发票报销流程"></a>发票报销流程</h1><ol><li><p>纸质发票：网上服务大厅——&gt;研究生快速通道中的财务信息综合门户——&gt;左侧网上预约报账——&gt;左侧报销单管理——&gt;左下方申请报销单——&gt;已阅读并同意——&gt;填老师给的报销项目号、自己的电话、附件张数（需要报销的发票的张数）、选择支付方式（自己买的就选个人转卡，别人买的选转账汇款）、点击确定是否发送短信、退单地点：主楼B2区2楼——&gt;下一步，然后照着做</p></li><li><p>电子发票：网上服务大厅——&gt;财务信息综合门户——&gt;右上方智能报销</p></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>3_办事流程</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>github技巧</title>
+    <link href="/2022/09/e5d035f21412.html"/>
+    <url>/2022/09/e5d035f21412.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="github技巧"><a href="#github技巧" class="headerlink" title="github技巧"></a>github技巧</h1><h2 id="1-找资源"><a href="#1-找资源" class="headerlink" title="1. 找资源"></a>1. 找资源</h2><ul><li>找百科大全   <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">awesome xxx</span><br></code></pre></td></tr></table></figure></li><li>找例子   <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">xxx sample</span><br></code></pre></td></tr></table></figure></li><li>找空项目架子<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">xxx</span> starter/ xxx boilerplate<br></code></pre></td></tr></table></figure></li><li>找教程 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">xxx tutorial</span><br></code></pre></td></tr></table></figure></li></ul><h2 id="2-三个基本要素"><a href="#2-三个基本要素" class="headerlink" title="2. 三个基本要素"></a>2. 三个基本要素</h2><ul><li>commite 提交</li><li>repository 仓库</li><li>branch 分支<br>每个分支可以代表不同功能，最后需要一个人集成到main里面，构成完整的程序</li></ul><h2 id="3-如何白嫖一个项目？"><a href="#3-如何白嫖一个项目？" class="headerlink" title="3.如何白嫖一个项目？"></a>3.如何白嫖一个项目？</h2><ol><li>点击star收藏，保存在自己的主页中</li><li>点击下载，复制链接，然后在自己电脑上对应文件夹下，通过git命令<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">clone</span> <span class="hljs-title">链接</span><br></code></pre></td></tr></table></figure>可以直接将整个项目复制下来</li></ol><h2 id="3-时间机器（一个钟表的图案）"><a href="#3-时间机器（一个钟表的图案）" class="headerlink" title="3. 时间机器（一个钟表的图案）"></a>3. 时间机器（一个钟表的图案）</h2><p>点击时间机器可以查看项目从一开始到最后经历的删减，点击对应修改事件的哈希值可以查看修改的详情，其中红色表示修改前的代码，绿色表示修改后的代码可以学习别人是如何创建一个项目以及如何完善一个项目的</p><h2 id="4-star、issue"><a href="#4-star、issue" class="headerlink" title="4. star、issue"></a>4. star、issue</h2><ul><li>star数量表示收藏数量，点击star可以收藏，方便寻找</li><li>issue表示向作者提出待解决的问题</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>软件</category>
+      
+      <category>3_Github</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>matlab中矩阵（或向量）+常数的运算</title>
+    <link href="/2022/08/f3be157704bd.html"/>
+    <url>/2022/08/f3be157704bd.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="matlab中矩阵（或向量）-常数的运算"><a href="#matlab中矩阵（或向量）-常数的运算" class="headerlink" title="matlab中矩阵（或向量）+常数的运算"></a>matlab中矩阵（或向量）+常数的运算</h1><h2 id="1-1-运算结果"><a href="#1-1-运算结果" class="headerlink" title="1.1 运算结果"></a>1.1 运算结果</h2><p>相当于矩阵+<strong>维度相同</strong>且<strong>所有元素都为该常数</strong>的<strong>矩阵</strong><br>（而非常数倍的单位矩阵）</p><h2 id="1-2-参考资料"><a href="#1-2-参考资料" class="headerlink" title="1.2 参考资料"></a>1.2 参考资料</h2><p><a href="https://blog.csdn.net/qwe900/article/details/106783607/">matlab矩阵和常数相加？居然不是和单位矩阵相加</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>软件</category>
+      
+      <category>2_Matlab</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>communicateboard test</title>
+    <link href="/2022/07/09cb3dc4ccdc.html"/>
+    <url>/2022/07/09cb3dc4ccdc.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-USB转RS485"><a href="#1-USB转RS485" class="headerlink" title="1. USB转RS485"></a>1. USB转RS485</h1><h2 id="1-1USB转485"><a href="#1-1USB转485" class="headerlink" title="1.1USB转485"></a>1.1USB转485</h2><p><strong>正常</strong>，发送<code>40 94 E8 40 80 C2 4F AB D5</code>，示波器观察波形一致，且符合485电平标准</p><h2 id="1-2-板子与485盒子通信"><a href="#1-2-板子与485盒子通信" class="headerlink" title="1.2 板子与485盒子通信"></a>1.2 板子与485盒子通信</h2><h3 id="1-2-1-板子485发送"><a href="#1-2-1-板子485发送" class="headerlink" title="1.2.1 板子485发送"></a>1.2.1 板子485发送</h3><p><strong>正常</strong>，发送<code>40 94 E8 40 80 C2 4F AB D5</code>，用485盒子接收到相同内容，发送周期10ms，发送65943条，接收到65943条</p><h3 id="1-2-2-板子485接收"><a href="#1-2-2-板子485接收" class="headerlink" title="1.2.2 板子485接收"></a>1.2.2 板子485接收</h3><p><strong>不正常</strong>，115200波特率下，用了2个485盒子对接能通信，说明盒子是没问题的，但是任意一个盒子和板子通信，板子发盒子能收到，盒子发板子却不能收到，测了下波形：</p><ul><li>板子发出的正电平2.7V，负电平-2.7V。</li><li>大盒子发出的正电平880mV，负电平-2.7V</li><li>小盒子发出正电平5V，负电平-5V</li></ul><h3 id="1-2-3-板子与板子通信"><a href="#1-2-3-板子与板子通信" class="headerlink" title="1.2.3 板子与板子通信"></a>1.2.3 板子与板子通信</h3><p>给的板子（X）和第一块板子（Y）485通信，X发出Y能收到，且发多少收多少，但Y发出X收不到</p><blockquote><p>两个板子的输出485差分信号是一模一样的，应该是X的接收某处有问题</p></blockquote><h3 id="1-2-4-两块板子的接收路径测试"><a href="#1-2-4-两块板子的接收路径测试" class="headerlink" title="1.2.4 两块板子的接收路径测试"></a>1.2.4 两块板子的接收路径测试</h3><blockquote><p>测试在板子485互相连接下进行<br>在正常情况下，AB连接时的电压会比开路时的电压小小一丢丢，不影响使用</p></blockquote><p>Y发X收：</p><table><thead><tr><th align="left"></th><th align="center">485差分</th><th align="center">R<del>差分</del>两端电压</th><th align="center">芯片AB差分电压</th><th align="center">芯片A</th><th align="right">芯片B</th></tr></thead><tbody><tr><td align="left">第一块板</td><td align="center">H≈2.25V L≈2.1V</td><td align="center">H≈2.25V L≈2.1V</td><td align="center">H≈2.25V L≈2.1V</td><td align="center">两板相同</td><td align="right">两板相同</td></tr><tr><td align="left">蝈蝈的板</td><td align="center">相同</td><td align="center">相同</td><td align="center">相同</td><td align="center"></td><td align="right"></td></tr></tbody></table><blockquote><p>这里已经出现问题了，AB电压高低电平应该关于0V对称，但是第一时间没有反应过来，后来才察觉。</p></blockquote><p>Y发X收：<br>发现高电平2.25V，低电平几乎0V，Y板肯定是收不到的，因为485的接收电平低电平必须满足&lt;200mV。故Y板一直监测到AB电压为高，却一直没有出现起始位。</p><blockquote><p>加深了485总线的电平标准印象：<br><strong>空闲</strong><br>AB&#x3D;<strong>-200mV~200mV</strong>，正好避让接收电平<br>发送<br>H：AB&#x3D;2<del>6V<br>L：AB&#x3D;-2</del>-6V<br>接收<br>H：AB&gt;200mV<br>L：AB&lt;200mV</p></blockquote><p>进一步测试发现，2板不连接的情况下<br><strong>Y板空闲AB≈0V，正常</strong><br><strong>X板空闲AB&#x3D;3V，居然是高电平</strong><br>显然，问题出在这</p><p>进一步排查，首先怀疑485收发器MAX3485</p><blockquote><p>2块板子都是用的这个芯片</p></blockquote><p>查看datasheet，485收发器大部分时间处在接收状态，DE负责使能发送，DE高电平时才会发送，RE负责接收使能，高电平时停止接收，大部分时间都是低电平。</p><p><strong>通信板的485使用的是半双工功能</strong>，具体方法是吧<strong>DE和RE</strong>接到一起，这样，两者由于真值表<strong>互补</strong>，所以<strong>任意时刻只能接收或发送</strong>，非常巧妙。</p><p>Y板子<strong>485空闲</strong>的时候，AB电压0，<strong>DE&#x3D;0，RE&#x3D;0，处于接收状态</strong>，其485反过来输出给串口高电平，和串口UART通信空闲时高电平对上了。接收数据时，DE和RE当然保持0，而串口则从空闲时的高电平开始产生起始位，开始通信，这是正常的收发器接收流程。发送时，<strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong>。<br><strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong><br><strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong><br><strong>DE会变成高电平，在其高电平期间，数据同步发出，这是正常的收发器发送流程</strong></p><p><strong>X板子的DE居然一直保持高电平</strong>，无论发送和接收还是空闲，这导致了其时刻处于发送485状态，就算有485信号来，也无法转换成串口数据发送给USB</p><h2 id="1-2-5-排查485收发器是否DE引脚被烧穿了"><a href="#1-2-5-排查485收发器是否DE引脚被烧穿了" class="headerlink" title="1.2.5 排查485收发器是否DE引脚被烧穿了"></a>1.2.5 排查485收发器是否DE引脚被烧穿了</h2><p>一开始怀疑DE引脚是否被烧穿，和自身的3.3V供电短接了（DE确定了下正常情况的高电平也是3.3V），用表笔测得是正常的，所有的引脚都测了一遍，并没有发现引脚有问题，485收发器的嫌疑初步排除，剩下就是FT232芯片了，其控制端一直处在高电平，是不是接线有问题，或者是内部烧坏了？<br>突然想起是不是没有配置的原因，终于找对了方向。</p><blockquote><h2 id="1-3-想法"><a href="#1-3-想法" class="headerlink" title="1.3 想法"></a>1.3 想法</h2><p>通信板485接收有问题，需要进一步测试</p></blockquote><h2 id="FT232上位机软件"><a href="#FT232上位机软件" class="headerlink" title="FT232上位机软件"></a>FT232上位机软件</h2><p>查上位机软件datasheet知道了可以把FT232配置成几种模式，但是没看到有RS485模式，里面提到细节可以去查看FT232的手册，所以去看了FT232手册，发现RS485是在<strong>FT232 UART模式</strong>下配置的<br>并在<strong>IO control 下 将C0设置为TXDEN</strong>，启用使能485引脚</p><blockquote><p>上位机手册P18~P19</p></blockquote><p>按照上位机手册的指导下，进行配置并编译下载，<strong>完成后要重启USB芯片，即拔掉USB再插上</strong></p><h1 id="破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来"><a href="#破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来" class="headerlink" title="破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来"></a>破案了，FT232没有配置，居然是一块全新的板子，一口老血吐了出来</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>0_Project</category>
+      
+      <category>CommunicateBoard</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>PCB绘制</title>
+    <link href="/2022/07/b7a4e891d015.html"/>
+    <url>/2022/07/b7a4e891d015.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="1、板子边框的评估"><a href="#1、板子边框的评估" class="headerlink" title="1、板子边框的评估"></a>1、板子边框的评估</h1><ol><li><p>全选封装，点击<strong>工具-器件摆放-在矩形区域排列</strong>，然后鼠标框选一个矩形区域即可，我已经将这个操作设置了快捷键<strong>F6</strong>。</p></li><li><p>在<strong>机械层</strong>下，根据矩形区域适当宽松一点的范围上画一个板子的矩形<strong>边框</strong>，然后对四边<strong>取整</strong>，再点击<strong>放置-尺寸-线性尺寸</strong>，把板子的长款尺寸标注一下。</p></li><li><p><strong>全选</strong>机械层边框，点击<strong>设计-板子形状-按照选择对象定义</strong>，将裁掉板子多余部分</p></li><li><p>点击<strong>编辑-原点-设置</strong>，在板子左下角放置一个原点，然后把四个固定孔以顶点为起点，xy位移5mm</p><blockquote><p>板子的四个角一般都有固定孔</p></blockquote></li></ol><h1 id="2、板子的叠层设计"><a href="#2、板子的叠层设计" class="headerlink" title="2、板子的叠层设计"></a>2、板子的叠层设计</h1><p>点击<strong>设置-层叠管理器</strong></p><ul><li>Top Overlay：丝印层</li><li>Top Solder ：阻焊层</li><li>橙色的为信号层<ul><li>Top Layer ：顶层</li><li>Bottom Layer：底层</li></ul></li></ul><p>首先右键点击<strong>Top layer</strong>，选择<strong>inser layer below</strong>，子选项中包含：</p><ul><li><strong>Signal：正片层</strong></li><li><strong>Plane ：负片层</strong><blockquote><p>设计的时候主要用正片层和负片层</p></blockquote></li><li>Core： 芯层</li><li>Prepreg：pp层</li><li>Surface Finish：表面处理（喷漆之类的）</li></ul><p>选择<strong>负片层</strong>，将在Top layer层下产生2层，然后手动命名layer1为<strong>GND02</strong>，意为底层+第二层；命名layer2为<strong>PWR03</strong>，意为电源层+第三层</p><p>四层板子已经有了，注意，此时在<strong>正片层走线是直接走的铜</strong>（如TOP和BOTTOM），而在<strong>负片层走线走的不是铜</strong></p><h1 id="3、设置层的网络类型"><a href="#3、设置层的网络类型" class="headerlink" title="3、设置层的网络类型"></a>3、设置层的网络类型</h1><p>需要注意的是，<strong>双击GND层设置网络为GND，双击PWR层设置为VCC?层</strong>，看需求。</p><h1 id="4、如何走过孔？"><a href="#4、如何走过孔？" class="headerlink" title="4、如何走过孔？"></a>4、如何走过孔？</h1><p>如何在TOP层上走过孔到GND层？</p><ol><li>在TOP层上针对<strong>器件的GND端</strong>使用<strong>交互式布线连接</strong>走线，然后在需要过孔的点位<strong>放置过孔</strong></li></ol><h1 id="5、快捷键设置"><a href="#5、快捷键设置" class="headerlink" title="5、快捷键设置"></a>5、快捷键设置</h1><p>已经设置  </p><ul><li><strong>F2</strong>:交互式布线连接</li><li><strong>F4</strong>:打孔<blockquote><p>F2+F4欢乐走线打孔</p></blockquote></li><li><strong>F6</strong>:把选中的器件放在矩形框内</li><li><strong>2</strong>:线接触选中</li><li><strong>3</strong>:内部框选</li><li><strong>CTRL+H</strong>:一次性删掉一整根连接的线。按下后选中一根线，即选中整根线**<blockquote><p>不用一截一截删除了</p></blockquote></li><li><strong>SHIFT+R</strong>： 切换为绕过障碍物走线或无视障碍物走线模式</li></ul><h3 id="对齐快捷键："><a href="#对齐快捷键：" class="headerlink" title="对齐快捷键："></a>对齐快捷键：</h3><ul><li><strong>;</strong> 左对齐</li><li><strong>‘</strong> 右对齐</li><li><strong>[</strong> 顶对齐</li><li><strong>&#x2F;</strong> 底对齐<blockquote><p>均以最远处为基准</p></blockquote></li><li><strong>-</strong> 垂直等间距分布<blockquote><p>以上下两端为基准，中间等间距分布</p></blockquote></li><li><strong>&#x3D;</strong> 水平等间距分布<blockquote><p>以左右两端为基准，中间等间距分布</p></blockquote></li></ul><h1 id="6、开始模块化PCB布局"><a href="#6、开始模块化PCB布局" class="headerlink" title="6、开始模块化PCB布局"></a>6、开始模块化PCB布局</h1><h2 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h2><p>首先确保在原理图中打开：<strong>工具-交叉选择模式</strong><br>然后将AD视图切换成垂直显示：<strong>Windows-垂直平铺</strong></p><blockquote><p>至此，选中任意一方的器件，在映射的另一方均能高亮显示。</p></blockquote><h2 id="封装模块化摆放："><a href="#封装模块化摆放：" class="headerlink" title="封装模块化摆放："></a>封装模块化摆放：</h2><p>在原理图中框选<strong>某一模块</strong>内的器件，此时PCB中对应器件均被自动框选，使用快捷键<strong>F6</strong>，将该模块的器件统一布置在一个<strong>矩形范围内</strong>。<strong>重复步骤</strong>，使得各模块之间分隔清晰。</p><h2 id="隐藏电源线，观察信号流向"><a href="#隐藏电源线，观察信号流向" class="headerlink" title="隐藏电源线，观察信号流向"></a>隐藏电源线，观察信号流向</h2><p>点击<strong>设计-类</strong>，在<strong>Net-classes</strong>中新建一类，并将其命名为PWR，然后将所有的<strong>电源分入PWR类</strong>中。<br>切记<br><strong>GND也属于电源类</strong><br><strong>GND也属于电源类</strong><br><strong>GND也属于电源类</strong><br>在右下角的<strong>PANEL中开启PCB</strong>，左侧边栏中对分好的类右击<strong>连接-显示&#x2F;隐藏</strong></p><h2 id="摆放的时候，丝印重叠看晕了怎么办？"><a href="#摆放的时候，丝印重叠看晕了怎么办？" class="headerlink" title="摆放的时候，丝印重叠看晕了怎么办？"></a>摆放的时候，丝印重叠看晕了怎么办？</h2><p>缩小丝印字号大小：</p><ol><li>随便找一个封装选中其丝印，<strong>右击丝印-查找相似对象</strong>，在Object Specific一栏的<strong>String Type</strong>中，将<strong>Any改选为Same</strong>，确定，此时，已经自动选中所有的丝印。</li><li>在右边栏中设置<strong>Text Height为10mil</strong>，<strong>Stroke Width为2mil</strong>。</li><li><strong>A-定位器件文本-标识符选择在中心位置</strong></li></ol><p>至此，丝印减小且位于器件内部，看上去舒服多了</p><h2 id="封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？"><a href="#封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？" class="headerlink" title="封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？"></a>封装的管脚瞎JB跑？想改一下封装但是更新不了？。。。。？</h2><ul><li>如果<strong>数量较少</strong>，直接<strong>删除对应器件</strong>，然后从原理图重新Update PCB Document</li><li>如果<strong>数量太多</strong>，人麻了的情况下，还是<strong>全选删除</strong>，原理图重新Update吧</li></ul><h2 id="如何布局？"><a href="#如何布局？" class="headerlink" title="如何布局？"></a>如何布局？</h2><p><strong>根据信号流向</strong></p><ol><li>根据<strong>输入-去耦电容-中间-去耦电容-输出</strong>的顺序先摆放这些器件,去耦电容注意<strong>先大后小原则</strong><blockquote><p>即首先保证信号的去耦</p></blockquote></li><li>其他器件按照<strong>就近原则</strong>，位置<strong>大概就行</strong> </li><li>根据信号的流向，使用<strong>CTRL+左键</strong>选中输入信号，可以看到同一根线上的管脚高亮，调整<strong>使得信号流向一字型或L型，避免绕来绕去</strong></li><li>最后微调（简单改一下对齐差不多就行了）</li></ol><h1 id="CLASS、设计参数、规则的建立"><a href="#CLASS、设计参数、规则的建立" class="headerlink" title="CLASS、设计参数、规则的建立"></a>CLASS、设计参数、规则的建立</h1><p>首先把PWR类添加颜色，在PCB边栏中首先将<strong>Normal改为Mask</strong>，然后<strong>点击一下PWR类</strong>，板子变成了灰蒙蒙的，然后<strong>右键PWR类-Change Net Color-选择一个颜色</strong>，然后再次<strong>右键PWR类-显示替换-选择的打开</strong>，再按下<strong>F5</strong>，即可将PWR网络以颜色清晰显示</p><h3 id="为何要建立CLASS？"><a href="#为何要建立CLASS？" class="headerlink" title="为何要建立CLASS？"></a>为何要建立CLASS？</h3><p>电源线载流，需要<strong>加粗</strong>。<br>信号线只需要简单连线。</p><p>点击<strong>设计-规则</strong>，其中  </p><ul><li><strong>Electrical</strong>电气规则，如短路开路规则</li><li><strong>Routing</strong>中：<ul><li><strong>Width</strong>线宽（线距）规则</li><li><strong>Routing Via Style</strong>过孔规则</li><li>差分规则</li><li>扇孔规则</li><li>。。。。。。</li></ul></li><li><strong>SMT</strong> 贴片规则</li><li><strong>Mask</strong>阻焊规则</li><li><strong>Plane</strong>铺铜规则</li><li><strong>Manufacturing</strong>生产规则</li><li><strong>High Speed</strong>高速部分规则</li><li><strong>Placement</strong>放置器件规则</li><li><strong>Siganl Integrity</strong>信号完整性规则</li></ul><p>线距大于等于6mi的成本是最低的，一般是4~6mil成本是常规的，再小就贵了。  </p><h3 id="1-间距规则"><a href="#1-间距规则" class="headerlink" title="1. 间距规则"></a>1. 间距规则</h3><p><strong>Electrical-Clearance-Clearance</strong>，右侧<strong>约束-最小间距</strong>，改为<strong>6mil线距</strong>，表格中的值可以具体修改哪些和哪些之间的间隔，比如：</p><table><thead><tr><th align="left"></th><th align="center">Track</th><th align="center"></th><th align="center"></th><th align="right"></th></tr></thead><tbody><tr><td align="left">Copper</td><td align="center">10mil</td><td align="center"></td><td align="center"></td><td align="right"></td></tr><tr><td align="left"></td><td align="center">表示铺铜和线之间的距离自动为10mil</td><td align="center"></td><td align="center"></td><td align="right"></td></tr></tbody></table><h3 id="2-线宽规则"><a href="#2-线宽规则" class="headerlink" title="2. 线宽规则"></a>2. 线宽规则</h3><h4 id="2-1-设置默认信号线线宽"><a href="#2-1-设置默认信号线线宽" class="headerlink" title="2.1 设置默认信号线线宽"></a>2.1 设置默认信号线线宽</h4><p>在<strong>Routing-Width-Width</strong>下<strong>最小间距设置为6mil</strong></p><blockquote><p>线宽&#x2F;线距&#x3D;6mil&#x2F;6mil是最便宜的</p></blockquote><h4 id="2-2-设置电源线线宽"><a href="#2-2-设置电源线线宽" class="headerlink" title="2.2 设置电源线线宽"></a>2.2 设置电源线线宽</h4><p>右键<strong>Width</strong>新建一个Width，起个名字为PWR，然后在<strong>Where the Object Matches</strong>下选择<strong>Net-Class</strong>，然后选择PWR class，再修改宽度，然后<strong>在下方优先级处，将PWR优先级设置为最高</strong>，画电源线的时候，就可以自动增加电源线的走线宽度啦</p><blockquote><p>电源线载流，因此需要加粗  </p></blockquote><blockquote><p>设置好了线宽但是还是不对是为什么？</p><ul><li>可能是优先级没有设置</li><li>可能是优先级中没有将其使能</li></ul></blockquote><h3 id="3-过孔规则"><a href="#3-过孔规则" class="headerlink" title="3. 过孔规则"></a>3. 过孔规则</h3><p>在<strong>Routing-Routing Via Style-RoutingVias</strong>下，<strong>过孔孔径大小</strong>统统设置为12mil，<strong>过孔直径与过孔孔径</strong>之间的关系：<br><strong><code>2*H +- 2mil</code></strong><br>即如果一个孔的大小为12mil，则他的直径为22mil、24mil或者26mil，<strong>选择最小的值，22mil</strong>，因为可以增加两个过孔之间的距离，方便走线，设置好后，还用不了，还需要：</p><ol><li>软件右上方点击<strong>齿轮设置</strong></li><li>左列选择<strong>PCB Editor-Default</strong></li><li>右侧<strong>Primitive List下选择Via</strong></li><li>右侧<strong>Via Stack下将Hole Size设为12mil，Diameter设为22mil</strong></li><li>右侧<strong>Solder Mask Expansion-Manual，勾选2个Tended，表示添加绿油</strong></li></ol><h3 id="4-覆铜规则（写的并不好，具体可以查看热焊盘、反焊盘）"><a href="#4-覆铜规则（写的并不好，具体可以查看热焊盘、反焊盘）" class="headerlink" title="4. 覆铜规则（写的并不好，具体可以查看热焊盘、反焊盘）"></a>4. 覆铜规则（写的并不好，具体可以查看<a href="https://blog.csdn.net/Mark_md/article/details/116486920" title="什么是热焊盘和反焊盘？">热焊盘、反焊盘</a>）</h3><ul><li><strong>正片层</strong>（<strong>信号走线层</strong>）无铜-打孔为正焊盘（焊盘带铜）</li><li><strong>负片层</strong>（<strong>中间层，如GND、PWR</strong>）全铜-打孔为负焊盘（不带铜绿色部分，从而将孔与负片隔开）</li></ul><p>在Plane下：</p><ul><li><p><strong>PlaneConnect</strong>（平面层连接方式）</p><ul><li>连接方式默认为Relief Connect，如果<ul><li>在X层下打了个X网络的过孔，孔的四周会有几个桥臂与本层连接。</li><li>在X层下打了个其他网络的过孔，孔的周围出现反焊盘（不带铜），起到隔离作用。</li></ul></li><li>连接方式为Direct Connect ，如果孔的周围出现反焊盘（不带铜），起到隔离作用。</li></ul></li><li><p><strong>PlaneClearance</strong>（负片层（<strong>中间层</strong>）焊盘）下修改间距为<strong>8mil</strong>，（默认20mil的间距，则连续紧密打孔时周围的反焊盘会把板子形成割裂（反焊盘没有铜）)</p></li><li><p><strong>PolygonConnect</strong>（正片层（<strong>信号走线层</strong>）焊盘）</p><ul><li><p>手工焊接选择Relief Connect，为十字连接（热焊盘），散热满，好焊接</p></li><li><p>如果用回流焊（温度很高），使用<strong>全连接</strong></p></li><li><p>如果考虑载流大，使用全连接</p><p><strong>焊盘用十字连接，过孔用全连接：</strong><br>在<strong>高级-Via Connect-连接方式设置为Direct connect</strong></p></li></ul></li></ul><h2 id="5-丝印规则"><a href="#5-丝印规则" class="headerlink" title="5.丝印规则"></a>5.丝印规则</h2><p><strong>Manufacturing-Silk To Solder Mask Clearance-SilkToSolderMaskClearance</strong>下更改*<em>对象与丝印层的最小间距为2mil</em></p><h1 id="扇孔处理、走线、覆铜（覆铜插件）"><a href="#扇孔处理、走线、覆铜（覆铜插件）" class="headerlink" title="扇孔处理、走线、覆铜（覆铜插件）"></a>扇孔处理、走线、覆铜（覆铜插件）</h1><p>短线直接交互式布线，长线打过孔，注意<strong>先拉出一根线，再放过孔，就会自动添加网络</strong></p><blockquote><p>临时碰到某条线属于电源线要加粗，但是没有提前加入PWR class，怎么处理？<br>选择该网络，<strong>右键-网络操作-Add selected Net to netclass</strong>,然后选择pwr，确定，最后还要在设计规则里面点开<strong>Width，重新点一下确定</strong></p></blockquote><p>尽量从<strong>焊盘中心出线，不要从顶角出线</strong>,从顶角出了的话，直接短路画一条可以自动修整</p><p>修整：TOP层覆铜的时候，焊盘是十字连接，老实说现在一般都是回流焊了，所以全部用直接连接算了，在规则下，<strong>Plane-PolygonConnect-简单-连接方式设置为Direct Connect</strong></p><h3 id="铺铜的时候需要设置：铺铜过程中，TAB-右侧下拉选择Pour-Over-All-Same-Net-Object，并勾选Remove-Dead-Copper"><a href="#铺铜的时候需要设置：铺铜过程中，TAB-右侧下拉选择Pour-Over-All-Same-Net-Object，并勾选Remove-Dead-Copper" class="headerlink" title="铺铜的时候需要设置：铺铜过程中，TAB-右侧下拉选择Pour Over All Same Net Object，并勾选Remove Dead Copper"></a><strong>铺铜的时候需要设置：铺铜过程中，TAB-右侧下拉选择Pour Over All Same Net Object，并勾选Remove Dead Copper</strong></h3><p>铺铜需要注意的<strong>细节</strong>：</p><ul><li><strong>电源线相关</strong>的路径老师<strong>直接覆铜代替走线</strong>，因为载流大，还能散热。</li><li><strong>电源的地线覆铜后，要多放几个孔回流到地</strong>。</li><li><strong>注意去耦的路径</strong>，如果本来先经过电容去耦，再出去，现在覆铜成一团了，电容去耦的意义不是很大，所以<strong>覆铜可以沿着去耦路径覆</strong>（其实<strong>等效于非常常宽的导线</strong>）。</li></ul><p>走线<strong>细节</strong>：</p><ul><li><strong>信号线能少打孔就少打孔</strong>，因为打孔会一定程度增加信号路径的阻抗</li><li>走线有交叉的，可以一条走表层，一条走底层。</li><li><strong>可以表层走一点，打个孔，再从底层走线</strong>，走线是非常灵活的</li></ul><blockquote><p>画PCB过程中发现，USB芯片的封装，自身引脚之间间距小于10mil却会被报错？？？结局方法：规则-Clearance-勾选忽略同一封装内的焊盘间距</p></blockquote><p>PCB电源走线使用得捷电子-PCB印制线宽度计算器:</p><ul><li><strong>电流</strong>（覆铜的话，以最小宽度为准）</li><li><strong>环境温度</strong> 室温25℃</li><li><strong>厚度</strong> 设为1</li><li><strong>温升</strong> 控制在10℃<br>得到的参数分为：</li><li><strong>表层</strong>：信号层</li><li><strong>内层</strong>：GND或者PWR<br>内层比外层会宽很多，因为散热更严格</li></ul><p>x层的分割线，复制后，在y层下使用<strong>E+A</strong>可以粘贴过来，同样是分割线</p><p>在左侧边栏中，可以对各NET进行颜色修改，某层上的不同区域以颜色区别，显而易见</p><p><strong>CTRL+拖动</strong>可以把走线法线方向移动</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>硬件</category>
+      
+      <category>PCB</category>
+      
+      <category>AltiumDesigner</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title></title>
+    <link href="/2022/07/c798459ed3f8.html"/>
+    <url>/2022/07/c798459ed3f8.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="1、Unknown-Pin"><a href="#1、Unknown-Pin" class="headerlink" title="1、Unknown Pin"></a>1、Unknown Pin</h1><p>原因：</p><ol><li>没有加封装</li><li>封装管脚缺失</li><li>管脚号不匹配，比如原理图器件的管脚（designator）用的是ABC，而封装用的是123，</li><li>有隐藏管脚，上述123都试过的情况下仍然unknown pin，可以重新画一下原理图库，然后更新原理图</li><li>还是存在unknown pin的情况下，不管三七二十一，先导出为pcb，验证，并去掉错误的钩，然后再执行更新，再回头去原理图保存一下，然后再导出pcb，验证的时候就会发现错误消失了<blockquote><p>感觉是AD的BUG</p></blockquote></li></ol><h1 id="2、绿色报错"><a href="#2、绿色报错" class="headerlink" title="2、绿色报错"></a>2、绿色报错</h1><p>先去掉所有的规则（钩全去掉）<br>然后单独开启所有的electrical规则即可</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>硬件</category>
+      
+      <category>PCB</category>
+      
+      <category>AltiumDesigner</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2022_07_22通信板李老师新的要求</title>
+    <link href="/2022/07/ab51512567f3.html"/>
+    <url>/2022/07/ab51512567f3.html</url>
+    
+    <content type="html"><![CDATA[<ul><li>接插件不要使用原来的，换成<strong>带卡扣</strong>的，李老师又带我看了另一种板子的接口，用<strong>螺丝拧</strong>的，需要<strong>改原理图和封装</strong>，<strong>重新买接插件</strong>。</li><li>USB插口换一种，<strong>USB-A母头</strong>，更牢固，需要<strong>改原理图和封装</strong>,<strong>重新买USB母口</strong>。</li><li>信号线走线<strong>20-30mil</strong>，粗一点好</li><li>电源线要<strong>粗</strong>，因为电流大<ul><li>尤其150V，电压大，需要做<strong>绝缘</strong>：</li></ul><ol><li>接口不能用另一个板子的那种接口，太小太细了，电流大容易烧坏, 需要用<strong>粗</strong>的。</li><li>走线的时候要离其他部分<strong>远</strong>一点，不然容易击穿</li></ol></li><li><strong>覆铜的厚度</strong>主要是？？厚度，使得保证<strong>温升不超过10°</strong>,<strong>徐帆师兄</strong>那有链接可以要一下，有相关的<strong>计算公式</strong>。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>0_Project</category>
+      
+      <category>CommunicateBoard</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>PCB封装笔记</title>
+    <link href="/2022/07/7001aa973c4c.html"/>
+    <url>/2022/07/7001aa973c4c.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-焊盘"><a href="#1-焊盘" class="headerlink" title="1.焊盘"></a>1.焊盘</h1><ul><li><p>top-layer : 无通孔的焊盘（带阻焊）</p><blockquote><p>表面封装常用</p></blockquote></li><li><p>multi-layer : 带通孔的焊盘（带阻焊）</p></li></ul><h1 id="2-绘制器件的所有焊盘"><a href="#2-绘制器件的所有焊盘" class="headerlink" title="2.绘制器件的所有焊盘"></a>2.绘制器件的所有焊盘</h1><ol><li>先根据datasheet封装图，找到引脚的宽度（横向为x）和长度（纵向为y），并选取合适的焊盘，一般为无通孔的top-layer。  </li><li>选中焊盘，在其pad-stack栏中，shape为形状，可选：</li></ol><ul><li>圆形（round）</li><li>矩形（rectangular）</li><li>八角形（octagonal）</li><li>圆角矩形（rounded rectangle）</li></ul><ol start="3"><li><p>在（X&#x2F;Y）中设置其宽度（X），数值为datasheet给出的最大值。</p></li><li><p>由器件的总宽度加上引脚长度可以得到对称引脚与所画的第一个引脚的中心距离。</p></li><li><p>对第一个引脚原地复制粘贴，使2者重合，选取其中之一，平移相应的距离</p><blockquote><ul><li>选中对象，按下M键即可设置平移距离，平移时记得删掉多余的量。</li><li>至此得到了一对关于中心对称的引脚。</li></ul></blockquote></li><li><p>根据第一个引脚，横向复制粘贴得到横向第二个引脚，并重复，指导该侧引脚全部绘制完成。</p></li><li><p>将该侧引脚除开第一个引脚的所有引脚选中，关于第一个引脚的中心复制，并在对称引脚的中心处粘贴，得到了所有的引脚</p><blockquote><p>ctrl+E可以开启选取对象中心，再按一次则关闭</p></blockquote></li></ol><h1 id="3-丝印"><a href="#3-丝印" class="headerlink" title="3. 丝印"></a>3. 丝印</h1><ol><li><strong>编辑-设置参考-中心</strong>自动设置所有焊盘的几何中心，以该中心为参考点绘制丝印。</li><li>首先<strong>打个草稿</strong>，在<strong>Top-layer层</strong>根据datasheet，从中心处，先绘制x方向，y方向两条任意的线段，然后平移得到边框，得到<strong>四条边的位置</strong>。</li><li>切换到<strong>Top-overlay层（即丝印层）</strong>，依据草稿边框绘制丝印，使用<strong>SHIFT+空格</strong>切换丝印的走线方式为垂直。</li><li>画完丝印后，点<strong>回Top-layer</strong>，按下<strong>SHIFT+S</strong>切换显示当前层，删掉先前Top-layer下绘制的底稿，丝印绘制完成。</li></ol><h1 id="进阶绘制焊盘"><a href="#进阶绘制焊盘" class="headerlink" title="进阶绘制焊盘"></a>进阶绘制焊盘</h1><p>设置好第一个焊盘，然后选中该焊盘，CTRL+C关于自身中心复制，别急着粘贴，而是选择<strong>编辑-特殊粘贴-阵列粘贴</strong>，设置好数量（包含本身），增量（增量为1，则默认从左往右序号+1，若增量为-1，则为从左往右序号-1），和间距，然后点击OK，再点击第一个焊盘的中心位置，即可得到一行所有焊盘。对成侧则可以先对称一个，设置好序号，然后增量-1来实现。</p><h1 id="技巧总结"><a href="#技巧总结" class="headerlink" title="技巧总结"></a>技巧总结</h1><ul><li><strong>复制</strong>：选中对象，CTRL+C，然后左键选取参考点，再CTRL+V，此时光标对准想要参考的地方，按下左键，完成粘贴。</li><li><strong>平移</strong>：选中对象，按下M键，设置XY平移量，注意删除多余的量。</li><li><strong>选取对象中心点</strong>：SHIFT+E</li><li><strong>测量长度</strong>：CTRL+M测量，SHITF+C清除所有测量<blockquote><p>吐槽一下AD，居然无法单独清除某条测量线，十分蛋疼</p></blockquote></li><li><strong>编辑-设置参考-中心</strong>：自动设置所有焊盘构成的几何中心</li><li><strong>SHIFT+空格</strong>：切换丝印走线方式，<strong>垂直</strong>、弧度、斜线</li><li><strong>SHIFT+S</strong>:切换当前显示层（仅在某一类型的层内切换）</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>1_学习</category>
+      
+      <category>硬件</category>
+      
+      <category>PCB</category>
+      
+      <category>AltiumDesigner</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2022_07_18~2022_07_20任务清单</title>
+    <link href="/2022/07/b2bc9ae3627d.html"/>
+    <url>/2022/07/b2bc9ae3627d.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="目前需要做的事情"><a href="#目前需要做的事情" class="headerlink" title="目前需要做的事情"></a>目前需要做的事情</h1><p><em>重要性排序</em>  </p><blockquote><ol><li><strong>mouser</strong>商城把器件加入购物车，18号去商业街下单。</li><li>把剩下的元器件列表，找<strong>侯姐</strong>下单。<br>√</li></ol></blockquote><ol start="3"><li><em><strong>2天之内学习画pcb</strong></em></li></ol><blockquote><p>以上内容最好在20号之前完成</p></blockquote><ol start="4"><li>写<strong>verilog</strong>代码，主要包括：<ol><li>读电量指令识别</li><li>DAC控制</li><li>仿真程序重新编写</li></ol></li></ol><h1 id="2022-07-19目前需要"><a href="#2022-07-19目前需要" class="headerlink" title="2022_07_19目前需要"></a>2022_07_19目前需要</h1><table><thead><tr><th align="left">状态</th><th align="center">型号</th><th align="center">数量</th><th align="center">单价</th><th align="center">总价</th><th align="right">渠道</th></tr></thead><tbody><tr><td align="left"></td><td align="center">FT232HQ</td><td align="center">6</td><td align="center">55</td><td align="center">330+运费10&#x3D;340</td><td align="right">淘宝</td></tr><tr><td align="left">√</td><td align="center">HI-15530</td><td align="center">3</td><td align="center">450</td><td align="center">1350</td><td align="right">中商鼎盛</td></tr><tr><td align="left">√</td><td align="center">FDC3601N</td><td align="center">3</td><td align="center">5</td><td align="center">15</td><td align="right">中商鼎盛</td></tr><tr><td align="left"></td><td align="center">XCF04SVO20C</td><td align="center">3</td><td align="center">169.95</td><td align="center">509.85+运费8&#x3D;517.85</td><td align="right">淘宝</td></tr><tr><td align="left"></td><td align="center">DDZ9689</td><td align="center">10</td><td align="center">0.x</td><td align="center">x</td><td align="right">自掏腰包 淘宝</td></tr><tr><td align="left"></td><td align="center">5.08mm 单排排针</td><td align="center">？</td><td align="center">？</td><td align="center">？</td><td align="right">自掏腰包 淘宝</td></tr><tr><td align="left"></td><td align="center">LTC7000EMSE-1</td><td align="center">3</td><td align="center">200</td><td align="center">600+3%发票税+18运费&#x3D;641</td><td align="right">淘宝</td></tr><tr><td align="left"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">2863.85</td><td align="right"></td></tr><tr><td align="left"></td><td align="center">立创</td><td align="center"></td><td align="center"></td><td align="center">446.45</td><td align="right"></td></tr><tr><td align="left">√</td><td align="center">贸泽</td><td align="center"></td><td align="center"></td><td align="center">2616.62网上加6% &#x3D;2773.6172</td><td align="right"></td></tr><tr><td align="left"></td><td align="center">sum</td><td align="center"></td><td align="center"></td><td align="center">6083.9172</td><td align="right"></td></tr></tbody></table><h1 id="2022-07-19-15-15"><a href="#2022-07-19-15-15" class="headerlink" title="2022_07_19_15:15"></a>2022_07_19_15:15</h1><ul><li>找罗博士借钱1945.3元，用于：</li></ul><table><thead><tr><th align="left">状态</th><th align="center">型号</th><th align="center">数量</th><th align="center">单价</th><th align="center">总价</th><th align="right">渠道</th></tr></thead><tbody><tr><td align="left">√</td><td align="center">FT232HQ</td><td align="center">6</td><td align="center">55</td><td align="center">330+运费10&#x3D;340</td><td align="right">淘宝</td></tr><tr><td align="left">√</td><td align="center">XCF04SVO20C</td><td align="center">3</td><td align="center">169.95</td><td align="center">509.85+运费8&#x3D;517.85</td><td align="right">淘宝</td></tr><tr><td align="left">√</td><td align="center">LTC7000EMSE-1</td><td align="center">3</td><td align="center">200</td><td align="center">600+3%发票税+18运费&#x3D;641</td><td align="right">淘宝</td></tr><tr><td align="left">√</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">1498.85</td><td align="right">淘宝</td></tr><tr><td align="left">√</td><td align="center">立创</td><td align="center"></td><td align="center"></td><td align="center">446.45</td><td align="right"></td></tr><tr><td align="left">√</td><td align="center">sum</td><td align="center"></td><td align="center"></td><td align="center">1945.3</td><td align="right"></td></tr></tbody></table><h1 id="2022-07-19-19-22"><a href="#2022-07-19-19-22" class="headerlink" title="2022_07_19_19:22"></a>2022_07_19_19:22</h1><ul><li>剩下的自掏腰包</li></ul><table><thead><tr><th align="left">状态</th><th align="center">型号</th><th align="center">数量</th><th align="center">单价</th><th align="center">总价</th><th align="right">渠道</th></tr></thead><tbody><tr><td align="left">√</td><td align="center">DDZ9689</td><td align="center">10</td><td align="center">0.15</td><td align="center">1.5+4运费&#x3D;5.5</td><td align="right">自掏腰包 淘宝</td></tr><tr><td align="left">√</td><td align="center">5.08mm 单排排针</td><td align="center">2x20pin</td><td align="center">0.35</td><td align="center">0.7+3运费&#x3D;3.7</td><td align="right">自掏腰包 淘宝</td></tr><tr><td align="left">√</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">9.2</td><td align="right"></td></tr><tr><td align="left">√</td><td align="center">sum</td><td align="center"></td><td align="center"></td><td align="center">9.2</td><td align="right"></td></tr></tbody></table><h1 id="2022-07-19-19-44所有器件已经购买完成"><a href="#2022-07-19-19-44所有器件已经购买完成" class="headerlink" title="2022_07_19_19:44所有器件已经购买完成"></a>2022_07_19_19:44所有器件已经购买完成</h1><ul><li>账单</li></ul><table><thead><tr><th align="left">商城</th><th align="center">罗博士</th><th align="center">商业街</th><th align="center">花费</th><th align="center">加点数</th><th align="right">是否归还</th></tr></thead><tbody><tr><td align="left">立创</td><td align="center">√</td><td align="center"></td><td align="center">2120.3</td><td align="center"></td><td align="right"></td></tr><tr><td align="left">贸泽</td><td align="center"></td><td align="center">√商业街_杜芳</td><td align="center">2616.62</td><td align="center">6%&#x3D;&gt;2773.6172</td><td align="right"></td></tr><tr><td align="left">淘宝</td><td align="center">√</td><td align="center"></td><td align="center">1498.85</td><td align="center"></td><td align="right"></td></tr><tr><td align="left">商业街</td><td align="center"></td><td align="center">√中商鼎盛_李姐</td><td align="center">1365</td><td align="center">？</td><td align="right"></td></tr><tr><td align="left">sum</td><td align="center"></td><td align="center"></td><td align="center">7757.4672</td><td align="center"></td><td align="right"></td></tr></tbody></table>]]></content>
+    
+    
+    <categories>
+      
+      <category>4_任务清单</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/2022/07/5c2a81e28ea4.html"/>
+    <url>/2022/07/5c2a81e28ea4.html</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  
+</search>

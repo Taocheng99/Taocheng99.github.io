@@ -1,411 +1,1100 @@
+
+
 <!DOCTYPE html>
-<html lang="CN">
+<html lang="CN" data-default-color-scheme=auto>
+
+
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="theme-color" content=#58b77a>
-  <title>陶承的博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
   <meta name="author" content="陶承">
   <meta name="keywords" content="none">
-  <meta name="description" content="about learning embedded system">
-  <script id="hexo-configurations">
-  var CONFIG = {
-    root: '/',
-    theme: 'hexo-theme-lx-master',
-    version: '0.4.3',
-    localsearch:{
-      "enable": false,
-      "trigger": "auto",
-      "top_n_per_article": 1,
-      "unescape": false,
-      "preload": false
-      },
-    path: 'null'
-  };
-</script>
-
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="stylesheet" href="https://unpkg.com/theme-lx@0.4.3/source/dist/css/main.min.css">
   
-  <style type="text/css">
-    pre,
-    code {
-      font-family: 'Fira Code', monospace;
-    }
-    html {
-      font-family: sans-serif;
-    }
-    body {
-      font-family: sans-serif;
-    }
-    h1, h2, h3, h4, h5, figure {
-      font-family: sans-serif;
-    }
-    .menu-container{
-      font-family: sans-serif;
-    }
-  </style>
-
-  <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
-  <script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.jside.menu.min.js"></script>
-	<script>
-	$(document).ready(function(){
-	$(".menu-container").jSideMenu({
-	    jSidePosition: "position-right",
-	    jSideSticky: true,
-	    jSideSkin: "",
-	     });
-	}); 
-	</script>
+    <meta name="description" content="about learning embedded system">
+<meta property="og:type" content="website">
+<meta property="og:title" content="陶承的博客">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="陶承的博客">
+<meta property="og:description" content="about learning embedded system">
+<meta property="og:locale">
+<meta property="article:author" content="陶承">
+<meta property="article:tag" content="none">
+<meta name="twitter:card" content="summary_large_image">
   
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4/css/font-awesome.min.css">
+  
+  
+  <title>陶承的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
-<body>
-<div id="page">
 
-<div class="header">
-  <div id="lx-aside" style="background-image: url(https://unpkg.com/theme-lx@0.4.3/source/dist/images/cover.min.jpeg)">
-    <div class="overlay">
-      
-      <div class="featured">
-        <div class="avatar"><a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"></a></div>
-        <span>陶承</span>
-        <h1>陶承的博客</h1>
-        <span>垃圾堆</span>
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Startseite</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Kategorien</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Schlagwörter</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>Über</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="An elegant Material-Design theme for Hexo"></span>
+          
+        </div>
+
         
       </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
     </div>
   </div>
 </div>
-<div id="lx-main-content">
-  <div class="lx-post">
 
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2023/05/381b3eea5f02.html">VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
-      <p><h1 id="VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了"><a href="#VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了" class="headerlink" title="VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了"></a>VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了</h1><p>十分疑惑</p>
-</p>
-      <div class="post-button"><a class="btn" href="/2023/05/381b3eea5f02.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2023/05/f73c69ea1a59.html">VGA显示器驱动设计及验证</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
-      <p><h1 id="1-理论部分"><a href="#1-理论部分" class="headerlink" title="1. 理论部分"></a>1. 理论部分</h1><hr>
-<h2 id="1-1-VGA接口"><a href="#1-1-VGA接口" class="headerlink" title="1.1 VGA接口"></a>1.1 VGA接口</h2><p>母头：带孔<br>公头：带针</p>
-<h2 id="1-2-VGA引脚定义"><a href="#1-2-VGA引脚定义" class="headerlink" title="1.2 VGA引脚定义"></a>1.2 VGA引脚定义</h2><p>15个引脚</p>
-<h4 id="1-2-1-5个重要管脚"><a href="#1-2-1-5个重要管脚" class="headerlink" title="1.2.1 5个重要管脚"></a>1.2.1 5个重要管脚</h4><p>1、2、3 ：分别为RGB三原色红、绿、蓝（模拟信号）<br>13 ： 行同步 (HSYNC)<br>14 ： 场同步 (VSYNC)</p>
-<p>行同步信号和场同步信号是VGA图像传输时的重要同步信号。</p>
-<p>4、11、15：VGA接口的地址码，连接时可以悬空不接。</p>
-<h2 id="1-3-VGA显示原理"><a href="#1-3-VGA显示原理" class="headerlink" title="1.3 VGA显示原理"></a>1.3 VGA显示原理</h2><p>扫描，将像素点，在行同步信号和场同步信号的同步瞎，从上到下，从左到右顺序扫描到显示屏上：</p>
-<ol>
-<li>一行从左到右，扫完由第一行行尾部转移到第二行行首，开始从左到右，以此类推…</li>
-<li>扫完1帧，从最后一行尾部回到第一行首，重新开始即第二帧。</li>
-</ol>
-<h2 id="1-4-VGA时序标准"><a href="#1-4-VGA时序标准" class="headerlink" title="1.4 VGA时序标准"></a>1.4 VGA时序标准</h2><p>以VESA VGA视频标准为例</p>
-<p>分别从行同步时序和场同步时序进行 </p>
-<h2 id="1-5-行扫描"><a href="#1-5-行扫描" class="headerlink" title="1.5 行扫描"></a>1.5 行扫描</h2><p>从第1个行同步脉冲到第2个之间为一个行扫描周期，<br>一个行扫描周期有6个阶段，顺次为：</p>
-<ol>
-<li>同步<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">行同步信号只有在同步阶段才保持高电平，其余阶段为低电平，行同步信号为一个周期性的信号（有的标准行同步信号反着来，需要注意）</span><br></pre></td></tr></table></figure></li>
-<li>后沿</li>
-<li>做边框</li>
-<li>有效图像</li>
-<li>有边框</li>
-<li>前沿</li>
-</ol>
-<p>其中，有效图像为行的像素点，其余5个阶段是起同步作用</p>
-<h2 id="1-6-场扫描"><a href="#1-6-场扫描" class="headerlink" title="1.6 场扫描"></a>1.6 场扫描</h2><p>类似的，也分为6个阶段</p>
-<ol>
-<li>同步<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">场同步信号只有在同步阶段才保持高电平，其余阶段为低电平，场同步信号为一个周期性的信号（有的标准行同步信号反着来，需要注意）</span><br></pre></td></tr></table></figure></li>
-<li>后沿</li>
-<li>上边框</li>
-<li>有效图像</li>
-<li>底边框</li>
-<li>前沿</li>
-</ol>
-<p>与行扫描不同在于，行扫描的6个阶段是以像素点为单位，而场扫描以行为单位</p>
-<p>一帧图像要在行扫描与场扫描共同作用下显示，只有在<strong>行扫描的有效图像</strong>阶段和<strong>场扫描的有效图像</strong>阶段，图像信息才是有效的，<strong>其他阶段则是对图像信号进行同步和消影</strong>。<br><strong>每完成一次场扫描周期，就完成了一帧图像显示。</strong></p>
-<h2 id="1-7-VGA显示模式及相关参数"><a href="#1-7-VGA显示模式及相关参数" class="headerlink" title="1.7 VGA显示模式及相关参数"></a>1.7 VGA显示模式及相关参数</h2><p>行扫描和场扫描各有6个阶段，每个阶段都有特定的参数，很重要。</p>
-<p>不同显示模式（分辨率，帧率），对应不同阶段的参数不一样。</p>
-<p><strong>行同步信号单位：像素点</strong><br><strong>场同步信号单位：行数</strong></p>
-<p>如<strong>640X480@60</strong></p>
-<ul>
-<li><p><strong>640</strong>：在一个行扫描周期中，有效显示图像每一行有640个像素点，即在行扫描的<strong>有效图像阶段</strong>，有<strong>640个像素点</strong>。</p>
-</li>
-<li><p><strong>480</strong>：<strong>一个场扫描周期，有480行</strong></p>
-</li>
-</ul>
-<p>640X480≈30W个像素点</p>
-<ul>
-<li><strong>60</strong>：<strong>每s刷新图像60次，即每s显示60帧图像</strong></li>
-</ul>
-<h4 id="1-7-1-行同步信号参数："><a href="#1-7-1-行同步信号参数：" class="headerlink" title="1.7.1 行同步信号参数："></a>1.7.1 行同步信号参数：</h4><p>时钟（MHz）参数：即像素时钟，每个时钟周期完成1个像素点的扫描，计算方式为：</p>
-<blockquote>
-<p><strong>时钟&#x3D;行扫描周期X场扫描周期X帧率</strong></p>
-<blockquote>
-<p>很好理解，行扫描周期X场扫描周期表示每1帧的像素点，再乘上帧率表示每秒一共多少个像素点，而一个像素点需要花费一个时钟周期，因此，结果就为时钟频率</p>
-</blockquote>
-</blockquote>
-<p>如同步为96，表示一个同步阶段需要96个时钟周期，保持96时钟高电平，其余时间为低电平；有效图像阶段为640，表示该阶段要640个时钟周期</p>
-<h4 id="1-7-2-场同步信号参数："><a href="#1-7-2-场同步信号参数：" class="headerlink" title="1.7.2 场同步信号参数："></a>1.7.2 场同步信号参数：</h4><p>单位为<strong>行</strong>，比如同步为2，表示同步阶段为2个行扫描时钟周期为高电平，其余时间为低电平；有效图像为480，表示有效图像阶段需要花费480个行扫描周期。</p>
-<h1 id="2-实战部分"><a href="#2-实战部分" class="headerlink" title="2.实战部分"></a>2.实战部分</h1><hr>
-<h2 id="2-1-硬件"><a href="#2-1-硬件" class="headerlink" title="2.1 硬件"></a>2.1 硬件</h2><h4 id="2-1-1-VGA接口电压标准"><a href="#2-1-1-VGA接口电压标准" class="headerlink" title="2.1.1 VGA接口电压标准"></a>2.1.1 VGA接口电压标准</h4><p>VGA为模拟信号，电压范围为<strong>0~0.714V</strong>，<strong>0V表示无色，0.714V表示满色</strong></p>
-<h4 id="2-1-1-AD转换"><a href="#2-1-1-AD转换" class="headerlink" title="2.1.1 AD转换"></a>2.1.1 AD转换</h4><p>FPGA输出为数字信号，而<strong>VGA接收的是模拟信号</strong>，需要进行转换，通常，使用<strong>AD7123</strong>是最稳定的，但是处于成本考虑，征途开发版使用了<strong>权电阻网络进行AD转换</strong></p>
-<h4 id="2-1-2-协议选择"><a href="#2-1-2-协议选择" class="headerlink" title="2.1.2 协议选择"></a>2.1.2 协议选择</h4><p>使用<strong>RGB565</strong>协议，即一个RGB像素，由16bit构成，高5bit为红色，中间6bit为绿色，低5bit为蓝色，因此权电阻网络需要根据上述来分配相应电阻</p>
-<p>此外，还有<strong>RGB332（即8bit）</strong> <strong>RGB888（即24bit）</strong>，位宽越多，显示越细腻</p>
-<h2 id="2-2-FPGA信号分析"><a href="#2-2-FPGA信号分析" class="headerlink" title="2.2 FPGA信号分析"></a>2.2 FPGA信号分析</h2><p>图像信号由<strong>FPGA产生16bitRGB像素</strong>，经过权电阻网络进行DA转换后，获得VGA_R、VGA_G、VGA_B 3个模拟信号，模拟信号输入至VGA线。此外，<strong>FPGA还要输出行同步信号VGA_HSYNC和长同步信号VGA_VSYNC来控制图像</strong> </p>
-<h2 id="2-3-程序设计"><a href="#2-3-程序设计" class="headerlink" title="2.3 程序设计"></a>2.3 程序设计</h2><h4 id="2-3-1-VGA时钟信号"><a href="#2-3-1-VGA时钟信号" class="headerlink" title="2.3.1 VGA时钟信号"></a>2.3.1 VGA时钟信号</h4><p>本次实验选择640X480@60显示模式，其时钟为25.175MHz，板子是50MHz，无论是用rtl代码还是PLL，都无法产生，因此选择25MHz来代替25.175MHz，<strong>由于是低频信号，所以不会产生影响</strong></p>
-</p>
-      <div class="post-button"><a class="btn" href="/2023/05/f73c69ea1a59.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2023/05/83f630eca6a4.html">Altera IP核的文件勾选设置</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
-      <p><p>在<strong>最后Summary栏</strong>中，需要</p>
-<ul>
-<li><strong>勾选_inst选项，意思是生成例化模板</strong></li>
-<li><strong>去掉_bb选项</strong></li>
-</ul>
-</p>
-      <div class="post-button"><a class="btn" href="/2023/05/83f630eca6a4.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2023/05/b497eba54b0f.html">VGA小错误引发显示器黑屏</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
-      <p><p>#VGA小错误引发显示器黑屏</p>
-<hr>
-<p>##出现的问题及原因<br>在VGA显示字符实验中，显示器直接黑屏，指示灯也橙色，表示无图像，由于复用了colorbar的大部分模块，而pic模块时序没问题，这就非常蛋疼了，后来对比野火代码，才发现是存储器访问的顺序有问题，导致像素点取的顺序有问题。</p>
-<hr>
-<p>在VGA显示字符的实验中，用代码生成了存储器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">reg [255:0] char [63:0];//深度为64，宽度256</span><br><span class="line"></span><br><span class="line">always@(posedge vga_clk)        //赋值他喵的按照深度从低到高赋，每个深度的宽度从高到低赋，服了</span><br><span class="line">    begin</span><br><span class="line">        char[0 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[1 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[2 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[3 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[4 ] &lt;=   256&#x27;h0000000000000000000000000000000000000000070000000001C00040000000;</span><br><span class="line">        char[5 ] &lt;=   256&#x27;h000000000000000000000000000000000000000003E000000000F00078000000;</span><br><span class="line">        char[6 ] &lt;=   256&#x27;h000000000000000000000380000000000000060003E000000000F8007E000000;</span><br><span class="line">        char[7 ] &lt;=   256&#x27;h0000038000780000000003E0000000000000078001E000000000F0003E000000;</span><br><span class="line">        char[8 ] &lt;=   256&#x27;h00003FE003FE0000000001F00000000000000FC001E000000000F0003C000000;</span><br><span class="line">        char[9 ] &lt;=   256&#x27;h0007FFF07F3F0000000001F00000000000001F8001C000000000F0003C000000;</span><br><span class="line">        char[10] &lt;=   256&#x27;h07FF81F7F83E0000000001F00000000000003E0001C000000000E0003C000000;</span><br><span class="line">        char[11] &lt;=   256&#x27;h03E1C1E1C0780000000001E0000000000000780001C000000000E0003C000000;</span><br><span class="line">        char[12] &lt;=   256&#x27;h03C1C1E000700000000001E0000000000000E00001C000000000E00038000000;</span><br><span class="line">        char[13] &lt;=   256&#x27;h01C1C1E000E00000000000E0000000000003C001C1C000000000E00038000000;</span><br><span class="line">        char[14] &lt;=   256&#x27;h01C0C1C001C00000000000E00000000000077001F1C000000000E000387C0000;</span><br><span class="line">        char[15] &lt;=   256&#x27;h01C0FDC001800000000000E00180000000187800F1C000000000E0003FFC0000;</span><br><span class="line">        char[16] &lt;=   256&#x27;h00E7F9C07B000000000000E001E000000000700071C000000000E0007FF00000;</span><br><span class="line">        char[17] &lt;=   256&#x27;h00FFC1803E000000000001E001F000000000700011C000000000E007FFC00000;</span><br><span class="line">        char[18] &lt;=   256&#x27;h00E0C1801F000000000001E003F800000000700001C000000000FF1FFE000000;</span><br><span class="line">        char[19] &lt;=   256&#x27;h00E0C3800F000000000001E003F80000000033C001C00000000FFE0FF8000000;</span><br><span class="line">        char[20] &lt;=   256&#x27;h0060C38007038000000401C007C0000000003FE001C0000000FFF00030000000;</span><br><span class="line">        char[21] &lt;=   256&#x27;h0060C700013FE000000701C00F0000000001FE0781C0000000FFE00030000000;</span><br><span class="line">        char[22] &lt;=   256&#x27;h0071FF0007FFF0000007C1C01C000000001FF003C1C000000000E00030000000;</span><br><span class="line">        char[23] &lt;=   256&#x27;h003FC200FF83F8000003E1C03800000003FF7001E1C000000000E00030000000;</span><br><span class="line">        char[24] &lt;=   256&#x27;h0030C07FF803F8000001E1C0E00000001FF8F000E1C000000000E00030000000;</span><br><span class="line">        char[25] &lt;=   256&#x27;h0000C03F9C03C0000001F1C1800000000FE0F00041C000000000E20033800000;</span><br><span class="line">        char[26] &lt;=   256&#x27;h0000C0000E0700000000F1C0000000000301F00001C0F8000000EC003FE00000;</span><br><span class="line">        char[27] &lt;=   256&#x27;h0000C4000F040000000061E0000000000003F80001DFFC000000F801FFE00000;</span><br><span class="line">        char[28] &lt;=   256&#x27;h0000FF000E000000000001E0000000000003FF0003FFFC000000F07FE3E00000;</span><br><span class="line">        char[29] &lt;=   256&#x27;h000FFE000E000000000003F000000000000777807FF800000001E07F03C00000;</span><br><span class="line">        char[30] &lt;=   256&#x27;h007FF0000E000000000003D800000000000E73BFFFC000000003E00003C00000;</span><br><span class="line">        char[31] &lt;=   256&#x27;h001EC000060000000000039C00000000001C707FE1C000000007E00003800000;</span><br><span class="line">        char[32] &lt;=   256&#x27;h0000C000060000000000038C00000000001C700C01C00000001EE03C03800000;</span><br><span class="line">        char[33] &lt;=   256&#x27;h0000C0E00600000000000786000000000038700001C00000007CE01E03800000;</span><br><span class="line">        char[34] &lt;=   256&#x27;h0000CFC00600000000000707000000000070700001C0000001F8E00707000000;</span><br><span class="line">        char[35] &lt;=   256&#x27;h0000FE0006000000000007038000000000E0700001C000000FF0E00387000000;</span><br><span class="line">        char[36] &lt;=   256&#x27;h0007F0000700000000000F01C000000001C0700001C000000FC0E001C7000000;</span><br><span class="line">        char[37] &lt;=   256&#x27;h007F80000700000000000E01E00000000300700001C000000780E000EE000000;</span><br><span class="line">        char[38] &lt;=   256&#x27;h0FFE00000700000000001E00F00000000600700001C000000300E0007E000000;</span><br><span class="line">        char[39] &lt;=   256&#x27;h0FF000000700000000001C00780000000800700001C000000000E0003C000000;</span><br><span class="line">        char[40] &lt;=   256&#x27;h07C0000007000000000038003C0000001000700001C000000000E0007E000000;</span><br><span class="line">        char[41] &lt;=   256&#x27;h0100000007000000000078003F0000000000700001C000000000E000FF800000;</span><br><span class="line">        char[42] &lt;=   256&#x27;h00000000070000000000F0001F8000000000700001C000000000E001F7C00000;</span><br><span class="line">        char[43] &lt;=   256&#x27;h00000000070000000001E0000FE000000000700001C000000000E007C3F00000;</span><br><span class="line">        char[44] &lt;=   256&#x27;h00000000070000000003C00007F800000000F00001C00000001FE01F81FC0000;</span><br><span class="line">        char[45] &lt;=   256&#x27;h000000000F000000000F800007FE00000000F00001C000000007E0FC00FF8000;</span><br><span class="line">        char[46] &lt;=   256&#x27;h000000070F000000001E000003FFC0000000700001C000000003E3E0007FF000;</span><br><span class="line">        char[47] &lt;=   256&#x27;h00000003FF000000007C000001FFF8000000600001C000000001C000003FFC00;</span><br><span class="line">        char[48] &lt;=   256&#x27;h00000000FE00000001E00000007FF8000000600001C000000001C00000000000;</span><br><span class="line">        char[49] &lt;=   256&#x27;h000000007E00000003000000000000000000200001C000000000800000000000;</span><br><span class="line">        char[50] &lt;=   256&#x27;h000000003C000000000000000000000000000000018000000000000000000000;</span><br><span class="line">        char[51] &lt;=   256&#x27;h0000000038000000000000000000000000000000008000000000000000000000;</span><br><span class="line">        char[52] &lt;=   256&#x27;h0000000010000000000000000000000000000000008000000000000000000000;</span><br><span class="line">        char[53] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[54] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[55] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[56] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[57] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[58] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[59] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[60] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[61] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[62] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">        char[63] &lt;=   256&#x27;h0000000000000000000000000000000000000000000000000000000000000000;</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
-<p>然后在显示区域中，按照坐标从（0，0）到（255，63），赋值的时候用的是</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">char[char_y][char_x];</span><br></pre></td></tr></table></figure>
-<p>的方式。</p>
-<p>有几个比较绕的地方：</p>
-<ul>
-<li>定义存储器是先宽度后深度。</li>
-<li>always赋值存储器时不用写复位，直接begin end。</li>
-<li>用坐标来赋rgb时，按照的是先深度后宽度的方式赋值，并且注意宽度是从高到低依次赋值，这与存储器赋值时的代码顺序相同，也和图像逐行逐列显示的顺序相同，利用这2点记忆。</li>
-</ul>
-</p>
-      <div class="post-button"><a class="btn" href="/2023/05/b497eba54b0f.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2023/05/c40ff42dbaf6.html">HDMI接口</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
-      <p><h1 id="1-HDMI理论"><a href="#1-HDMI理论" class="headerlink" title="1. HDMI理论"></a>1. HDMI理论</h1><hr>
-<h2 id="1-1-HDMI线"><a href="#1-1-HDMI线" class="headerlink" title="1.1 HDMI线"></a>1.1 HDMI线</h2><p>HDMI共有19根线，可分成4类：</p>
-<ul>
-<li>TMDS<code> 一种技术</code></li>
-<li>DDC<code>显示模式相关信息通道，使用I2C接口，可以读取设备的产品信息</code></li>
-<li>CEC<code>预留，可不使用</code></li>
-<li>?</li>
-</ul>
-<p>19根中，有4对最重要：</p>
-<ul>
-<li>3对差分数据线（1 3、4 6、7 9、10 12）</li>
-<li>1对差分时钟线（10 12）</li>
-</ul>
-<h1 id="1-2-TMDS传输原理"><a href="#1-2-TMDS传输原理" class="headerlink" title="1.2 TMDS传输原理"></a>1.2 TMDS传输原理</h1><p>R、G、B三重图像数据各自独立，各自完成：</p>
-<ol>
-<li>8bit–&gt;10bit  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">其中第9位指示编码类型，第10位是根据前9位决定，目的</span><br><span class="line">是保证直流均衡，提高信号可靠性</span><br></pre></td></tr></table></figure></li>
-<li>将10bit并行数据–&gt;差分串行数据</li>
-</ol>
-</p>
-      <div class="post-button"><a class="btn" href="/2023/05/c40ff42dbaf6.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2023/05/478a71418bf0.html"></a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
-      <p><hr>
-<h2 id="title：-2段式状态机Verilog"><a href="#title：-2段式状态机Verilog" class="headerlink" title="title： 2段式状态机Verilog"></a>title： 2段式状态机Verilog</h2><h1 id="3段式状态机"><a href="#3段式状态机" class="headerlink" title="3段式状态机"></a>3段式状态机</h1><h2 id="1-1-段落说明"><a href="#1-1-段落说明" class="headerlink" title="1.1 段落说明"></a>1.1 段落说明</h2><p><strong>第一段：</strong><br><strong>时序</strong>逻辑，将中间变量next_state赋值给<strong>state</strong></p>
-<p><strong>第二段：</strong><br><strong>组合</strong>逻辑，进行状态跳转（组合逻辑进行跳转比较符合人的直觉）</p>
-<p><strong>第三段</strong><br><strong>时序</strong>逻辑，在每个状态下对相应的变量进行赋值</p>
-<h2 id="1-2-Verilog代码"><a href="#1-2-Verilog代码" class="headerlink" title="1.2 Verilog代码"></a>1.2 Verilog代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">always@(posedge clk, negedge rst_n)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            state &lt;= 0;</span><br><span class="line">        end </span><br><span class="line">    else</span><br><span class="line">        begin</span><br><span class="line">            state &lt;= next_state;//next_state打一拍得到state</span><br><span class="line">        end </span><br><span class="line"></span><br><span class="line">always@(*)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            next_state = S0; //设置状态机复位时状态为S0</span><br><span class="line">        end</span><br><span class="line">    else</span><br><span class="line">        case(state) //重点，以当前的state为条件</span><br><span class="line">            S0:</span><br><span class="line">                begin</span><br><span class="line">                    if()</span><br><span class="line">                        next_state = S? //改变的是next_state的值</span><br><span class="line">                    else</span><br><span class="line">                        next_state = S?</span><br><span class="line">                end</span><br><span class="line">            S1:</span><br><span class="line">                begin</span><br><span class="line">                    if()</span><br><span class="line">                        next_state = S?</span><br><span class="line">                    else</span><br><span class="line">                        next_state = S?</span><br><span class="line">                end</span><br><span class="line">            S2:</span><br><span class="line">                begin</span><br><span class="line">                    if()</span><br><span class="line">                        next_state = S?</span><br><span class="line">                    else</span><br><span class="line">                        next_state = S?</span><br><span class="line">                end</span><br><span class="line">            ...</span><br><span class="line">            Default:       //别忘了组合逻辑要加default，否则会产生latch！</span><br><span class="line">                next_state = S?</span><br><span class="line">        endcase   //别忘了case-endcase</span><br><span class="line"></span><br><span class="line">always@(posegde clk, negedge rst_n)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            给所有涉及到的变量赋初值</span><br><span class="line">        end</span><br><span class="line">    else</span><br><span class="line">        case(state)</span><br><span class="line">            S0:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            S1:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            S2:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            S3:</span><br><span class="line">                给对应变量赋值</span><br><span class="line">            default:</span><br><span class="line">                给对应变量赋值 //这里可以不用加default,因为是时序逻辑，加上更规范</span><br><span class="line">        endcase</span><br><span class="line"></span><br><span class="line">            </span><br></pre></td></tr></table></figure>
-</p>
-      <div class="post-button"><a class="btn" href="/2023/05/478a71418bf0.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2023/05/9a566da7e87e.html">异步复位，同步释放</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
-      <p><h1 id="异步复位，同步释放"><a href="#异步复位，同步释放" class="headerlink" title="异步复位，同步释放"></a>异步复位，同步释放</h1><h2 id="1-1-原因"><a href="#1-1-原因" class="headerlink" title="1.1 原因"></a>1.1 原因</h2><p>异步复位的优点很多，但是问题主要出现在异步复位信号<strong>恢复</strong>的时候，若果此时被时钟沿采集，容易出现<strong>亚稳态</strong>现象，影响系统工作。</p>
-<p><strong>注意，异步复位同步释放后，后续的所有always都是同步复位，且复位信号使用的是打拍后的复位</strong></p>
-<h2 id="1-2-优点"><a href="#1-2-优点" class="headerlink" title="1.2 优点"></a>1.2 优点</h2><ul>
-<li>避免复位信号释放时的亚稳态问题</li>
-<li>只要信号一有效，电路就复位，与时钟沿无关（废话，因为是<strong>异步</strong>复位）</li>
-<li>有效捕捉复位，即使是短脉冲复位也不会丢失</li>
-<li>有<strong>明确的的复位撤销行为</strong>。复位的撤离是同步信号，因此有量好的撤离时序和足够的<br>恢复时间</li>
-</ul>
-<h2 id="1-3-详情见"><a href="#1-3-详情见" class="headerlink" title="1.3 详情见"></a>1.3 详情见</h2><h2 id="1-4-Verilog代码"><a href="#1-4-Verilog代码" class="headerlink" title="1.4 Verilog代码"></a>1.4 Verilog代码</h2><p>标准版本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">module xxx(</span><br><span class="line">    input wire rst_n,</span><br><span class="line">    output reg async_n</span><br><span class="line">);</span><br><span class="line">reg rst_reg;</span><br><span class="line"></span><br><span class="line">always@(posedge clk, negedge rst_n)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            rst_reg &lt;= 1&#x27;b0;</span><br><span class="line">        end</span><br><span class="line">    else</span><br><span class="line">        begin</span><br><span class="line">            rst_reg &lt;= 1&#x27;b1; //这里注意复位信号给了一个确定的值，能不能就写成rst_reg &lt;= rst_n 呢？感觉不能</span><br><span class="line">        end</span><br><span class="line"></span><br><span class="line">always@(posedge clk , negedge rst_n)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            async_n &lt;= 1&#x27;b0;</span><br><span class="line">        end</span><br><span class="line">    else</span><br><span class="line">        begin</span><br><span class="line">            async_n &lt;= rst_reg; // 输入复位信号释放的时候，输出的复位信号是中间寄存器的下一级</span><br><span class="line">        end</span><br><span class="line"></span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
-<p>简化版本，1个always</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">module xxx(</span><br><span class="line">input wire rst_n,</span><br><span class="line">output reg rst_reg2</span><br><span class="line">);</span><br><span class="line">reg rst_reg1;</span><br><span class="line">always@(posedge clk, negedge rst_n)</span><br><span class="line">    if(rst_n == 1&#x27;b0)</span><br><span class="line">        begin</span><br><span class="line">            rst_reg1 &lt;= 1&#x27;b0;</span><br><span class="line">            rst_reg2 &lt;= 1&#x27;b0;</span><br><span class="line">        end</span><br><span class="line">    else</span><br><span class="line">        begin</span><br><span class="line">            rst_reg1 &lt;= 1&#x27;b1;</span><br><span class="line">            rst_reg2 &lt;= rst_reg1;   //一步到位</span><br><span class="line">        end</span><br><span class="line"></span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-</p>
-      <div class="post-button"><a class="btn" href="/2023/05/9a566da7e87e.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2023/05/89ad2d367597.html">inout型变量的仿真</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
-      <p><h1 id="inout型变量的仿真"><a href="#inout型变量的仿真" class="headerlink" title="inout型变量的仿真"></a>inout型变量的仿真</h1><h2 id="1-1-原理"><a href="#1-1-原理" class="headerlink" title="1.1 原理"></a>1.1 原理</h2><p>testbench代码中，对inout连续赋值一个reg型变量，记作X</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">assign wire&#123;inout&#125; = reg(x);</span><br><span class="line"></span><br><span class="line">//inout作输入时：</span><br><span class="line">z &lt;= 1&#x27;b1;</span><br><span class="line">x &lt;= 123;    则inout的值就是123</span><br><span class="line"></span><br><span class="line">//inout作输出时：</span><br><span class="line">z &lt;= 1&#x27;b0;</span><br><span class="line">x &lt;= 1&#x27;bz;     //设置为高阻态，表示变量x与inout端口断开连接</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-2-参考资料"><a href="#1-2-参考资料" class="headerlink" title="1.2 参考资料"></a>1.2 参考资料</h2><p><a target="_blank" rel="noopener" href="http://blog.chinaaet.com/xzy610030/p/37525" title="最好的inout变量的仿真解释">inout变量的仿真</a></p>
-</p>
-      <div class="post-button"><a class="btn" href="/2023/05/89ad2d367597.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2023/05/bf3ec6529dd1.html">FPGA跨时钟域处理</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-05-10 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/">0_FPGA</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/">Verilog</a></span>
-      <p><h1 id="FPGA跨时钟处理"><a href="#FPGA跨时钟处理" class="headerlink" title="FPGA跨时钟处理"></a>FPGA跨时钟处理</h1><h2 id="1-1-链接"><a href="#1-1-链接" class="headerlink" title="1.1 链接"></a>1.1 链接</h2><p><strong><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17r4y1s7Nn?spm_id_from=333.337.search-card.all.click&vd_source=ebce6585e03af701a1ff6ba2e47f8c8b,%22FPGA%E8%B7%A8%E6%97%B6%E9%92%9F%E5%A4%84%E7%90%86%22">1小时详细_FPGA跨时钟域处理</a></strong></p>
-</p>
-      <div class="post-button"><a class="btn" href="/2023/05/bf3ec6529dd1.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-  <div class="lx-entry padding">
-    <div>
-      <h2 class="title"><a href="/2023/02/51bd37e3ca2a.html">STM32结构体和结构体指针</a></h2>
-      <span class="lx-post-detail"><i class="fa fa-calendar-o"></i> 2023-02-28 | <i class="fa fa-folder-o"></i> <a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/">1_学习</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/1-%E5%8D%95%E7%89%87%E6%9C%BA/">1_单片机</a>,<a class="category-link" href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/1-%E5%8D%95%E7%89%87%E6%9C%BA/STM32/">STM32</a></span>
-      <p><p>#1 结构体</p>
-<h2 id="1-1最基本的结构体"><a href="#1-1最基本的结构体" class="headerlink" title="1.1最基本的结构体"></a>1.1最基本的结构体</h2><p>例如</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct  student&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; ;</span><br></pre></td></tr></table></figure>
-<p>即定义了一种<strong>被称为struct student(学生结构)的数据结构</strong>，他只是一种结构而不是变量，这种结构的规定了内容为先是int然后一个char</p>
-<p>注意，<strong>结构体(数据结构)的名称是struct student!而不是student</strong></p>
-<h2 id="1-2定义结构体的同时定义结构体变量"><a href="#1-2定义结构体的同时定义结构体变量" class="headerlink" title="1.2定义结构体的同时定义结构体变量"></a>1.2定义结构体的同时定义结构体变量</h2><p>例如</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct  student&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; stu1;</span><br></pre></td></tr></table></figure>
-<p>如1.1，定义了一个被称为struct student的结构体(数据类型),同时又定义了一个结构体变量stu1，这个变量不再是一个类型，而是一个具有struct student数据结构的实体，于是可以使用变量名字来干一些具体的事情了</p>
-<h2 id="1-3定义结构体，然后typedef更改类型名称"><a href="#1-3定义结构体，然后typedef更改类型名称" class="headerlink" title="1.3定义结构体，然后typedef更改类型名称"></a>1.3定义结构体，然后typedef更改类型名称</h2><p>例如</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">typedef struct student&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; stu;</span><br></pre></td></tr></table></figure>
-<p>这种写法等价于</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct  student&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; ;</span><br><span class="line">typedef struct student stu;</span><br></pre></td></tr></table></figure>
-<p>即先定义了一种称为struct student的数据结构，然后用typedef将这种<strong>数据结构改名</strong>为stu。<br>此后，定义结构体变量的时候不用再写成struct student stu1的形式了，而是可以少写几个字，比如直接</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stu stu1    //第一个stu等价于struct student，</span><br><span class="line">            //第二个stu1为结构体变量名</span><br></pre></td></tr></table></figure>
-<h2 id="1-4-1-3的typedef简化形式"><a href="#1-4-1-3的typedef简化形式" class="headerlink" title="1.4 1.3的typedef简化形式"></a>1.4 1.3的typedef简化形式</h2><p>例如</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">typedef struct&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; stu;</span><br></pre></td></tr></table></figure>
-<p>既然typedef把struct student数据结构改名为了stu，student这个名字已经失去了意义，因为后续如果要再对student类型的结构体定义变量，都是直接用stu了,<br><strong>所以当用typedef定义结构体时，可以直接去掉结构体(数据结构)的名称。</strong><br>此后如果需要定义结构体变量，可以直接这样</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stu stu1;</span><br></pre></td></tr></table></figure>
-
-<p>#2 结构体指针<br>##2.1 基本结构体指针<br><em><em>结构体名称</em> 指针变量&#x3D;&amp;结构体变量</em>*</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">struct  student&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; ;</span><br><span class="line">struct student stu1;</span><br><span class="line"></span><br><span class="line">struct student *p=stu1  //即定义一个结构体变量，然后</span><br><span class="line">                        //让他指向结构体变量的头部</span><br></pre></td></tr></table></figure>
-<p><strong>结构体指针的类型是struct student！！！</strong><br><strong>结构体指针的类型是struct student！！！</strong><br><strong>结构体指针的类型是struct student！！！</strong></p>
-<p>就像定义一个整形指针时，一般直接int *p&#x3D;&amp;a，这个int是指针类型的意思</p>
-<p><strong>结构体指针的移动，表示跨越整个结构体变量！！！</strong><br><strong>结构体指针的移动，表示跨越整个结构体变量！！！</strong><br><strong>结构体指针的移动，表示跨越整个结构体变量！！！</strong><br>这样，在stm32中定义寄存器结构体时，定义一个结构体指针，该指针指向结构体的头地址，当指针+1时表示略过整个结构体</p>
-<h2 id="2-2-结构体指针的使用"><a href="#2-2-结构体指针的使用" class="headerlink" title="2.2 结构体指针的使用"></a>2.2 结构体指针的使用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">typedef struct&#123;</span><br><span class="line">    int     a;</span><br><span class="line">    char    b;</span><br><span class="line">&#125; stu;              //定义结构体，改数据类型名为stu</span><br><span class="line"></span><br><span class="line">stu stu1;       // 定义结构体变量stu1</span><br><span class="line">stu *p=stu1     //定义结构体指针指向结构体变量头部</span><br><span class="line">p-&gt;a=1          //将结构体变量stu1的第一个int变量赋值为1</span><br></pre></td></tr></table></figure>
-</p>
-      <div class="post-button"><a class="btn" href="/2023/02/51bd37e3ca2a.html" rel="noopener"><i class="fa fa-angle-double-right fa-fw"></i>Read More</a></div>
-    </div>
-  </div>
-
-
-<div id="pagination">
-  <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"></a>
 </div>
 
-<footer>
-  <div>
-  Copyright &copy; 2023.<a href="/">陶承的博客</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
-  </div>
-</footer>
+  </header>
 
-  </div>
-</div>
-</div>
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          style="margin-top: 0">
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
 
-<button class="hamburger hamburger--arrow-r" type="button" title="menu">
-    <div class="hamburger-box">
-      <div class="hamburger-inner"></div>
-    </div>
-</button>
-<div class="menu visibility">
-  <div class="menu-head">
-    <span class="layer">
-      <div class="col">
-        <div class="row for-pic">
-          <div class="profile-pic">
-            <a href="/"><img src="https://unpkg.com/theme-lx@0.4.3/source/dist/images/avatar.min.jpeg" alt="陶承"/></a>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/381b3eea5f02.html" target="_self">
+          VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/381b3eea5f02.html" target="_self">
+        <div>
+          VGA实验疑问：为什么有效图像阶段之外的值却会改变显示器亮度？并且值越小，图像越亮？全1时直接黑了十分疑惑
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-10 14:04" pubdate>
+              2023-05-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/" class="category-chain-item">1_学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/" class="category-chain-item">0_FPGA</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/" class="category-chain-item">Verilog</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/f73c69ea1a59.html" target="_self">
+          VGA显示器驱动设计及验证
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/f73c69ea1a59.html" target="_self">
+        <div>
+          1. 理论部分 1.1 VGA接口母头：带孔公头：带针 1.2 VGA引脚定义15个引脚 1.2.1 5个重要管脚1、2、3 ：分别为RGB三原色红、绿、蓝（模拟信号）13 ： 行同步 (HSYNC)14 ： 场同步 (VSYNC) 行同步信号和场同步信号是VGA图像传输时的重要同步信号。 4、11、15：VGA接口的地址码，连接时可以悬空不接。 1.3 VGA显示原理扫描，将像素点，在行同步信号
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-10 14:04" pubdate>
+              2023-05-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/" class="category-chain-item">1_学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/" class="category-chain-item">0_FPGA</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/" class="category-chain-item">Verilog</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/83f630eca6a4.html" target="_self">
+          Altera IP核的文件勾选设置
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/83f630eca6a4.html" target="_self">
+        <div>
+          在最后Summary栏中，需要  勾选_inst选项，意思是生成例化模板 去掉_bb选项
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-10 14:04" pubdate>
+              2023-05-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/" class="category-chain-item">1_学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/" class="category-chain-item">0_FPGA</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/" class="category-chain-item">Verilog</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/b497eba54b0f.html" target="_self">
+          VGA小错误引发显示器黑屏
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/b497eba54b0f.html" target="_self">
+        <div>
+          #VGA小错误引发显示器黑屏  ##出现的问题及原因在VGA显示字符实验中，显示器直接黑屏，指示灯也橙色，表示无图像，由于复用了colorbar的大部分模块，而pic模块时序没问题，这就非常蛋疼了，后来对比野火代码，才发现是存储器访问的顺序有问题，导致像素点取的顺序有问题。  在VGA显示字符的实验中，用代码生成了存储器 12345678910111213141516171819202122232
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-10 14:04" pubdate>
+              2023-05-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/" class="category-chain-item">1_学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/" class="category-chain-item">0_FPGA</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/" class="category-chain-item">Verilog</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/c40ff42dbaf6.html" target="_self">
+          HDMI接口
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/c40ff42dbaf6.html" target="_self">
+        <div>
+          1. HDMI理论 1.1 HDMI线HDMI共有19根线，可分成4类：  TMDS 一种技术 DDC显示模式相关信息通道，使用I2C接口，可以读取设备的产品信息 CEC预留，可不使用 ?  19根中，有4对最重要：  3对差分数据线（1 3、4 6、7 9、10 12） 1对差分时钟线（10 12）  1.2 TMDS传输原理R、G、B三重图像数据各自独立，各自完成：  8bit–&gt;10b
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-10 14:04" pubdate>
+              2023-05-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/" class="category-chain-item">1_学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/" class="category-chain-item">0_FPGA</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/" class="category-chain-item">Verilog</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/478a71418bf0.html" target="_self">
+          
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/478a71418bf0.html" target="_self">
+        <div>
+          title： 2段式状态机Verilog3段式状态机1.1 段落说明第一段：时序逻辑，将中间变量next_state赋值给state 第二段：组合逻辑，进行状态跳转（组合逻辑进行跳转比较符合人的直觉） 第三段时序逻辑，在每个状态下对相应的变量进行赋值 1.2 Verilog代码123456789101112131415161718192021222324252627282930313233343
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-10 14:04" pubdate>
+              2023-05-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/" class="category-chain-item">1_学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/" class="category-chain-item">0_FPGA</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/" class="category-chain-item">Verilog</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/9a566da7e87e.html" target="_self">
+          异步复位，同步释放
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/9a566da7e87e.html" target="_self">
+        <div>
+          异步复位，同步释放1.1 原因异步复位的优点很多，但是问题主要出现在异步复位信号恢复的时候，若果此时被时钟沿采集，容易出现亚稳态现象，影响系统工作。 注意，异步复位同步释放后，后续的所有always都是同步复位，且复位信号使用的是打拍后的复位 1.2 优点 避免复位信号释放时的亚稳态问题 只要信号一有效，电路就复位，与时钟沿无关（废话，因为是异步复位） 有效捕捉复位，即使是短脉冲复位也不会丢失 有
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-10 14:04" pubdate>
+              2023-05-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/" class="category-chain-item">1_学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/" class="category-chain-item">0_FPGA</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/" class="category-chain-item">Verilog</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/89ad2d367597.html" target="_self">
+          inout型变量的仿真
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/89ad2d367597.html" target="_self">
+        <div>
+          inout型变量的仿真1.1 原理testbench代码中，对inout连续赋值一个reg型变量，记作X 123456789assign wire&#123;inout&#125; = reg(x);//inout作输入时：z &lt;= 1&#x27;b1;x &lt;= 123;    则inout的值就是123//inout作输出时：z &lt;= 1&#x27;b0;x &lt;= 1&#
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-10 14:04" pubdate>
+              2023-05-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/" class="category-chain-item">1_学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/" class="category-chain-item">0_FPGA</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/" class="category-chain-item">Verilog</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/bf3ec6529dd1.html" target="_self">
+          FPGA跨时钟域处理
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/bf3ec6529dd1.html" target="_self">
+        <div>
+          FPGA跨时钟处理1.1 链接1小时详细_FPGA跨时钟域处理
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-10 14:04" pubdate>
+              2023-05-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/" class="category-chain-item">1_学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/" class="category-chain-item">0_FPGA</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/0-FPGA/Verilog/" class="category-chain-item">Verilog</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/51bd37e3ca2a.html" target="_self">
+          STM32结构体和结构体指针
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/51bd37e3ca2a.html" target="_self">
+        <div>
+          #1 结构体 1.1最基本的结构体例如 1234struct  student&#123;    int     a;    char    b;&#125; ; 即定义了一种被称为struct student(学生结构)的数据结构，他只是一种结构而不是变量，这种结构的规定了内容为先是int然后一个char 注意，结构体(数据结构)的名称是struct student!而不是student 1.2
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-28 20:39" pubdate>
+              2023-02-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/" class="category-chain-item">1_学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/1-%E5%8D%95%E7%89%87%E6%9C%BA/" class="category-chain-item">1_单片机</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/1-%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/1-%E5%8D%95%E7%89%87%E6%9C%BA/STM32/" class="category-chain-item">STM32</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
           </div>
         </div>
-        <div class="row for-name">
-          <p>陶承</p>
-          <span class="tagline">Hello, World!</span>
-        </div>
       </div>
-    </span>
-  </div>
-  <nav class="menu-container">
-  <ul class="menu-items">
-    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
-    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
     
-    <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
-        <ul>
-          <li><a href="/guestbook/">Guestbook</a></li>
-        <li><a href="/about/">About</a></li>
-        </ul>
-    </li>
-    <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-link fa-fw"></i>Friends</span>
-        <ul>
-          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
-        </ul>
-    </li>
-  </ul>
-  </nav>
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Suchen</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Stichwort</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="gototop js-top">
-  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
 </div>
-<script src="https://unpkg.com/theme-lx@0.4.3/source/dist/js/jquery.easing.min.js"></script>
-<script>
-(function () {
-	"use strict";
-	var goToTop = function() {
-		$(".js-gotop").on("click", function(event){
-			event.preventDefault();
-			$("html, body").animate({
-				scrollTop: $("html").offset().top
-			}, 500, "easeInOutExpo");
-			return false;
-		});
-		$(window).scroll(function(){
-			var $win = $(window);
-			if ($win.scrollTop() > 200) {
-				$(".js-top").addClass("active");
-			} else {
-				$(".js-top").removeClass("active");
-			}
-		});
-	};
-	$(function(){
-		goToTop();
-	});
-}());
-</script>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
 
 
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog funktioniert am besten mit aktiviertem JavaScript</div>
+  </noscript>
 </body>
 </html>
